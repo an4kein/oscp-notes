@@ -4,4 +4,56 @@
          <loc>https://an4kein.github.io/oscp-notes/</loc>
          <lastmod>2025-03-21</lastmod>
     </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/about/</loc>
+         <lastmod>2025-03-21</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/oscp_tips/</loc>
+         <lastmod>2025-03-21</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/enumeration/files/</loc>
+         <lastmod>2025-03-21</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/enumeration/ports/</loc>
+         <lastmod>2025-03-21</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/enumeration/ssl_tls/</loc>
+         <lastmod>2025-03-21</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/general_info/</loc>
+         <lastmod>2025-03-21</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/header_injection/</loc>
+         <lastmod>2025-03-21</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/quick_tricks/</loc>
+         <lastmod>2025-03-21</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/exploitation/file_transfer/</loc>
+         <lastmod>2025-03-21</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/exploitation/payloads/</loc>
+         <lastmod>2025-03-21</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/exploitation/reverse_shells/</loc>
+         <lastmod>2025-03-21</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/post_exploitation/linux/</loc>
+         <lastmod>2025-03-21</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/post_exploitation/windows/</loc>
+         <lastmod>2025-03-21</lastmod>
+    </url>
 </urlset>
