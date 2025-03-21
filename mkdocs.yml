@@ -1,0 +1,17 @@
+site_name: OSCP Notes
+theme:
+  name: material
+  palette:
+    scheme: slate  # Modo escuro elegante
+    primary: teal  # Cor principal (você pode trocar)
+    accent: cyan   # Cor de destaque
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - search.highlight
+    - search.share
+repo_url: https://github.com/an4kein/oscp-notes
+site_url: https://an4kein.github.io/oscp-notes/
