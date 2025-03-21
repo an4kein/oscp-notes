@@ -1,0 +1,14 @@
+/* Expande o conteúdo para ocupar a largura total da tela */
+.md-grid {
+    max-width: 100% !important;
+}
+
+/* Ajusta a largura do texto no centro da tela */
+.md-main__inner {
+    max-width: 95%;
+}
+
+/* Ajusta o tamanho do TOC para não ficar muito estreito */
+.md-sidebar--secondary {
+    width: 22%;
+}
