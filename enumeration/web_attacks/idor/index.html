@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://an4kein.github.io/oscp-notes/enumeration/web_attacks/general_info/">
+        <link rel="canonical" href="https://an4kein.github.io/oscp-notes/enumeration/web_attacks/idor/">
       
       
-        <link rel="prev" href="../../ports/">
+        <link rel="prev" href="../header-injections/">
       
       
-        <link rel="next" href="../quick_tricks/">
+        <link rel="next" href="../lfi-rfi/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>General Info - OSCP Notes</title>
+        <title>IDOR (Insecure Direct Object References) - OSCP Notes</title>
       
     
     
@@ -73,6 +73,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#idor" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -103,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              General Info
+              IDOR (Insecure Direct Object References)
             
           </span>
         </div>
@@ -499,6 +504,80 @@
     
       
         
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
       
         
       
@@ -522,8 +601,10 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
-            
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
   
   <span class="md-ellipsis">
     Web Attacks
@@ -531,8 +612,14 @@
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_4">
@@ -542,20 +629,15 @@
           <ul class="md-nav__list" data-md-scrollfix>
             
               
+            
+              
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../general-info/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -565,7 +647,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -578,7 +659,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../quick_tricks/" class="md-nav__link">
+      <a href="../quick-tricks/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -600,11 +681,840 @@
   
   
     <li class="md-nav__item">
-      <a href="../header_injection/" class="md-nav__link">
+      <a href="../open-redirects/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Header Injection
+    Open Redirects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../broken-links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Broken Links
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parameter-pollution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parameter Pollution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bruteforcing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bruteforcing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pastejacking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pastejacking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clickjacking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clickjacking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prototype-pollution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prototype Pollution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../command-injection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Command Injection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookie-padding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cookie Padding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CORS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crawl-fuzz/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Crawl & Fuzz
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crlf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CRLF Injection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../csp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSP (Content Security Policy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../csrf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSRF (Cross-Site Request Forgery)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deserialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deserialization Attacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dns-rebinding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DNS Rebinding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../email-attacks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Email Attacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../header-injections/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Header Injections
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    IDOR (Insecure Direct Object References)
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    IDOR (Insecure Direct Object References)
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bypasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bypasses
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lfi-rfi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LFI & RFI (Local & Remote File Inclusion)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../online-hashes-cracked/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Online Hashes Cracked
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../open-redirect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Open Redirect
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../request-smuggling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Request Smuggling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../session-fixation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Session Fixation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sqli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Injection (SQLi)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssrf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSRF (Server-Side Request Forgery)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssti/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSTI (Server-Side Template Injection)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tabnabbing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tabnabbing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upload-bypasses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upload Bypasses
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vhosts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Virtual Hosts Enumeration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-cache-deception/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Cache Deception
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-cache-poisoning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Cache Poisoning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-shells/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Shells
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-sockets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Sockets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xss/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XSS (Cross-Site Scripting)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxe/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XXE (XML External Entity)
     
   </span>
   
@@ -1042,9 +1952,64 @@
   
 
 
-  <h1>General Info</h1>
+<h1 id="idor">IDOR</h1>
+<h2 id="basics">Basics</h2>
+<div class="highlight"><pre><span></span><code>Check for valuable words:
+{regex + perm} id
+{regex + perm} user
+{regex + perm} account
+{regex + perm} number
+{regex + perm} order
+{regex + perm} no
+{regex + perm} doc
+{regex + perm} key
+{regex + perm} email
+{regex + perm} group
+{regex + perm} profile
+{regex + perm} edit
+</code></pre></div>
+<h2 id="bypasses">Bypasses</h2>
+<ul>
+<li>Add parameters onto the endpoints for example, if there was</li>
+</ul>
+<div class="highlight"><pre><span></span><code>GET /api_v1/messages --&gt; 401
+vs 
+GET /api_v1/messages?user_id=victim_uuid --&gt; 200
+</code></pre></div>
+<ul>
+<li>HTTP Parameter pollution</li>
+</ul>
+<div class="highlight"><pre><span></span><code>GET /api_v1/messages?user_id=VICTIM_ID --&gt; 401 Unauthorized
+GET /api_v1/messages?user_id=ATTACKER_ID&amp;user_id=VICTIM_ID --&gt; 200 OK
 
+GET /api_v1/messages?user_id=YOUR_USER_ID[]&amp;user_id=ANOTHER_USERS_ID[]
+</code></pre></div>
+<ul>
+<li>Add .json to the endpoint, if it is built in Ruby!</li>
+</ul>
+<div class="highlight"><pre><span></span><code>/user_data/2341 --&gt; 401 Unauthorized
+/user_data/2341.json --&gt; 200 OK
+</code></pre></div>
+<ul>
+<li>Test on outdated API Versions</li>
+</ul>
+<div class="highlight"><pre><span></span><code>/v3/users_data/1234 --&gt; 403 Forbidden
+/v1/users_data/1234 --&gt; 200 OK
+</code></pre></div>
+<p>Wrap the ID with an array.</p>
+<div class="highlight"><pre><span></span><code>{“id”:111} --&gt; 401 Unauthriozied
+{“id”:[111]} --&gt; 200 OK
+</code></pre></div>
+<p>Wrap the ID with a JSON object:</p>
+<div class="highlight"><pre><span></span><code>{“id”:111} --&gt; 401 Unauthriozied
 
+{“id”:{“id”:111}} --&gt; 200 OK
+</code></pre></div>
+<p>JSON Parameter Pollution:</p>
+<div class="highlight"><pre><span></span><code>POST /api/get_profile
+Content-Type: application/json
+{“user_id”:&lt;legit_id&gt;,”user_id”:&lt;victim’s_id&gt;}
+</code></pre></div>
 
 
 

