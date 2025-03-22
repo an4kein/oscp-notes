@@ -2,406 +2,402 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://an4kein.github.io/oscp-notes/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/about/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/oscp_tips/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/files/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/ports/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/ssl_tls/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/broken-links/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/bruteforcing/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/clickjacking/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/command-injection/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/cookie-padding/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/cors/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/crawl-fuzz/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/crlf/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/csp/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/csrf/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/deserialization/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/dns-rebinding/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/email-attacks/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/general-info/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/header-injections/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/idor/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/lfi-rfi/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/online-hashes-cracked/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/open-redirect/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/open-redirects/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/parameter-pollution/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/pastejacking/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/prototype-pollution/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/quick-tricks/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/quick_tricks/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/request-smuggling/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/session-fixation/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/sqli/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/ssrf/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/ssti/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/tabnabbing/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/upload-bypasses/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/vhosts/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/web-cache-deception/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/web-cache-poisoning/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/web-shells/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/web-sockets/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/xss/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/web_attacks/xxe/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/2fa/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/adobe-aem/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/apis/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/drupal/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/elk/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/firebase/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/firebird/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/flash-swf/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/flask/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/github/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/gitlab/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/graphql/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/gwt/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/iis/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/jboss-java-deserialization/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/jenkins/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/jira/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/joomla/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/js/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/jwt/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/magento/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/mfa/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/nginx/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/nosql-and-and-mongodb/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/oauth/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/oidc-open-id-connect/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/onelogin-saml-login/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/others/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/owa/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/php/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/python/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/ror-ruby-on-rails/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/sap/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/sharepoint/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/symfony-and-and-twig/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/tomcat/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/vhosts/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/wafs/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/webdav/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/enumeration/webservices/wordpress/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/exploitation/file_transfer/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/exploitation/payloads/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/exploitation/reverse_shells/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/exploitation/code_execution/linux/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/exploitation/code_execution/web/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/exploitation/code_execution/windows/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/post-exploitation/linux/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/post-exploitation/pivoting/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/post-exploitation/windows/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/post-exploitation/windows/ad/</loc>
-         <lastmod>2025-03-21</lastmod>
-    </url>
-    <url>
-         <loc>https://an4kein.github.io/oscp-notes/post-exploitation/windows/kerberos-attacks/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/post-exploitation/windows/ps-tips-and-tricks/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/post-exploitation/windows/ad/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
     <url>
          <loc>https://an4kein.github.io/oscp-notes/post-exploitation/windows/ad/kerberos-attacks/</loc>
-         <lastmod>2025-03-21</lastmod>
+         <lastmod>2025-03-22</lastmod>
     </url>
 </urlset>

