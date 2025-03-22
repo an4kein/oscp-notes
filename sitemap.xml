@@ -373,6 +373,50 @@
          <lastmod>2025-03-22</lastmod>
     </url>
     <url>
+         <loc>https://an4kein.github.io/oscp-notes/oscp_tips/</loc>
+         <lastmod>2025-03-22</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/oscp_tips/enumeration/</loc>
+         <lastmod>2025-03-22</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/oscp_tips/exploitation/</loc>
+         <lastmod>2025-03-22</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/oscp_tips/lateral-movement/</loc>
+         <lastmod>2025-03-22</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/oscp_tips/payloads/</loc>
+         <lastmod>2025-03-22</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/oscp_tips/persistence/</loc>
+         <lastmod>2025-03-22</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/oscp_tips/post-exploitation/</loc>
+         <lastmod>2025-03-22</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/oscp_tips/privilege-escalation/</loc>
+         <lastmod>2025-03-22</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/oscp_tips/reporting/</loc>
+         <lastmod>2025-03-22</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/oscp_tips/reverse-shells/</loc>
+         <lastmod>2025-03-22</lastmod>
+    </url>
+    <url>
+         <loc>https://an4kein.github.io/oscp-notes/oscp_tips/tunneling/</loc>
+         <lastmod>2025-03-22</lastmod>
+    </url>
+    <url>
          <loc>https://an4kein.github.io/oscp-notes/post-exploitation/linux/</loc>
          <lastmod>2025-03-22</lastmod>
     </url>
