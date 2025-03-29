@@ -14,7 +14,7 @@
         <link rel="prev" href="../">
       
       
-        <link rel="next" href="../exploitation/">
+        <link rel="next" href="../brute-force/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -3103,6 +3103,10 @@
       
         
       
+        
+      
+        
+      
     
     
       
@@ -3228,6 +3232,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#smb" class="md-nav__link">
+    <span class="md-ellipsis">
+      SMB
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3297,6 +3310,50 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../brute-force/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Brute Force
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../credentials/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Credentials
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -3553,6 +3610,16 @@
 <div class="highlight"><pre><span></span><code><span class="c1"># Defina o IP alvo antes de iniciar</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">IP</span><span class="o">=</span><span class="m">10</span>.10.11.28
 
+<span class="c1"># init </span>
+sudo<span class="w"> </span>nmap<span class="w"> </span>-Pn<span class="w"> </span>-n<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-sC<span class="w"> </span>-sV<span class="w"> </span>-p-<span class="w"> </span>--open<span class="w"> </span>-oN<span class="w"> </span>nmap/recon
+sudo<span class="w"> </span>nmap<span class="w"> </span>-Pn<span class="w"> </span>-n<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-sU<span class="w"> </span>--top-ports<span class="o">=</span><span class="m">100</span><span class="w"> </span>--reason<span class="w"> </span>-oN<span class="w"> </span>nmap/udp-ports<span class="w"> </span>-v
+
+<span class="c1"># Reconhecimento inicial com scripts e detecção de versão, portas abertas e sem DNS</span>
+sudo<span class="w"> </span>nmap<span class="w"> </span>-Pn<span class="w"> </span>-n<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-sC<span class="w"> </span>-sV<span class="w"> </span>-p-<span class="w"> </span>--open<span class="w"> </span>-oN<span class="w"> </span>nmap/recon
+
+<span class="c1"># Top 100 portas UDP com motivos de resposta</span>
+sudo<span class="w"> </span>nmap<span class="w"> </span>-Pn<span class="w"> </span>-n<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-sU<span class="w"> </span>--top-ports<span class="o">=</span><span class="m">100</span><span class="w"> </span>--reason<span class="w"> </span>-oN<span class="w"> </span>nmap/udp-ports<span class="w"> </span>-v
+
 <span class="c1"># Scan completo (todas as 65535 portas TCP)</span>
 <span class="c1"># Útil para detectar serviços em portas não padrão, com alta taxa de pacotes</span>
 nmap<span class="w"> </span>-p-<span class="w"> </span>--min-rate<span class="w"> </span><span class="m">10000</span><span class="w"> </span><span class="nv">$IP</span>
@@ -3568,12 +3635,36 @@ nmap<span class="w"> </span>-p<span class="w"> </span><span class="m">22</span>,
 <span class="c1"># Scan básico sem especificar portas (verifica portas comuns)</span>
 <span class="c1"># Útil como recon inicial rápida</span>
 nmap<span class="w"> </span>-sV<span class="w"> </span>-sC<span class="w"> </span>-oA<span class="w"> </span>nmap/initial<span class="w"> </span><span class="nv">$IP</span>
+
+<span class="c1">### ORGANIZAR AINDA</span>
+
+rustscan<span class="w"> </span>--addresses<span class="w"> </span><span class="m">192</span>.168.189.125<span class="w"> </span>--ulimit<span class="w"> </span><span class="m">5000</span><span class="w"> </span>--<span class="w"> </span>-A<span class="w"> </span>-sC<span class="w"> </span>-Pn<span class="w"> </span>-sV<span class="w"> </span>-T<span class="w"> </span><span class="m">1500</span>
+</code></pre></div>
+<h2 id="smb">SMB</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Acessar o compartilhamento SMB</span>
+smbclient<span class="w"> </span>//IP/SHARE<span class="w"> </span>-U<span class="w"> </span><span class="s1">&#39;usuario&#39;</span>
+smbclient<span class="w"> </span><span class="se">\\\\</span><span class="m">192</span>.168.120.125<span class="se">\\</span>Commander<span class="w"> </span>-p<span class="w"> </span><span class="m">12445</span>
+
+<span class="c1"># Após o login no prompt do smbclient, execute:</span>
+prompt<span class="w"> </span>OFF<span class="w">     </span><span class="c1"># desativa confirmação para cada arquivo</span>
+recurse<span class="w"> </span>ON<span class="w">     </span><span class="c1"># ativa recursividade para baixar diretórios</span>
+mget<span class="w"> </span>*<span class="w">         </span><span class="c1"># baixa todos os arquivos e pastas do share</span>
 </code></pre></div>
 <hr />
 <h1 id="windows">Windows</h1>
 <h2 id="nmap_1">NMAP</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Defina o IP alvo antes de iniciar</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">IP</span><span class="o">=</span><span class="m">10</span>.10.10.95
+
+<span class="c1"># init </span>
+sudo<span class="w"> </span>nmap<span class="w"> </span>-Pn<span class="w"> </span>-n<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-sC<span class="w"> </span>-sV<span class="w"> </span>-p-<span class="w"> </span>--open<span class="w"> </span>-oN<span class="w"> </span>nmap/recon
+sudo<span class="w"> </span>nmap<span class="w"> </span>-Pn<span class="w"> </span>-n<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-sU<span class="w"> </span>--top-ports<span class="o">=</span><span class="m">100</span><span class="w"> </span>--reason<span class="w"> </span>-oN<span class="w"> </span>nmap/udp-ports<span class="w"> </span>-v
+
+<span class="c1"># Reconhecimento inicial com scripts e detecção de versão, portas abertas e sem DNS</span>
+sudo<span class="w"> </span>nmap<span class="w"> </span>-Pn<span class="w"> </span>-n<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-sC<span class="w"> </span>-sV<span class="w"> </span>-p-<span class="w"> </span>--open<span class="w"> </span>-oN<span class="w"> </span>nmap/recon
+
+<span class="c1"># Top 100 portas UDP com motivos de resposta</span>
+sudo<span class="w"> </span>nmap<span class="w"> </span>-Pn<span class="w"> </span>-n<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-sU<span class="w"> </span>--top-ports<span class="o">=</span><span class="m">100</span><span class="w"> </span>--reason<span class="w"> </span>-oN<span class="w"> </span>nmap/udp-ports<span class="w"> </span>-v
 
 <span class="c1"># Full TCP Scan – todas as 65535 portas TCP</span>
 nmap<span class="w"> </span>-p-<span class="w"> </span>--min-rate<span class="w"> </span><span class="m">10000</span><span class="w"> </span>-oA<span class="w"> </span>nmap/alltcp<span class="w"> </span><span class="nv">$IP</span>
@@ -3687,12 +3778,15 @@ netexec<span class="w"> </span>smb<span class="w"> </span><span class="nv">$IP</
 <span class="c1"># Alternativa oficial e atual com crackmapexec</span>
 crackmapexec<span class="w"> </span>smb<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-u<span class="w"> </span>guest<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;&#39;</span>
 crackmapexec<span class="w"> </span>smb<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-u<span class="w"> </span>oxdf<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;oxdf&#39;</span>
+crackmapexec<span class="w"> </span>smb<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-u<span class="w"> </span>tony<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;BeyondLakeBarber399&#39;</span><span class="w"> </span>--shares
 
 <span class="c1"># Enumeração avançada com crackmapexec</span>
 crackmapexec<span class="w"> </span>smb<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>--shares<span class="w">                     </span><span class="c1"># Enumera compartilhamentos</span>
 crackmapexec<span class="w"> </span>smb<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>--sessions<span class="w">                   </span><span class="c1"># Lista sessões SMB ativas</span>
 crackmapexec<span class="w"> </span>smb<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>--users<span class="w">                      </span><span class="c1"># Enumera usuários (se possível)</span>
 crackmapexec<span class="w"> </span>smb<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-u<span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span>--pass-pol<span class="w">       </span><span class="c1"># Política de senha via null session</span>
+crackmapexec<span class="w"> </span>smb<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-u<span class="w"> </span>tony<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;BeyondLakeBarber399&#39;</span><span class="w"> </span>--shares<span class="w"> </span><span class="c1"># Usando senha</span>
+
 
 <span class="c1"># Nmap com NSE para SMB</span>
 nmap<span class="w"> </span>-p137,138,139,445<span class="w"> </span>--script<span class="o">=</span>smb-enum-shares,smb-enum-users,smb-os-discovery,smb-security-mode<span class="w"> </span>-oA<span class="w"> </span>nmap/smb<span class="w"> </span><span class="nv">$IP</span>
@@ -3739,6 +3833,7 @@ crackmapexec<span class="w"> </span>smb<span class="w"> </span><span class="nv">
 
 <span class="c1"># Execução de comando remoto (implica privilégio)</span>
 crackmapexec<span class="w"> </span>smb<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-u<span class="w"> </span>administrador<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;senha123&#39;</span><span class="w"> </span>--exec<span class="w"> </span><span class="s1">&#39;whoami&#39;</span>
+crackmapexec<span class="w"> </span>smb<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-u<span class="w"> </span>tony<span class="w"> </span>-p<span class="w"> </span>BeyondLakeBarber399<span class="w"> </span>--exec-method<span class="w"> </span>smbexec<span class="w"> </span>-x<span class="w"> </span><span class="s1">&#39;whoami&#39;</span>
 
 <span class="c1"># Dump da SAM (requer privilégios)</span>
 crackmapexec<span class="w"> </span>smb<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-u<span class="w"> </span>administrator<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;senha123&#39;</span><span class="w"> </span>--sam
